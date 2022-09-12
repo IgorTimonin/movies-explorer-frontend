@@ -1,15 +1,74 @@
 .header {
-  padding-top: 45px;
-  padding-bottom: 41px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #545454;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
 
 .header__logo {
   background-image: url(../../images/logo.svg);
-  width: 38px;
+  background-repeat: no-repeat;
+  min-width: 38px;
+  min-height: 38px;
+  margin-right: 44px;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.header__link {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 16px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.header__user-btn {
+  min-height: 32px;
+  padding: 0;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transition: linear 0.3s;
+  text-decoration: none;
+}
+
+.header__reg-btn {
+  background-color: rgba(19, 255, 11, 0);
+  border: none;
+  padding: 0;
+  margin-right: 30px;
+  color: #fff;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  transition: linear 0.3s;
+  text-decoration: none;
+}
+
+.header__user-btn_green {
+  min-width: 76px;
+  background-color: #3DDC84;
+  border-radius: 3px;
+  color: #000;
+}
+
+.header__user-black {
+
 }
