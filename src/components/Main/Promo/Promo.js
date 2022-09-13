@@ -4,7 +4,7 @@ import './Promo.css';
 export default function Promo(props) {
   return (
     <section className="promo">
-      <h1 className="promo__title">
+      <h1 className="section__title section__title_promo">
         Учебный проект студента
         <React.Fragment>
           <br />

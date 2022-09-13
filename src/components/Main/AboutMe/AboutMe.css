@@ -1,0 +1,53 @@
+.aboutMe {
+  padding: 110px 0 100px;
+  color: #fff;
+  padding: 100px 0 100px;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  margin: 66px 0 100px;
+}
+
+.profile__info {
+
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__subtitle {
+  margin: 0;
+  padding: 18px 0 26px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.profile__text {
+  margin: 0;
+  padding-bottom: 99px;
+  max-width: 600px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.profile__photo {
+  max-height: 327px;
+  max-width: 270px;
+  align-self: flex-start;
+}
+
+.profile__social {
+  padding-right: 20px;
+}
+
+.profile__social:last-child {
+  padding-right: 0;
+}

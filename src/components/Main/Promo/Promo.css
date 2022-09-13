@@ -8,34 +8,30 @@
   border-radius: 10px;
 }
 
-.promo__title {
+.section__title_promo {
   display: flex;
   align-items: center;
   justify-content: center;
   min-width: 730px;
-  margin: 0;
   padding: 160px 0 151px;
-  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 50px;
-  line-height: 58px;
   text-align: center;
 }
 
 .promo_nav {
   margin-bottom: 30px;
+  display: flex;
 }
 
 .app__btn_promo {
-  display: inline-block;
-  padding: 10px 0;
+  margin: 0;
   min-width: 96px;
+  min-height: 36px;
   margin-right: 10px;
   background-color: #303030;
   border-radius: 10px;
-  text-align: center;
-  vertical-align: middle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .app__btn_promo:last-child {
   margin-right: 0;
