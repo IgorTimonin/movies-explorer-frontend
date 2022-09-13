@@ -10,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: nowrap;
-  margin: 66px 0 100px;
+  margin-top: 66px;
 }
 
 .profile__info {
