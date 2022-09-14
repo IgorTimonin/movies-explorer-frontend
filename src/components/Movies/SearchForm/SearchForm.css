@@ -1,0 +1,78 @@
+.searchForm {
+  margin: 0;
+  padding: 70px 0 80px;
+  display: flex;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 72px;
+  background-color: #2f2f2f;
+  border-radius: 9px;
+}
+
+.searchBar__icon {
+  height: 34px;
+  min-width: 34px;
+  margin: 0 10px 0 19px;
+  background-image: url(../../../images/find.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.searchBar__input {
+  background-color: #2f2f2f;
+  border: none;
+  width: 100%;
+  margin-right: 19px;
+  color: #ffffff;
+  outline:none;
+  letter-spacing: 0.05em;
+}
+
+.searchBar__input::placeholder {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8b8b8b;
+}
+
+.searchBar__submit {
+  margin: 0 30px 0 0;
+  background-image: url(../../../images/go.svg);
+}
+
+.searchBar__separator {
+  height: 36px;
+  border-right: #424242 2px solid;
+}
+
+.searchBar__label {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+  color: #ffffff;
+  margin-right: 30px;
+}
+
+.searchBar__checkbox {
+  margin: 0 12px 0 30px;
+  padding-right: 20px;
+  appearance:none;
+  width: 36px;
+  height: 20px;
+  background-image: url(../../../images/smalltumboff3.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.searchBar__checkbox:checked {
+  background-image: url(../../../images/smalltumb.svg);
+}

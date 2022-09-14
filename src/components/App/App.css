@@ -3,6 +3,8 @@
 .App {
   margin: 0 40px;
   box-sizing: border-box;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  /* color:#fff; */
 }
 
 .app__btn {
