@@ -10,50 +10,43 @@ export default function Techs(props) {
           На курсе веб-разработки мы освоили технологии, которые применили в
           дипломном проекте.
         </p>
-        <div className="techs__info">
-          <a
+        <ul className="techs__info">
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             HTML
-          </a>
-          <a
+          </li>
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             CSS
-          </a>
-          <a
+          </li>
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             JS
-          </a>
-          <a
+          </li>
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             React
-          </a>
-          <a
+          </li>
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             Git
-          </a>
-          <a
+          </li>
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             Express
-          </a>
-          <a
+          </li>
+          <li
             className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-            href="#"
           >
             MongoDB
-          </a>
-        </div>
+          </li>
+        </ul>
       </div>
     </section>
   );

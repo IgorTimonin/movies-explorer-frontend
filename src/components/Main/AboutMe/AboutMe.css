@@ -14,7 +14,6 @@
 }
 
 .profile__info {
-
   display: flex;
   flex-direction: column;
 }
@@ -42,6 +41,7 @@
   max-height: 327px;
   max-width: 270px;
   align-self: flex-start;
+  border-radius: 10px;
 }
 
 .profile__social {

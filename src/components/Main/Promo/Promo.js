@@ -12,7 +12,7 @@ export default function Promo(props) {
         факультета Веб-разработки.
       </h1>
       <div className="promo_nav">
-        <a className="app__btn app__btn-opacity app__btn_promo" href="#">
+        <a className="app__btn app__btn-opacity app__btn_promo" href="#about">
           О проекте
         </a>
         <a className="app__btn app__btn-opacity app__btn_promo" href="#">

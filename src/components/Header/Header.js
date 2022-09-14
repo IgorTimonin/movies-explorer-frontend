@@ -5,7 +5,7 @@ export default function Header(props) {
   return (
     <header className="header">
       <nav className="header__nav">
-        <Link className="header__logo" to="/" />
+        <Link className="header__logo app__btn-opacity" to="/" />
         <a className="header__link app__btn-opacity" href="#">
           Фильмы
         </a>
