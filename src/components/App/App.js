@@ -6,12 +6,15 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 
 function App() {
-  return <div className='App'>
-    <Header></Header>
-    {/* <Main></Main> */}
-    <Movies></Movies>
-    <Footer></Footer>
-  </div>;
+  return (
+    <div className="App">
+      <Header></Header>
+      {/* <Main></Main> */}
+      {/* <Movies></Movies> */}
+      SavedMovie
+      <Footer></Footer>
+    </div>
+  );
 }
 
 export default App;

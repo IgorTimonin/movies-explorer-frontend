@@ -2,6 +2,7 @@
   margin: 0;
   padding: 70px 0 80px;
   display: flex;
+  border-bottom: #424242 2px solid;
 }
 
 .searchBar {

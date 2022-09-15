@@ -1,0 +1,38 @@
+.moviesCardList {
+  display: flex;
+  flex-direction: column;
+  min-height: 20vw;
+}
+
+.movieCardList__gallery {
+  margin: 0;
+  padding: 70px 70px 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 24px;
+  grid-row-gap: 30px;
+}
+
+.moviesCardList__more {
+  margin: 50px 0 80px 0;
+  align-self: center;
+}
+
+.moviesCardList_more-btn {
+  min-height: 36px;
+  min-width: 320px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ffffff;
+  background-color: transparent;
+  border: #424242 2px solid;
+
+}
+
+/* .moviesCardList__bgr {
+  background-image: url('../../../images/film2.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+} */

@@ -8,7 +8,7 @@ export default function Movies(props) {
   return (
   <section className="movies">
     <SearchForm></SearchForm>
-    <MoviesCard></MoviesCard>
+    {/* <MoviesCard></MoviesCard> */}
     <MoviesCardList></MoviesCardList>
     {/* <Preloader></Preloader> */}
   </section>

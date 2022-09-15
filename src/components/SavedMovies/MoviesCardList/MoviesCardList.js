@@ -1,10 +1,10 @@
-import MoviesCard from '../MoviesCard/MoviesCard';
+import MoviesCard from '../../SavedMovies/MoviesCard/MoviesCard';
+import MoviesCardList from '../../SavedMovies/MoviesCard/MoviesCardList';
 import './MoviesCardList.css';
 
-export default function MoviesCardList(props) {
+
+export default function savedMoviesCardList(props) {
   return (
-  <section className="moviesCardList">
-    <MoviesCard></MoviesCard>
-  </section>
+  <MoviesCardList></MoviesCardList>
   )
 }

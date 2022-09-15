@@ -1,0 +1,58 @@
+.moviesCard {
+  padding: 0;
+  color: #fff;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+}
+
+.movie__item {
+  max-width: 364px;
+  list-style-type: none;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-content: center;
+  background-color: #222222;
+}
+
+.movie__duration {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  display: flex;
+  align-items: center;
+  color: #8b8b8b;
+}
+
+.movie__title-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: space-between;
+  margin: 14px 10px 14px 12px
+}
+
+.movie__name {
+  margin: 0;
+  padding-bottom: 9px;
+}
+
+.movie__bookmark-btn {
+  margin: 3px 0 0 0;
+  appearance:none;
+  width: 30px;
+  height: 30px;
+  background-image: url(../../../images/unsaved.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
+.movie__bookmark-btn:checked {
+  background-image: url(../../../images/save.svg);
+}
