@@ -16,7 +16,7 @@ export default function Header(props) {
       <div className="header__user-block">
         <button
           className={`app__btn header__link app__btn-opacity ${
-            props.loggedIn ? 'header__link_hide' : 'header__reg-btn'
+            props.loggedIn ? 'block__hide' : 'header__reg-btn'
           }`}
         >
           Регистрация

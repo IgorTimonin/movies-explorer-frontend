@@ -4,7 +4,6 @@
   margin: 0 40px;
   box-sizing: border-box;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-  /* color:#fff; */
 }
 
 .app__btn {
@@ -46,4 +45,8 @@
   font-size: 50px;
   line-height: 58px;
   letter-spacing: -0.04em;
+}
+
+.block__hide {
+  display: none;
 }

@@ -43,14 +43,21 @@
 }
 
 .movie__bookmark-btn {
-  margin: 3px 0 0 0;
+  margin: 0;
   appearance:none;
-  width: 30px;
-  height: 30px;
-  background-image: url(../../../images/unsaved.svg);
+  width: 32px;
+  height: 32px;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+}
+
+.movie__bookmark-btn_save {
+  background-image: url(../../../images/unsave.svg);
+}
+
+.movie__bookmark-btn_del {
+  background-image: url(../../../images/cross.svg);
 }
 
 .movie__bookmark-btn:checked {
