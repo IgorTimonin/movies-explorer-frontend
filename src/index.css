@@ -1,7 +1,8 @@
 body {
+  max-width: 1280px;
   background-color: #202020;
   padding: 0;
-  margin: 0;
+  margin: 0 auto;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   text-rendering: optimizeLegibility;
 }

@@ -11,7 +11,7 @@
   margin: 60px auto 0;
   display: flex;
   flex-direction: column;
-  max-width: 30.6vw;
+  max-width: 396px;
   max-height: 560px;
 }
 
@@ -24,6 +24,7 @@
 .auth__btn-save {
   align-self: center;
   width: 100%;
+  max-width: 396px;
   height: 45px;
   background-color: #4285F4;
   border: none;
@@ -44,10 +45,6 @@
 .auth__field {
   outline: none;
   border: none;
-  padding: 0 0 10px 0;
-  vertical-align: middle;
-  border-bottom: 2px solid #424242;
-  box-sizing: border-box;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   font-style: normal;
   font-weight: 500;
@@ -57,15 +54,23 @@
   background-color: #202020;
 }
 
+.auth__field_underline {
+  padding: 0 0 10px 0;
+  vertical-align: middle;
+  border-bottom: 2px solid #424242;
+  box-sizing: border-box;
+}
+
 .auth__field::placeholder {
   color: #202020;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
 
-/* .auth__field:autofill,
+.auth__field:autofill,
 .auth__field:autofill:hover,
 .auth__field:autofill:focus,
 .auth__field:autofill:active {
+  outline: none !important;
   box-shadow: 0 0 0 30px rgb(20, 20, 20) inset !important;
   color: #ccc !important;
 }
@@ -74,10 +79,11 @@
 .auth__field:-webkit-autofill:hover,
 .auth__field:-webkit-autofill:focus,
 .auth__field:-webkit-autofill:active {
+  outline: none !important;
   -webkit-box-shadow: 0 0 0 30px #202020 inset !important;
   box-shadow: 0 0 0 30px #202020 inset !important;
   -webkit-text-fill-color: #ccc !important;
-} */
+}
 
 .auth__login-link {
   margin-left: 6px;

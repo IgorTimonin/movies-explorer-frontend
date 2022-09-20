@@ -41,7 +41,7 @@ export default function PageWithForm(props) {
         <h2 className="auth__title">{props.title}</h2>
         <form
           onSubmit={handleSubmit}
-          className={`auth__form auth__${props.name}-form popup__form`}
+          className={`auth__form auth__${props.name}-form`}
           name={`${props.name}_form`}
           action="#"
         >
@@ -54,7 +54,7 @@ export default function PageWithForm(props) {
             Имя
           </label>
           <input
-            className={`auth__field ${
+            className={`auth__field auth__field_underline ${
               props.name === 'register' ? '' : 'block__hide'
             }`}
             type="text"
@@ -71,7 +71,7 @@ export default function PageWithForm(props) {
             E-mail
           </label>
           <input
-            className="auth__field"
+            className="auth__field auth__field_underline"
             type="email"
             value={email}
             onChange={handleSetEmail}
@@ -88,7 +88,7 @@ export default function PageWithForm(props) {
           </label>
           <input
             id={props.inputId}
-            className="auth__field"
+            className="auth__field auth__field_underline"
             type="password"
             value={password}
             onChange={handleSetPassword}

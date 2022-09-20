@@ -7,17 +7,21 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
+import Profile from '../Profile/Profile';
+import NotFoundPage from './NotFoundPage/NotFoundPage';
 
 function App() {
   return (
     <div className="App">
-      <Register></Register>
-      <Login></Login>
+      {/* <Register></Register> */}
+      {/* <Login></Login> */}
       {/* <Header></Header> */}
+      {/* <Profile></Profile> */}
       {/* <Main></Main> */}
       {/* <Movies></Movies> */}
       {/* <SavedMovies></SavedMovies> */}
-      <Footer></Footer>
+      <NotFoundPage></NotFoundPage>
+      {/* <Footer></Footer> */}
     </div>
   );
 }
