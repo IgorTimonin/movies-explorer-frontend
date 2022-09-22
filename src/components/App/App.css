@@ -2,9 +2,8 @@
 
 .App {
   align-self: center;
-  
   margin: 0 40px;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
 
