@@ -15,13 +15,13 @@ function App() {
     <div className="App">
       {/* <Register></Register> */}
       {/* <Login></Login> */}
-      {/* <Header></Header> */}
+      <Header></Header>
       {/* <Profile></Profile> */}
       {/* <Main></Main> */}
-      {/* <Movies></Movies> */}
+      <Movies></Movies>
       {/* <SavedMovies></SavedMovies> */}
-      <NotFoundPage></NotFoundPage>
-      {/* <Footer></Footer> */}
+      {/* <NotFoundPage></NotFoundPage> */}
+      <Footer></Footer>
     </div>
   );
 }

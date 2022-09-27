@@ -1,11 +1,11 @@
 .moviesCard {
+  max-width: 364px;
   padding: 0;
   color: #fff;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
 
 .movie__item {
-  max-width: 364px;
   list-style-type: none;
   font-style: normal;
   font-weight: 500;
@@ -62,4 +62,10 @@
 
 .movie__bookmark-btn:checked {
   background-image: url(../../../images/save.svg);
+}
+
+@media (max-width: 500px) {
+  .moviesCard {
+    max-width: 300px;
+  }
 }

@@ -1,4 +1,5 @@
 .auth {
+  display: flex;
   color: #fff;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   font-style: normal;
@@ -18,7 +19,6 @@
 .auth__form {
   display: flex;
   flex-direction: column;
-  /* max-height: 527px; */
 }
 
 .auth__btn-save {
@@ -107,14 +107,6 @@
   color: #ffffff;
 }
 
-@media screen and (max-width: 540px) {
-  .auth__title {
-    font-size: 18px;
-    line-height: 22px;
-    padding-bottom: 75px;
-  }
-}
-
 .input-error_auth {
   visibility: hidden;
   margin: 5px 0 9px 0;
@@ -160,4 +152,12 @@
   font-size: 10px;
   line-height: 12px;
   color: #ee3465;
+}
+
+@media screen and (max-width: 540px) {
+  .auth__title {
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 75px;
+  }
 }

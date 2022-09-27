@@ -3,7 +3,7 @@ import './Login.css';
 
 export default function Login(props) {
   return (
-    <section className="login">
+    <section className="login section">
       <PageWithForm
         title="Рады видеть!"
         btnText="Войти"

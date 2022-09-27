@@ -1,8 +1,17 @@
 .searchForm {
+  max-width: 1140px;
+  width: 100%;
+  align-self: center;
   margin: 0;
   padding: 70px 0 80px;
   display: flex;
   border-bottom: #424242 2px solid;
+}
+
+@media (max-width: 720px) {
+  .searchForm {
+    padding-bottom: 44px;
+  }
 }
 
 .searchBar {
@@ -14,6 +23,13 @@
   border-radius: 9px;
 }
 
+@media (max-width: 720px) {
+  .searchBar {
+    flex-direction: column;
+    background-color: #202020;
+  }
+}
+
 .searchBar__icon {
   height: 34px;
   min-width: 34px;
@@ -23,14 +39,26 @@
   background-size: contain;
 }
 
+@media (max-width: 720px) {
+  .searchBar__icon_hide {
+    display: none;
+  }
+}
+
 .searchBar__input {
   background-color: #2f2f2f;
   border: none;
   width: 100%;
   margin-right: 19px;
   color: #ffffff;
-  outline:none;
+  outline: none;
   letter-spacing: 0.05em;
+}
+
+@media (max-width: 720px) {
+  .searchBar__input {
+    margin-left: 19px;
+  }
 }
 
 .searchBar__input::placeholder {
@@ -52,6 +80,31 @@
   border-right: #424242 2px solid;
 }
 
+.searchBar__finder {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .searchBar__finder {
+    min-height: 72px;
+    background-color: #2f2f2f;
+    border-radius: 9px;
+  }
+}
+
+.searchBar__controls {
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 720px) {
+  .searchBar__controls {
+    margin-top: 45px;
+  }
+}
+
 .searchBar__label {
   font-family: 'Inter';
   font-style: normal;
@@ -65,7 +118,7 @@
 .searchBar__checkbox {
   margin: 0 12px 0 30px;
   padding-right: 20px;
-  appearance:none;
+  appearance: none;
   width: 36px;
   height: 20px;
   background-image: url(../../../images/smalltumboff3.svg);

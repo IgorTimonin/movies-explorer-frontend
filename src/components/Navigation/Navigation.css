@@ -1,0 +1,38 @@
+.nav {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.nav__link {
+  padding: 0;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 16px;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 18px;
+}
+.nav__link:last-child {
+  margin-right: 0;
+}
+
+.link-active_l {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.link-active_s {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 27px;
+  border-bottom: 2px solid #fff;
+}

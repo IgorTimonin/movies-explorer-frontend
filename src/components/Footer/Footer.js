@@ -21,6 +21,12 @@ export default function Footer(props) {
           >
             Github
           </a>
+          <a
+            href="https://www.linkedin.com/in/igor-timonin-750085232/"
+            className="profile__social profile__social_footer app__btn app__btn-opacity"
+          >
+            LinkedIn
+          </a>
         </div>
       </div>
     </footer>

@@ -1,21 +1,17 @@
 import { Link } from 'react-router-dom';
+import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
 export default function Header(props) {
   return (
     <header className="header">
-      <nav className="header__nav">
-        <Link className="header__logo app__btn-opacity" to="/" />
-        <a className="header__link app__btn-opacity" href="#">
-          Фильмы
-        </a>
-        <a className="header__link app__btn-opacity" href="#">
-          Сохранённые фильмы
-        </a>
-      </nav>
+      <div className='header__nav-block'>
+      <Link className="header__logo app__btn-opacity" to="/" />
+      <Navigation loggedIn = {false}></Navigation>
+      </div>
       <div className="header__user-block">
         <button
-          className={`app__btn header__link app__btn-opacity ${
+          className={`app__btn nav__link app__btn-opacity ${
             props.loggedIn ? 'block__hide' : 'header__reg-btn'
           }`}
         >

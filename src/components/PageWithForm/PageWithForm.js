@@ -46,7 +46,7 @@ export default function PageWithForm(props) {
           action="#"
         >
           <label
-            for="userName"
+            htmlFor="userName"
             className={`auth__input-label ${
               props.name === 'register' ? '' : 'block__hide'
             }`}
@@ -67,7 +67,7 @@ export default function PageWithForm(props) {
           <span className="user-name-input-error input-error_auth">
             Введите имя.
           </span>
-          <label for="userEmail" className="auth__input-label">
+          <label htmlFor="userEmail" className="auth__input-label">
             E-mail
           </label>
           <input
@@ -83,7 +83,7 @@ export default function PageWithForm(props) {
           <span className="user-email-input-error input-error_auth">
             Введите email.
           </span>
-          <label for="userPassword" className="auth__input-label">
+          <label htmlFor="userPassword" className="auth__input-label">
             Пароль
           </label>
           <input
