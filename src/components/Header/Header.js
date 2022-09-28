@@ -10,7 +10,7 @@ export default function Header(props) {
     <header className="header section">
       <div className="header__nav-block">
         <Link className="header__logo app__btn-opacity" to="/" />
-        <Navigation loggedIn={false}></Navigation>
+        <Navigation loggedIn={props.loggedIn}></Navigation>
       </div>
       <div className="header__user-block">
         <button
@@ -26,8 +26,7 @@ export default function Header(props) {
           }`}
           onClick={props.headerBtnAction}
         >
-          Войти
-          {/* {props.headerBtnText} */}
+          {props.loggedIn ? 'Аккаунт' : 'Войти'}
         </button>
       </div>
       <button className="header__menu-btn app__btn-opacity"></button>

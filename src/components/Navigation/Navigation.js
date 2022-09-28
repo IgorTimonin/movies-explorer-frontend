@@ -1,8 +1,9 @@
 import './Navigation.css';
 
 export default function Navigation(props) {
+
   return (
-    <nav className={`nav block__hide ${props.loggedIn ? '' : 'block__hide'}`}>
+    <nav className={`nav ${props.loggedIn ? '' : 'block__hide'}`}>
       <a className="nav__link link-active_l app__btn-opacity" href="#">
         Фильмы
       </a>

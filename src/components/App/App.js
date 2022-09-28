@@ -1,4 +1,4 @@
-// import logo from '../../logo.svg';
+import { useState } from 'react';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -11,11 +11,14 @@ import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = [false];
+
   return (
     <div className="App">
       {/* <Register></Register> */}
       {/* <Login></Login> */}
-      <Header></Header>
+      <Header loggedIn={loggedIn}></Header>
       {/* <Profile></Profile> */}
       <Main></Main>
       {/* <Movies></Movies> */}

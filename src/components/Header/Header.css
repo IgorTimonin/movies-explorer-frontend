@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  max-width: 1220px;
+  max-width: 1280px;
   padding-top: 18px;
   padding-bottom: 18px;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -50,9 +50,10 @@
   color: #000;
 }
 
-.header__user-black {
+.header__user-btn_black {
   min-width: 100px;
   background-color: #313131;
+  border: none;
   border-radius: 20px;
 }
 
