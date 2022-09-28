@@ -2,7 +2,7 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  max-width: 1140px;
+  max-width: 1220px;
   padding-top: 18px;
   padding-bottom: 18px;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -11,7 +11,6 @@
 .header__nav-block {
   width: 100%;
   display: flex;
-
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
@@ -55,4 +54,26 @@
   min-width: 100px;
   background-color: #313131;
   border-radius: 20px;
+}
+
+.header__menu-btn {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  .header__user-block {
+    display: none;
+  }
+  .header__menu-btn {
+    display: block;
+    padding: 0;
+    width: 40px;
+    height: 43px;
+    background-color: #202020;
+    background-image: url(../../images/menu.svg);
+    border: none;
+  }
+  .header {
+    padding-bottom: 32px;
+  }
 }

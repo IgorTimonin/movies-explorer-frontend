@@ -2,7 +2,7 @@ import './Portfolio.css';
 
 export default function Portfolio(props) {
   return (
-    <section className="portfolio">
+    <section className="portfolio section">
       <h2 className="portfolio__title">Портфолио</h2>
       <ul className="portfolio__list">
         <li className="portfolio__list-item">

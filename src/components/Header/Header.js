@@ -1,13 +1,16 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
 export default function Header(props) {
+  const [screenRes, setScreenRes] = useState('');
+
   return (
-    <header className="header">
-      <div className='header__nav-block'>
-      <Link className="header__logo app__btn-opacity" to="/" />
-      <Navigation loggedIn = {false}></Navigation>
+    <header className="header section">
+      <div className="header__nav-block">
+        <Link className="header__logo app__btn-opacity" to="/" />
+        <Navigation loggedIn={false}></Navigation>
       </div>
       <div className="header__user-block">
         <button
@@ -27,6 +30,7 @@ export default function Header(props) {
           {/* {props.headerBtnText} */}
         </button>
       </div>
+      <button className="header__menu-btn app__btn-opacity"></button>
     </header>
   );
 }

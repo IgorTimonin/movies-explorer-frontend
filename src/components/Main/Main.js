@@ -7,7 +7,7 @@ import Portfolio from "./Portfolio/Portfolio";
 
 export default function Main(props) {
     return (
-        <main>
+        <main className='main'>
           <Promo></Promo>
           <AboutProject></AboutProject>
           <Techs></Techs>

@@ -2,13 +2,11 @@ import './AboutMe.css';
 
 export default function AboutMe(props) {
   return (
-    <section className="aboutMe">
+    <section className="aboutMe section">
       <h2 className="section__heading">Студент</h2>
       <article className="profile">
         <div className="profile__info">
-          <h3 className="section__title">
-            Тимонин Игорь
-          </h3>
+          <h3 className="section__title">Тимонин Игорь</h3>
           <p className="profile__subtitle">Фронтенд-разработчик, 36 лет</p>
           <p className="profile__text">
             Я родился и живу в Московской области, закончил факультет Рекламы и

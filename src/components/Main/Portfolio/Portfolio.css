@@ -51,3 +51,29 @@
   line-height: 50px;
   letter-spacing: -0.04em;
 }
+
+@media screen and (max-width: 800px) {
+  .portfolio__name {
+    font-size: 28px;
+  }
+  .portfolio__list {
+    margin-bottom: 90px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .portfolio__name {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  .portfolio__link {
+    min-height: 18px;
+    min-width: 18px;
+  }
+  .portfolio__title {
+    padding-bottom: 40px;
+  }
+  .portfolio__list {
+    margin-bottom: 70px;
+  }
+}

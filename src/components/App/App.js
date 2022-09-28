@@ -17,8 +17,8 @@ function App() {
       {/* <Login></Login> */}
       <Header></Header>
       {/* <Profile></Profile> */}
-      {/* <Main></Main> */}
-      <Movies></Movies>
+      <Main></Main>
+      {/* <Movies></Movies> */}
       {/* <SavedMovies></SavedMovies> */}
       {/* <NotFoundPage></NotFoundPage> */}
       <Footer></Footer>

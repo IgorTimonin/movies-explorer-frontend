@@ -11,39 +11,25 @@ export default function Techs(props) {
           дипломном проекте.
         </p>
         <ul className="techs__info">
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             HTML
           </li>
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             CSS
           </li>
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             JS
           </li>
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             React
           </li>
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             Git
           </li>
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             Express
           </li>
-          <li
-            className="app__btn app__btn-opacity app__btn_promo app__btn_techs"
-          >
+          <li className="app__btn app__btn-opacity app__btn_promo app__btn_techs">
             MongoDB
           </li>
         </ul>

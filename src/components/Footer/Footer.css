@@ -1,6 +1,9 @@
 .footer {
   width: 100%;
+  max-width: 1280px;
+  padding: 0 70px;
   color: #fff;
+  box-sizing: border-box;
 }
 
 .footer__text {
@@ -39,6 +42,12 @@
 
 .footer__nav {
   display: flex;
+}
+
+@media (max-width: 800px) {
+  .footer {
+    padding: 0 30px;
+  }
 }
 
 @media (max-width: 720px) {

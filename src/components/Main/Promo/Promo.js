@@ -6,9 +6,6 @@ export default function Promo(props) {
     <section className="promo">
       <h1 className="section__title section__title_promo">
         Учебный проект студента
-        <React.Fragment>
-          <br />
-        </React.Fragment>
         факультета Веб-разработки.
       </h1>
       <div className="promo_nav">

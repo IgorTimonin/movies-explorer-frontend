@@ -1,10 +1,13 @@
 .aboutMe {
-  padding: 110px 0 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 110px 40px 100px;
   color: #fff;
-  padding: 100px 0 100px;
 }
 
 .profile {
+  width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -38,10 +41,10 @@
 }
 
 .profile__photo {
-  max-height: 327px;
   max-width: 270px;
   align-self: flex-start;
   border-radius: 10px;
+  padding-left: 20px;
 }
 
 .profile__social {
@@ -50,4 +53,40 @@
 
 .profile__social:last-child {
   padding-right: 0;
+}
+
+@media screen and (max-width: 800px) {
+  .aboutMe {
+    padding: 90px 14px;
+  }
+
+  .profile {
+    flex-direction: column-reverse;
+  }
+  .profile__photo {
+    align-self: center;
+    max-width: 292px;
+    padding-left: 0;
+    margin-bottom: 40px;
+  }
+  .profile__info {
+  }
+  .section__title {
+    font-size: 30px;
+    line-height: 36px;
+  }
+  .profile__subtitle {
+    font-size: 11px;
+    line-height: 16px;
+    padding: 20px 0;
+  }
+  .profile__text {
+    font-size: 11px;
+    line-height: 16px;
+    padding-bottom: 40px;
+  }
+  .profile__social {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }
