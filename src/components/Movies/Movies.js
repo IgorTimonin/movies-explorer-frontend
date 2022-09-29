@@ -19,7 +19,7 @@ import pic11 from '../../images/pic__COLOR_pic-5.jpg';
 
 export default function Movies(props) {
   return (
-    <section className="movies">
+    <section className="movies movies__container">
       <SearchForm></SearchForm>
       {/* <MoviesCard></MoviesCard> */}
       <MoviesCardList>

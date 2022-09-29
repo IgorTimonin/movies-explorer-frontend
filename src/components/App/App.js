@@ -12,19 +12,19 @@ import NotFoundPage from './NotFoundPage/NotFoundPage';
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = [false];
+  const [loggedIn, setLoggedIn] = [true];
 
   return (
     <div className="App">
-      {/* <Register></Register> */}
-      {/* <Login></Login> */}
-      <Header loggedIn={loggedIn}></Header>
+      <Register></Register>
+      <Login></Login>
+      {/* <Header loggedIn={loggedIn}></Header> */}
       {/* <Profile></Profile> */}
-      <Main></Main>
+      {/* <Main></Main> */}
       {/* <Movies></Movies> */}
       {/* <SavedMovies></SavedMovies> */}
       {/* <NotFoundPage></NotFoundPage> */}
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 }

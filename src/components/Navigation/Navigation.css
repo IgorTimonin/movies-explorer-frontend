@@ -36,3 +36,9 @@
   line-height: 27px;
   border-bottom: 2px solid #fff;
 }
+
+@media screen and (max-width: 800px) {
+  .nav {
+    display: none;
+  }
+}

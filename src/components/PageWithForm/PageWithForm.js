@@ -37,7 +37,7 @@ export default function PageWithForm(props) {
   return (
     <div className="auth">
       <div className="auth__container">
-        <Link className="header__logo app__btn-opacity" to="/" />
+        <Link className="header__logo header__logo_ app__btn-opacity" to="/" />
         <h2 className="auth__title">{props.title}</h2>
         <form
           onSubmit={handleSubmit}
