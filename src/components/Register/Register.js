@@ -4,7 +4,7 @@ import './Register.css';
 
 export default function Register(props) {
   return (
-    <section className="register">
+    <section className="register section_height">
       <PageWithForm
         title="Добро пожаловать!"
         btnText="Зарегистрироваться"
@@ -14,8 +14,7 @@ export default function Register(props) {
         underBtnText="Уже зарегистрированы?"
         linkText="Войти"
         // onSubmit={onSignIn}
-      >
-      </PageWithForm>
+      ></PageWithForm>
     </section>
   );
 }

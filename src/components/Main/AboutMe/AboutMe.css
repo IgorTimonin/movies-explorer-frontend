@@ -59,20 +59,16 @@
 @media screen and (max-width: 800px) {
   .aboutMe {
     padding-top: 90px;
-  padding-bottom: 90px;
+    padding-bottom: 90px;
   }
 
-  .profile {
-    flex-direction: column-reverse;
-  }
   .profile__photo {
     align-self: center;
     max-width: 292px;
-    padding-left: 0;
+    padding-left: 42px;
     margin-bottom: 40px;
   }
-  .profile__info {
-  }
+
   .section__title {
     font-size: 30px;
     line-height: 36px;
@@ -90,5 +86,14 @@
   .profile__social {
     font-size: 14px;
     line-height: 17px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .profile {
+    flex-direction: column-reverse;
+  }
+  .profile__photo {
+    padding-left: 0;
   }
 }

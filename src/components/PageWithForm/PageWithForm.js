@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 import './PageWithForm.css';
 
 export default function PageWithForm(props) {
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('Виталий');
+  const [email, setEmail] = useState('pochta@yandex.ru');
+  const [password, setPassword] = useState('12345678');
   const nav = useNavigate();
 
   function handleSetUserName(e) {
@@ -37,7 +37,10 @@ export default function PageWithForm(props) {
   return (
     <div className="auth">
       <div className="auth__container">
-        <Link className="header__logo header__logo_ app__btn-opacity" to="/" />
+        <Link
+          className="header__logo header__logo_auth app__btn-opacity"
+          to="/"
+        />
         <h2 className="auth__title">{props.title}</h2>
         <form
           onSubmit={handleSubmit}
@@ -45,76 +48,80 @@ export default function PageWithForm(props) {
           name={`${props.name}_form`}
           action="#"
         >
-          <label
-            htmlFor="userName"
-            className={`auth__input-label ${
-              props.name === 'register' ? '' : 'block__hide'
-            }`}
-          >
-            Имя
-          </label>
-          <input
-            className={`auth__field auth__field_underline ${
-              props.name === 'register' ? '' : 'block__hide'
-            }`}
-            type="text"
-            value={props.userName}
-            onChange={handleSetUserName}
-            name="userName"
-            autoComplete="username"
-            required
-          ></input>
-          <span className="user-name-input-error input-error_auth">
-            Введите имя.
-          </span>
-          <label htmlFor="userEmail" className="auth__input-label">
-            E-mail
-          </label>
-          <input
-            className="auth__field auth__field_underline"
-            type="email"
-            value={email}
-            onChange={handleSetEmail}
-            name="userEmail"
-            placeholder="Email"
-            autoComplete="username"
-            required
-          ></input>
-          <span className="user-email-input-error input-error_auth">
-            Введите email.
-          </span>
-          <label htmlFor="userPassword" className="auth__input-label">
-            Пароль
-          </label>
-          <input
-            id={props.inputId}
-            className="auth__field auth__field_underline"
-            type="password"
-            value={password}
-            onChange={handleSetPassword}
-            name="userPassword"
-            placeholder="Пароль"
-            autoComplete="current-password"
-            required
-          ></input>
-          <span className="user-password-input-error input-error_auth">
-            Введите пароль.
-          </span>
-          <button
-            className="auth__btn-save auth__form-submit app__btn-opacity"
-            type="submit"
-          >
-            {props.btnText}
-          </button>
-          <p className="auth__login-text">
-            {props.underBtnText}
-            <Link
-              className="auth__login-link app__btn-opacity"
-              to={props.linkTo}
+          <div className="auth__formInputBlock auth__formBlock">
+            <label
+              htmlFor="userName"
+              className={`auth__input-label ${
+                props.name === 'register' ? '' : 'block__hide'
+              }`}
             >
-              {props.linkText}
-            </Link>
-          </p>
+              Имя
+            </label>
+            <input
+              className={`auth__field auth__field_underline ${
+                props.name === 'register' ? '' : 'block__hide'
+              }`}
+              type="text"
+              value={userName}
+              onChange={handleSetUserName}
+              name="userName"
+              autoComplete="username"
+              required
+            ></input>
+            <span className="user-name-input-error input-error_auth">
+              Введите имя.
+            </span>
+            <label htmlFor="userEmail" className="auth__input-label">
+              E-mail
+            </label>
+            <input
+              className="auth__field auth__field_underline"
+              type="email"
+              value={email}
+              onChange={handleSetEmail}
+              name="userEmail"
+              placeholder="Email"
+              autoComplete="username"
+              required
+            ></input>
+            <span className="user-email-input-error input-error_auth">
+              Введите email.
+            </span>
+            <label htmlFor="userPassword" className="auth__input-label">
+              Пароль
+            </label>
+            <input
+              id={props.inputId}
+              className="auth__field auth__field_underline input-error_active"
+              type="password"
+              value={password}
+              onChange={handleSetPassword}
+              name="userPassword"
+              placeholder="Пароль"
+              autoComplete="current-password"
+              required
+            ></input>
+            <span className="user-password-input-error input-error_auth input-error_active">
+              Что-то пошло не так...
+            </span>
+          </div>
+          <div className="auth__formBottonBlock auth__formBlock">
+            <button
+              className="auth__btn-save auth__form-submit app__btn-opacity"
+              type="submit"
+            >
+              {props.btnText}
+            </button>
+            <p className="auth__login-text">
+              {props.underBtnText}
+              <Link
+                className="auth__login-link app__btn-opacity"
+                to={props.linkTo}
+              >
+                {props.linkText}
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>

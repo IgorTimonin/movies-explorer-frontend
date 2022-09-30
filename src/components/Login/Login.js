@@ -3,7 +3,7 @@ import './Login.css';
 
 export default function Login(props) {
   return (
-    <section className="login">
+    <section className="login section_height">
       <PageWithForm
         title="Рады видеть!"
         btnText="Войти"
@@ -13,8 +13,7 @@ export default function Login(props) {
         underBtnText="Ещё не зарегистрированы?"
         linkText="Регистрация"
         // onSubmit={onSignIn}
-      >
-      </PageWithForm>
+      ></PageWithForm>
     </section>
   );
 }
