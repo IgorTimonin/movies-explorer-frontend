@@ -9,6 +9,7 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
+import MenuPage from '../MenuPage/MenuPage';
 
 function App() {
 
@@ -19,9 +20,10 @@ function App() {
       {/* <Register></Register> */}
       {/* <Login></Login> */}
       <Header loggedIn={loggedIn}></Header>
+      <MenuPage isOpen={true}></MenuPage>
       {/* <Profile></Profile> */}
-      <Main></Main>
-      {/* <Movies></Movies> */}
+      {/* <Main></Main> */}
+      <Movies></Movies>
       {/* <SavedMovies></SavedMovies> */}
       {/* <NotFoundPage></NotFoundPage> */}
       <Footer></Footer>

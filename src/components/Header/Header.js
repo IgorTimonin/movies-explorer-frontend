@@ -17,6 +17,7 @@ export default function Header(props) {
           className={`app__btn nav__link app__btn-opacity ${
             props.loggedIn ? 'block__hide' : 'header__reg-btn'
           }`}
+          // onClick={}
         >
           Регистрация
         </button>
