@@ -1,26 +1,24 @@
+import { Link } from 'react-router-dom';
 import './Navigation.css';
 
-export default function Navigation(props) {
-
+export default function Navigation({ loggedIn, isOpen, closeMenu, menuClass, ...props }) {
   return (
-    <nav
-      className={`nav nav__${props.className} ${
-        props.loggedIn ? '' : 'block__hide'
-      }`}
-    >
+    <nav className={`nav nav__${menuClass} ${loggedIn ? '' : 'block__hide'}`}>
       {props.children}
-      <a
-        className={`nav__link link-active app__btn-opacity nav__link_${props.className}`}
-        href="#"
+      <Link
+        className={`nav__link link-active app__btn-opacity nav__link_${menuClass}`}
+        onClick={closeMenu}
+        to="/movies"
       >
         Фильмы
-      </a>
-      <a
-        className={`nav__link app__btn-opacity nav__link_${props.className}`}
-        href="#"
+      </Link>
+      <Link
+        className={`nav__link app__btn-opacity nav__link_${menuClass}`}
+        onClick={closeMenu}
+        to="/savedMovies"
       >
         Сохранённые фильмы
-      </a>
+      </Link>
     </nav>
   );
 }

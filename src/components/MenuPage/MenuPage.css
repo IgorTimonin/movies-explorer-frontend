@@ -28,7 +28,7 @@
   width: 520px;
   height: 100%;
   background-color: #202020;
-  padding: 14px 14px 0;
+  padding: 22px 22px 0;
   box-sizing: border-box;
   position: relative;
 }
@@ -61,12 +61,13 @@
 }
 
 .popup__btn-close {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
+  padding: 0;
   align-self: flex-end;
   background-image: url(../../images/cross_w.svg);
   background-color: rgba(0, 0, 0, 0);
-  background-size: contain;
+  background-size: cover;
   border: none;
   transition: linear 0.3s;
 }
@@ -74,6 +75,7 @@
 @media screen and (max-width: 700px) {
   .popup__container {
     width: 100%;
+    padding: 14px 14px 0;
   }
   .nav__burgerMenu {
     max-height: 590px;

@@ -1,34 +1,38 @@
+import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import './MenuPage.css';
 
-export default function MenuPage(props) {
+export default function MenuPage({ loggedIn, isOpen, closeMenu, ...props }) {
   return (
-    <section
-      className={`menuPage ${
-        props.isOpen && 'popup_opened' ? 'popup_opened' : ''
-      }`}
-    >
+    <section className={`menuPage ${isOpen ? 'popup_opened' : ''}`}>
       <div className="popup__container">
         <button
           className="popup__btn-close app__btn-opacity"
           type="button"
-          onClick={props.onClose}
+          onClick={closeMenu}
         />
         <div className="popup__content">
-          <Navigation isOpen={props.isOpen} className="burgerMenu">
-            <a
+          <Navigation
+            loggedIn={loggedIn}
+            isOpen={isOpen}
+            closeMenu={closeMenu}
+            menuClass="burgerMenu"
+          >
+            <Link
               className={`nav__link app__btn-opacity nav__link_burgerMenu`}
-              href="#"
+              onClick={closeMenu}
+              to="/"
             >
               Главная
-            </a>
+            </Link>
           </Navigation>
-          <button
+          <Link
             className="app__btn header__user-btn app__btn-opacity header__user-btn_black"
-            onClick={props.BtnAction}
+            onClick={closeMenu}
+            to="/profile"
           >
             Аккаунт
-          </button>
+          </Link>
         </div>
       </div>
     </section>

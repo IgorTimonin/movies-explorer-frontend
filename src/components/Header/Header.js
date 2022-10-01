@@ -1,36 +1,58 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
 
-export default function Header(props) {
-  const [screenRes, setScreenRes] = useState('');
+export default function Header({
+  loggedIn,
+  isOpen,
+  openMenu,
+  closeMenu,
+  ...props
+}) {
+  // const [screenRes, setScreenRes] = useState('');
 
   return (
     <header className="header section">
       <div className="header__nav-block">
         <Link className="header__logo app__btn-opacity" to="/" />
-        <Navigation loggedIn={props.loggedIn}></Navigation>
+        <Navigation
+          loggedIn={loggedIn}
+          isOpen={isOpen}
+          closeMenu={closeMenu}
+        ></Navigation>
       </div>
       <div className="header__user-block">
-        <button
+        <Link
           className={`app__btn nav__link app__btn-opacity ${
-            props.loggedIn ? 'block__hide' : 'header__reg-btn'
+            loggedIn ? 'block__hide' : 'header__reg-btn'
           }`}
-          // onClick={}
+          onClick={closeMenu}
+          to="/register"
         >
           Регистрация
-        </button>
-        <button
+        </Link>
+        <Link
           className={`app__btn header__user-btn app__btn-opacity ${
-            props.loggedIn ? 'header__user-btn_black' : 'header__user-btn_green'
+            loggedIn ? 'block__hide' : 'header__user-btn_green'
           }`}
-          onClick={props.headerBtnAction}
+          onClick={closeMenu}
+          to="/login"
         >
-          {props.loggedIn ? 'Аккаунт' : 'Войти'}
-        </button>
+          Войти
+        </Link>
+        <Link
+          className={`app__btn header__user-btn app__btn-opacity ${
+            loggedIn ? 'header__user-btn_black' : 'block__hide'
+          }`}
+          to="/profile"
+        >
+          Аккаунт
+        </Link>
       </div>
-      <button className="header__menu-btn app__btn-opacity"></button>
+      <button className="header__menu-btn app__btn-opacity"
+        onClick={openMenu}>
+      </button>
     </header>
   );
 }
