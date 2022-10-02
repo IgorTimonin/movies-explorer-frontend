@@ -63,31 +63,9 @@
   height: 100vh;
 }
 
-.active {
-  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 18px;
-}
-
 @media screen and (max-width: 1070px) {
   .section {
     padding: 0 50px;
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .active {
-    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 22px;
-    line-height: 27px;
-    padding-bottom: 3px;
-    margin-bottom: 22px;
-    border-bottom: 2px solid #fff;
-    box-sizing: border-box;
   }
 }
 
