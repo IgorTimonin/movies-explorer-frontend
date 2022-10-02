@@ -17,7 +17,7 @@ export default function SearchForm(props) {
             name="shortMovies"
             className="searchBar__checkbox app__btn-opacity"
           ></input>
-          <label for="shortMovies" className="searchBar__label">
+          <label htmlFor="shortMovies" className="searchBar__label">
             Короткометражки
           </label>
         </div>
