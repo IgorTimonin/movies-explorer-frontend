@@ -13,7 +13,7 @@ import NotFoundPage from './NotFoundPage/NotFoundPage';
 import MenuPage from '../MenuPage/MenuPage';
 
 function App() {
-  const [loggedIn, setLoggedIn] = [true];
+  const [loggedIn, setLoggedIn] = [false];
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMenuClick = () => {
@@ -24,14 +24,18 @@ function App() {
     setIsOpen(false);
   };
 
+  // const headRoutes = ['/', '/movies', '/saved-movies'];
+  // const renderPaths = (paths, Element) =>
+  //   paths.map((path) => <Route key={path} path={path} element={Element} />);
+
   return (
     <>
-      <Header
+      {/* <Header
         loggedIn={loggedIn}
         isOpen={isOpen}
         openMenu={handleMenuClick}
         closeMenu={handleCloseMenuClick}
-      />
+      /> */}
       <main className="App">
         <MenuPage
           loggedIn={loggedIn}
@@ -39,25 +43,46 @@ function App() {
           closeMenu={handleCloseMenuClick}
         ></MenuPage>
         <Routes>
-          <Route exact path="/" element={<Main loggedIn={loggedIn} />}></Route>
+          <Route
+            path="/"
+            element={
+              <Main
+                loggedIn={loggedIn}
+                isOpen={isOpen}
+                handleMenuClick={handleMenuClick}
+                handleCloseMenuClick={handleCloseMenuClick}
+              />
+            }
+          ></Route>
           <Route path="/signin" element={<Login />}></Route>
           <Route path="/signup" element={<Register />}></Route>
-          <Route path="/movies" element={<Movies />}></Route>
-          <Route path="/saved-movies" element={<SavedMovies />}></Route>
-          {/* <div className="App"> */}
-          {/* <Register></Register> */}
-          {/* <Login></Login> */}
-
+          <Route
+            path="/movies"
+            element={
+              <Movies
+                loggedIn={loggedIn}
+                isOpen={isOpen}
+                handleMenuClick={handleMenuClick}
+                handleCloseMenuClick={handleCloseMenuClick}
+              />
+            }
+          ></Route>
+          <Route
+            path="/saved-movies"
+            element={
+              <SavedMovies
+                loggedIn={loggedIn}
+                isOpen={isOpen}
+                handleMenuClick={handleMenuClick}
+                handleCloseMenuClick={handleCloseMenuClick}
+              />
+            }
+          ></Route>
           <Route path="/profile" element={<Profile />}></Route>
-          {/* <Main></Main> */}
-          {/* <Movies></Movies> */}
-          {/* <SavedMovies></SavedMovies> */}
-          {/* <NotFoundPage></NotFoundPage> */}
-
-          {/* </div> */}
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </>
   );
 }

@@ -34,6 +34,13 @@ export default function Movies({loggedIn , ...props}) {
   };
 
   return (
+    <>
+      <Header
+        loggedIn={props.loggedIn}
+        isOpen={props.isOpen}
+        openMenu={props.handleMenuClick}
+        closeMenu={props.handleCloseMenuClick}
+      />
     <section className="movies movies__container">
       <SearchForm></SearchForm>
       <MenuPage
@@ -117,6 +124,9 @@ export default function Movies({loggedIn , ...props}) {
         />
       </MoviesCardList>
       {/* <Preloader></Preloader> */}
+
     </section>
+    <Footer></Footer>
+    </>
   );
 }
