@@ -9,7 +9,7 @@ export default function Login(props) {
         btnText="Войти"
         name="login"
         inputId="current-password"
-        linkTo="/sign-up"
+        linkTo="/signup"
         underBtnText="Ещё не зарегистрированы?"
         linkText="Регистрация"
         // onSubmit={onSignIn}

@@ -1,6 +1,9 @@
 import './Movies.css';
 import MoviesCard from './MoviesCard/MoviesCard';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
+import MenuPage from '../MenuPage/MenuPage';
 import Preloader from './Preloader/Preloader';
 import SearchForm from './SearchForm/SearchForm';
 
@@ -16,11 +19,28 @@ import pic8 from '../../images/pic__COLOR_pic-3.jpg';
 import pic9 from '../../images/pic__COLOR_pic-11.jpg';
 import pic10 from '../../images/pic__COLOR_pic-9.jpg';
 import pic11 from '../../images/pic__COLOR_pic-5.jpg';
+import { useState } from 'react';
 
-export default function Movies(props) {
+
+export default function Movies({loggedIn , ...props}) {
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleMenuClick = () => {
+    setIsOpen(true);
+  };
+
+  const handleCloseMenuClick = () => {
+    setIsOpen(false);
+  };
+
   return (
     <section className="movies movies__container">
       <SearchForm></SearchForm>
+      <MenuPage
+        loggedIn={loggedIn}
+        isOpen={isOpen}
+        closeMenu={handleCloseMenuClick}
+      ></MenuPage>
       {/* <MoviesCard></MoviesCard> */}
       <MoviesCardList>
         <MoviesCard

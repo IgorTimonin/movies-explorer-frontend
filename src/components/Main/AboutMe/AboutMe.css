@@ -96,4 +96,7 @@
   .profile__photo {
     padding-left: 0;
   }
+  .profile__social {
+    padding-right: 0;
+}
 }

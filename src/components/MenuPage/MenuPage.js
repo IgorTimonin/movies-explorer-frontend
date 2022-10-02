@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import './MenuPage.css';
 
@@ -18,13 +18,14 @@ export default function MenuPage({ loggedIn, isOpen, closeMenu, ...props }) {
             closeMenu={closeMenu}
             menuClass="burgerMenu"
           >
-            <Link
+            <NavLink
               className={`nav__link app__btn-opacity nav__link_burgerMenu`}
               onClick={closeMenu}
+              end
               to="/"
             >
               Главная
-            </Link>
+            </NavLink>
           </Navigation>
           <Link
             className="app__btn header__user-btn app__btn-opacity header__user-btn_black"

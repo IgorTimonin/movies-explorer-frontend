@@ -8,6 +8,8 @@ export default function Portfolio(props) {
         <li className="portfolio__list-item">
           <p className="portfolio__name">Статичный сайт</p>
           <a
+            target="_blank"
+            rel="noreferrer"
             className="portfolio__link app__btn-opacity"
             href="https://igortimonin.github.io/how-to-learn/"
           >
@@ -17,6 +19,8 @@ export default function Portfolio(props) {
         <li className="portfolio__list-item">
           <p className="portfolio__name">Адаптивный сайт</p>
           <a
+            target="_blank"
+            rel="noreferrer"
             className="portfolio__link app__btn-opacity"
             href="https://igortimonin.github.io/russian-travel/"
           >
@@ -26,6 +30,8 @@ export default function Portfolio(props) {
         <li className="portfolio__list-item">
           <p className="portfolio__name">Одностраничное приложение</p>
           <a
+            target="_blank"
+            rel="noreferrer"
             className="portfolio__link app__btn-opacity"
             href="https://itmesto.students.nomoredomains.sbs/"
           >

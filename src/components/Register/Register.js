@@ -10,7 +10,7 @@ export default function Register(props) {
         btnText="Зарегистрироваться"
         name="register"
         inputId="current-password"
-        linkTo="/sign-in"
+        linkTo="/signin"
         underBtnText="Уже зарегистрированы?"
         linkText="Войти"
         // onSubmit={onSignIn}

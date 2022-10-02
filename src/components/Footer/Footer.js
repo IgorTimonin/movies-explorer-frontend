@@ -10,18 +10,24 @@ export default function Footer(props) {
         <p className="footer__copyright">&copy; Timonin Igor 2022</p>
         <div className="footer__nav">
           <a
+            target="_blank"
+            rel="noreferrer"
             href="https://practicum.yandex.ru/"
             className="profile__social profile__social_footer app__btn app__btn-opacity"
           >
             Яндекс.Практикум
           </a>
           <a
+            target="_blank"
+            rel="noreferrer"
             href="https://github.com/IgorTimonin"
             className="profile__social profile__social_footer app__btn app__btn-opacity"
           >
             Github
           </a>
           <a
+            target="_blank"
+            rel="noreferrer"
             href="https://www.linkedin.com/in/igor-timonin-750085232/"
             className="profile__social profile__social_footer app__btn app__btn-opacity"
           >

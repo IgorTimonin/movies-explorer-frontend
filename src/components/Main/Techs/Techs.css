@@ -57,9 +57,9 @@
 }
 
 @media screen and (max-width: 1070px) {
-.techs__container {
-  padding: 0 50px;
-}
+  .techs__container {
+    padding: 0 50px;
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -83,5 +83,3 @@
     padding: 0;
   }
 }
-
-

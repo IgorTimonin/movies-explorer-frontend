@@ -2,7 +2,7 @@ import './AboutMe.css';
 
 export default function AboutMe(props) {
   return (
-    <section className="aboutMe section">
+    <section className="aboutMe section" id="aboutMe">
       <h2 className="section__heading">Студент</h2>
       <article className="profile">
         <div className="profile__info">
@@ -20,24 +20,32 @@ export default function AboutMe(props) {
           </p>
           <div>
             <a
+              target="_blank"
+              rel="noreferrer"
               href="https://github.com/IgorTimonin"
               className="profile__social app__btn app__btn-opacity"
             >
               Github
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href="mailto:funnyman@list.ru"
               className="profile__social app__btn app__btn-opacity"
             >
               Mail
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href=" https://t.me/IgorTimonin"
               className="profile__social app__btn app__btn-opacity"
             >
               Telegram
             </a>
             <a
+              target="_blank"
+              rel="noreferrer"
               href="https://www.linkedin.com/in/igor-timonin-750085232/"
               className="profile__social app__btn app__btn-opacity"
             >

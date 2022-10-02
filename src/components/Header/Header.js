@@ -17,9 +17,10 @@ export default function Header({
       <div className="header__nav-block">
         <Link className="header__logo app__btn-opacity" to="/" />
         <Navigation
-          loggedIn={loggedIn}
+          loggedIn
           isOpen={isOpen}
           closeMenu={closeMenu}
+          menuClass=''
         ></Navigation>
       </div>
       <div className="header__user-block">
@@ -28,7 +29,7 @@ export default function Header({
             loggedIn ? 'block__hide' : 'header__reg-btn'
           }`}
           onClick={closeMenu}
-          to="/register"
+          to="/signup"
         >
           Регистрация
         </Link>
@@ -37,7 +38,7 @@ export default function Header({
             loggedIn ? 'block__hide' : 'header__user-btn_green'
           }`}
           onClick={closeMenu}
-          to="/login"
+          to="/signin"
         >
           Войти
         </Link>
@@ -50,9 +51,10 @@ export default function Header({
           Аккаунт
         </Link>
       </div>
-      <button className="header__menu-btn app__btn-opacity"
-        onClick={openMenu}>
-      </button>
+      <button
+        className="header__menu-btn app__btn-opacity"
+        onClick={openMenu}
+      ></button>
     </header>
   );
 }

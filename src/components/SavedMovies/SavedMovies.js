@@ -4,9 +4,9 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 
 export default function SavedMovies(props) {
   return (
-    <div>
+    <section className="movies movies__container">
       <SearchForm></SearchForm>
       <SavedMoviesCardList></SavedMoviesCardList>
-    </div>
+    </section>
   );
 }

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import './App.css';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -14,6 +15,7 @@ import MenuPage from '../MenuPage/MenuPage';
 function App() {
   const [loggedIn, setLoggedIn] = [true];
   const [isOpen, setIsOpen] = useState(false);
+
   const handleMenuClick = () => {
     setIsOpen(true);
   };
@@ -23,27 +25,40 @@ function App() {
   };
 
   return (
-    <div className="App">
-      {/* <Register></Register> */}
-      {/* <Login></Login> */}
+    <>
       <Header
         loggedIn={loggedIn}
         isOpen={isOpen}
         openMenu={handleMenuClick}
         closeMenu={handleCloseMenuClick}
-      ></Header>
-      <MenuPage
-        loggedIn={loggedIn}
-        isOpen={isOpen}
-        closeMenu={handleCloseMenuClick}
-      ></MenuPage>
-      {/* <Profile></Profile> */}
-      {/* <Main></Main> */}
-      <Movies></Movies>
-      {/* <SavedMovies></SavedMovies> */}
-      {/* <NotFoundPage></NotFoundPage> */}
+      />
+      <main className="App">
+        <MenuPage
+          loggedIn={loggedIn}
+          isOpen={isOpen}
+          closeMenu={handleCloseMenuClick}
+        ></MenuPage>
+        <Routes>
+          <Route exact path="/" element={<Main loggedIn={loggedIn} />}></Route>
+          <Route path="/signin" element={<Login />}></Route>
+          <Route path="/signup" element={<Register />}></Route>
+          <Route path="/movies" element={<Movies />}></Route>
+          <Route path="/saved-movies" element={<SavedMovies />}></Route>
+          {/* <div className="App"> */}
+          {/* <Register></Register> */}
+          {/* <Login></Login> */}
+
+          <Route path="/profile" element={<Profile />}></Route>
+          {/* <Main></Main> */}
+          {/* <Movies></Movies> */}
+          {/* <SavedMovies></SavedMovies> */}
+          {/* <NotFoundPage></NotFoundPage> */}
+
+          {/* </div> */}
+        </Routes>
+      </main>
       <Footer></Footer>
-    </div>
+    </>
   );
 }
 
