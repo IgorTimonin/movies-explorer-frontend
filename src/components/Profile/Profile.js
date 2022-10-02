@@ -1,7 +1,4 @@
 import React, { useState } from 'react';
-import Header from '../Header/Header';
-import PageWithForm from '../PageWithForm/PageWithForm';
-// import { useNavigate } from 'react-router';
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
 

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from '../Header/Header';
+// import Header from '../Header/Header';
 import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
+// import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
@@ -24,18 +24,7 @@ function App() {
     setIsOpen(false);
   };
 
-  // const headRoutes = ['/', '/movies', '/saved-movies'];
-  // const renderPaths = (paths, Element) =>
-  //   paths.map((path) => <Route key={path} path={path} element={Element} />);
-
   return (
-    <>
-      {/* <Header
-        loggedIn={loggedIn}
-        isOpen={isOpen}
-        openMenu={handleMenuClick}
-        closeMenu={handleCloseMenuClick}
-      /> */}
       <main className="App">
         <MenuPage
           loggedIn={loggedIn}
@@ -82,8 +71,6 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
-      {/* <Footer></Footer> */}
-    </>
   );
 }
 

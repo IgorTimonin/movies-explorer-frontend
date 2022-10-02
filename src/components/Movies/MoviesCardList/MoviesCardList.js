@@ -1,4 +1,3 @@
-import MoviesCard from '../MoviesCard/MoviesCard';
 import './MoviesCardList.css';
 
 

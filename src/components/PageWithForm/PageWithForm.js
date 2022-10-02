@@ -7,7 +7,6 @@ export default function PageWithForm(props) {
   const [userName, setUserName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@yandex.ru');
   const [password, setPassword] = useState('12345678');
-  const nav = useNavigate();
 
   function handleSetUserName(e) {
     setUserName(e.target.value);

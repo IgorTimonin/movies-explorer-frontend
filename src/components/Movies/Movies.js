@@ -25,9 +25,6 @@ import { useState } from 'react';
 export default function Movies({loggedIn , ...props}) {
 
   const [isOpen, setIsOpen] = useState(false);
-  const handleMenuClick = () => {
-    setIsOpen(true);
-  };
 
   const handleCloseMenuClick = () => {
     setIsOpen(false);
