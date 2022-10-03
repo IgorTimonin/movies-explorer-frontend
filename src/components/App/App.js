@@ -13,7 +13,7 @@ import NotFoundPage from './NotFoundPage/NotFoundPage';
 import MenuPage from '../MenuPage/MenuPage';
 
 function App() {
-  const [loggedIn, setLoggedIn] = [false];
+  const [loggedIn, setLoggedIn] = [true];
   const [isOpen, setIsOpen] = useState(false);
 
   const handleMenuClick = () => {

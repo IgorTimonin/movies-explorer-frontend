@@ -27,9 +27,9 @@ export default function PageWithForm(props) {
       password,
       email,
     });
-    setUserName('');
-    setEmail('');
-    setPassword('');
+    setUserName();
+    setEmail();
+    setPassword();
   }
 
   return (
