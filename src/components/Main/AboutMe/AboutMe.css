@@ -99,4 +99,8 @@
   .profile__social {
     padding-right: 0;
 }
+.aboutMe {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
 }

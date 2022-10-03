@@ -21,9 +21,9 @@
 .portfolio__list-item {
   padding-bottom: 19px;
   border-bottom: #424242 2px solid;
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; */
 }
 
 .portfolio__list-item:last-child {
@@ -36,6 +36,20 @@
 }
 
 .portfolio__link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  color: #fff;
+}
+
+.portfolio__link-logo {
   min-height: 29px;
   min-width: 29px;
   background-image: url(../../../images/arrow.svg);
@@ -66,7 +80,7 @@
     font-size: 18px;
     line-height: 28px;
   }
-  .portfolio__link {
+  .portfolio__link-logo {
     min-height: 18px;
     min-width: 18px;
   }

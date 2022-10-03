@@ -60,6 +60,12 @@
   .techs__container {
     padding: 0 50px;
   }
+  .techs {
+    padding: 90px 0 90px;
+  }
+  .techs__info {
+    margin-top: 83px
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -77,9 +83,11 @@
   .techs__info {
     grid-row-gap: 10px;
     grid-template-columns: repeat(2, 84px);
-    margin-bottom: 70px;
+    margin-top: 50px;
+    margin-bottom: 0;
   }
   .techs {
-    padding: 0;
+    padding: 70px 0 ;
+    background-color: #202020;
   }
 }

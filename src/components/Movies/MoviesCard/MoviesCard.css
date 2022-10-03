@@ -40,6 +40,10 @@
 .movie__name {
   margin: 0;
   padding-bottom: 9px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
 }
 
 .movie__bookmark-btn {

@@ -6,7 +6,6 @@ export default function Profile(props) {
   const [userName, setUserName] = useState('Виталий');
   const [email, setEmail] = useState('pochta@yandex.ru');
   const [onEdit, setOnEdit] = useState(false);
-  // const nav = useNavigate();
 
   function handleSetUserName(e) {
     setUserName(e.target.value);
@@ -34,7 +33,6 @@ export default function Profile(props) {
 
   return (
     <section className="userProfile">
-      {/* <Header></Header> */}
       <div className="userProfile__wrapper">
         {/* <PageWithForm
           title="Привет "
