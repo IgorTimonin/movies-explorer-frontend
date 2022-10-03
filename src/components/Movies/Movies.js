@@ -1,9 +1,6 @@
 import './Movies.css';
 import MoviesCard from './MoviesCard/MoviesCard';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import MenuPage from '../MenuPage/MenuPage';
 import Preloader from './Preloader/Preloader';
 import SearchForm from './SearchForm/SearchForm';
 
@@ -31,20 +28,8 @@ export default function Movies({loggedIn , ...props}) {
   };
 
   return (
-    <>
-      <Header
-        loggedIn={props.loggedIn}
-        isOpen={props.isOpen}
-        openMenu={props.handleMenuClick}
-        closeMenu={props.handleCloseMenuClick}
-      />
     <section className="movies movies__container">
       <SearchForm></SearchForm>
-      <MenuPage
-        loggedIn={loggedIn}
-        isOpen={isOpen}
-        closeMenu={handleCloseMenuClick}
-      ></MenuPage>
       {/* <MoviesCard></MoviesCard> */}
       <MoviesCardList>
         <MoviesCard
@@ -123,7 +108,5 @@ export default function Movies({loggedIn , ...props}) {
       {/* <Preloader></Preloader> */}
 
     </section>
-    <Footer></Footer>
-    </>
   );
 }

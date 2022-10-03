@@ -4,24 +4,15 @@ import AboutProject from './AboutProject/AboutProject';
 import Techs from './Techs/Techs';
 import AboutMe from './AboutMe/AboutMe';
 import Portfolio from './Portfolio/Portfolio';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
 
 export default function Main(props) {
   return (
     <div className="main">
-      <Header
-        loggedIn={props.loggedIn}
-        isOpen={props.isOpen}
-        openMenu={props.handleMenuClick}
-        closeMenu={props.handleCloseMenuClick}
-      />
       <Promo></Promo>
       <AboutProject></AboutProject>
       <Techs></Techs>
       <AboutMe></AboutMe>
       <Portfolio></Portfolio>
-      <Footer></Footer>
     </div>
   );
 }

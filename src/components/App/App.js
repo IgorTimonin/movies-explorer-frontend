@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
-// import Header from '../Header/Header';
 import Main from '../Main/Main';
-// import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
-import MenuPage from '../MenuPage/MenuPage';
+import { AuthProvider } from '../../hoc/AuthContext';
+import Layout from '../Layout/Layout';
+
+
 
 function App() {
   const [loggedIn, setLoggedIn] = [true];
   const [isOpen, setIsOpen] = useState(false);
-
   const handleMenuClick = () => {
     setIsOpen(true);
   };
@@ -25,52 +25,61 @@ function App() {
   };
 
   return (
-      <main className="App">
-        <MenuPage
-          loggedIn={loggedIn}
-          isOpen={isOpen}
-          closeMenu={handleCloseMenuClick}
-        ></MenuPage>
+    <AuthProvider>
+      <div className="App">
         <Routes>
           <Route
             path="/"
             element={
-              <Main
+              <Layout
                 loggedIn={loggedIn}
                 isOpen={isOpen}
-                handleMenuClick={handleMenuClick}
-                handleCloseMenuClick={handleCloseMenuClick}
+                menuClick={handleMenuClick}
+                closeMenu={handleCloseMenuClick}
               />
             }
-          ></Route>
-          <Route path="/signin" element={<Login />}></Route>
-          <Route path="/signup" element={<Register />}></Route>
-          <Route
-            path="/movies"
-            element={
-              <Movies
-                loggedIn={loggedIn}
-                isOpen={isOpen}
-                handleMenuClick={handleMenuClick}
-                handleCloseMenuClick={handleCloseMenuClick}
-              />
-            }
-          ></Route>
-          <Route
-            path="/saved-movies"
-            element={
-              <SavedMovies
-                loggedIn={loggedIn}
-                isOpen={isOpen}
-                handleMenuClick={handleMenuClick}
-                handleCloseMenuClick={handleCloseMenuClick}
-              />
-            }
-          ></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-          <Route path="*" element={<NotFoundPage />} />
+          >
+            <Route
+              index
+              element={
+                <Main
+                  loggedIn={loggedIn}
+                  isOpen={isOpen}
+                  handleMenuClick={handleMenuClick}
+                  handleCloseMenuClick={handleCloseMenuClick}
+                />
+              }
+            ></Route>
+            <Route path="/signin" element={<Login />}></Route>
+            <Route path="/signup" element={<Register />}></Route>
+            <Route
+              path="/movies"
+              element={
+                <Movies
+                  loggedIn={loggedIn}
+                  isOpen={isOpen}
+                  handleMenuClick={handleMenuClick}
+                  handleCloseMenuClick={handleCloseMenuClick}
+                />
+              }
+            ></Route>
+            <Route
+              path="/saved-movies"
+              element={
+                <SavedMovies
+                  loggedIn={loggedIn}
+                  isOpen={isOpen}
+                  handleMenuClick={handleMenuClick}
+                  handleCloseMenuClick={handleCloseMenuClick}
+                />
+              }
+            ></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+            <Route path="*" element={<NotFoundPage />} />
+          </Route>
         </Routes>
-      </main>
+      </div>
+    </AuthProvider>
   );
 }
 

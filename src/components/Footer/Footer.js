@@ -1,8 +1,16 @@
 import './Footer.css';
 
-export default function Footer(props) {
+export default function Footer({location}) {
   return (
-    <footer className="footer">
+    <footer
+      className={`footer ${
+        location === '/signup' ||
+        location === '/signin' ||
+        location === '/profile'
+          ? 'block__hide'
+          : ''
+      }`}
+    >
       <p className="footer__text">
         Учебный проект Яндекс.Практикум х BeatFilm.
       </p>

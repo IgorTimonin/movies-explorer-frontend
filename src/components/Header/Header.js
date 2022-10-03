@@ -8,19 +8,25 @@ export default function Header({
   isOpen,
   openMenu,
   closeMenu,
+  location,
   ...props
 }) {
   // const [screenRes, setScreenRes] = useState('');
-
   return (
-    <header className="header section">
+    <header
+      className={`header section ${
+        location === '/signup' || location === '/signin'
+          ? 'block__hide'
+          : ''
+      }`}
+    >
       <div className="header__nav-block">
         <Link className="header__logo app__btn-opacity" to="/" />
         <Navigation
           loggedIn
           isOpen={isOpen}
           closeMenu={closeMenu}
-          menuClass=''
+          menuClass=""
         ></Navigation>
       </div>
       <div className="header__user-block">
