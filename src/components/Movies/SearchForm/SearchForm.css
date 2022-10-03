@@ -33,6 +33,7 @@
 .searchBar__icon {
   height: 34px;
   min-width: 34px;
+  padding: 0;
   margin: 0 10px 0 19px;
   background-image: url(../../../images/find.svg);
   background-repeat: no-repeat;
@@ -71,8 +72,11 @@
 }
 
 .searchBar__submit {
+  appearance: none;
   margin: 0 30px 0 0;
   background-image: url(../../../images/go.svg);
+  background-color: #2f2f2f;
+  border: none;
 }
 
 .searchBar__separator {
