@@ -8,9 +8,8 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
-import { AuthProvider } from '../../hoc/AuthContext';
+import { CurrentUserContextProvider } from '../../hoc/AuthContext';
 import Layout from '../Layout/Layout';
-
 
 
 function App() {
@@ -25,7 +24,7 @@ function App() {
   };
 
   return (
-    <AuthProvider>
+    <CurrentUserContextProvider>
       <div className="App">
         <Routes>
           <Route
@@ -79,7 +78,7 @@ function App() {
           </Route>
         </Routes>
       </div>
-    </AuthProvider>
+    </CurrentUserContextProvider>
   );
 }
 

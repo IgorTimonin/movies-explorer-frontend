@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation';
 import './Header.css';
@@ -11,7 +10,6 @@ export default function Header({
   location,
   ...props
 }) {
-  // const [screenRes, setScreenRes] = useState('');
   return (
     <header
       className={`header section ${
