@@ -1,6 +1,8 @@
+import { apiPath } from '../../constants/constants';
 import './MoviesCard.css';
 
-export default function MoviesCard(props) {
+
+export default function MoviesCard({nameRU, duration, image, trailerLink , ...props}) {
   // function handleLikeClick() {
   //   onMovieLike(movie);
   // }
@@ -13,8 +15,8 @@ export default function MoviesCard(props) {
       <li className="movie__item">
         <div className="movie__title-container">
           <div className="movie__title">
-            <h2 className="movie__name">{props.nameRU}</h2>
-            <div className="movie__duration">{props.duration}</div>
+            <h2 className="movie__name">{nameRU}</h2>
+            <div className="movie__duration">{duration}</div>
           </div>
             <input
               className={`movie__bookmark-btn app__btn-opacity ${props.btnLogo}`}
@@ -25,8 +27,8 @@ export default function MoviesCard(props) {
         </div>
         <img
           className="movie__img"
-          src={props.image}
-          alt={props.nameRU}
+          src={`${apiPath}`+`${image}`}
+          alt={nameRU}
           // onClick={handleClick}
         />
       </li>

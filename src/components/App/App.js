@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
@@ -8,13 +8,15 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
-import { CurrentUserContextProvider } from '../../hoc/AuthContext';
+import { CurrentUserContextProvider } from '../../hoc/CurrentUserContext';
 import Layout from '../Layout/Layout';
-
+import MoviesApi from '../../utils/MoviesApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = [true];
   const [isOpen, setIsOpen] = useState(false);
+  const [moviesList, setMoviesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const handleMenuClick = () => {
     setIsOpen(true);
   };
@@ -22,6 +24,17 @@ function App() {
   const handleCloseMenuClick = () => {
     setIsOpen(false);
   };
+
+  function getMovies() {
+    setIsLoading(true)
+    MoviesApi()
+      .then((res) => {
+        setMoviesList(res);
+        // console.log(moviesList);
+      })
+      .catch((err) => console.log(err));
+      setIsLoading(false)
+  }
 
   return (
     <CurrentUserContextProvider>
@@ -55,10 +68,13 @@ function App() {
               path="/movies"
               element={
                 <Movies
+                  getMovies={getMovies}
+                  moviesList={moviesList}
                   loggedIn={loggedIn}
-                  isOpen={isOpen}
-                  handleMenuClick={handleMenuClick}
-                  handleCloseMenuClick={handleCloseMenuClick}
+                  isLoading={isLoading}
+                  // isOpen={isOpen}
+                  // handleMenuClick={handleMenuClick}
+                  // handleCloseMenuClick={handleCloseMenuClick}
                 />
               }
             ></Route>
