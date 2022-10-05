@@ -31,7 +31,8 @@ useState(() => {
         setFiltredMoviesList={setFiltredMoviesList}
         setIsLoading={setIsLoading}
       ></SearchForm>
-      <MoviesCardList>
+      <MoviesCardList isLoading={isLoading}>
+        <Preloader isLoading={isLoading}></Preloader>
         {filtredMoviesList.map((movie) => (
           <MoviesCard
             key={movie.id}
@@ -43,7 +44,7 @@ useState(() => {
           />
         ))}
       </MoviesCardList>
-      <Preloader isLoading={isLoading}></Preloader>
+      {/* <Preloader isLoading={isLoading}></Preloader> */}
     </section>
   );
 }

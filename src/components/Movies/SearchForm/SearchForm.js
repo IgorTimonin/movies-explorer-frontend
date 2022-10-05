@@ -19,12 +19,12 @@ export default function SearchForm({
 
   function searchHandler(searchQuery) {
     console.log(isShortFilm);
-    const resultList = moviesList.filter(
+    let resultList = moviesList.filter(
       (el) => el.nameRU.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
     );
-    isShortFilm
-      ? resultList.filter((el) => el.duration > 40)
-      : setFiltredMoviesList(resultList);
+    if (isShortFilm) {
+      resultList = resultList.filter((el) => el.duration >= 40);
+    }
     setFiltredMoviesList(resultList);
   }
 
