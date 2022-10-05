@@ -20,21 +20,32 @@ function App() {
   const handleMenuClick = () => {
     setIsOpen(true);
   };
-
+  // let res = [];
   const handleCloseMenuClick = () => {
     setIsOpen(false);
   };
+  // function listMaker(list) {
+  //   setMoviesList(list)
+  //   return moviesList;
+  // }
 
   function getMovies() {
-    setIsLoading(true)
     MoviesApi()
-      .then((res) => {
-        setMoviesList(res);
-        // console.log(moviesList);
+      .then((movies) => {
+        setMoviesList(movies)
+        // console.log(movies)
+        setIsLoading(false)
       })
-      .catch((err) => console.log(err));
-      setIsLoading(false)
+      .catch((err) => console.log(err))
   }
+
+    // useEffect(() => {
+    //   console.log(`useEffect: ${moviesList}`);
+    // }, [moviesList]);
+
+  // useEffect(() => {
+  //   res = moviesList;
+  // }, [moviesList]);
 
   return (
     <CurrentUserContextProvider>
@@ -70,8 +81,10 @@ function App() {
                 <Movies
                   getMovies={getMovies}
                   moviesList={moviesList}
+                  setMoviesList={setMoviesList}
                   loggedIn={loggedIn}
                   isLoading={isLoading}
+                  setIsLoading={setIsLoading}
                   // isOpen={isOpen}
                   // handleMenuClick={handleMenuClick}
                   // handleCloseMenuClick={handleCloseMenuClick}

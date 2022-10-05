@@ -6,7 +6,7 @@ import SearchForm from './SearchForm/SearchForm';
 import { useState } from 'react';
 
 
-export default function Movies({ getMovies, moviesList, loggedIn, isLoading, ...props }) {
+export default function Movies({ getMovies, moviesList, setMoviesList, loggedIn, isLoading, setIsLoading, ...props }) {
   // const [isOpen, setIsOpen] = useState(false);
 
   // const handleCloseMenuClick = () => {
@@ -18,13 +18,18 @@ export default function Movies({ getMovies, moviesList, loggedIn, isLoading, ...
   // const moviesRender = (arr, rowLenght) => {
   //   for ()
   // }
+useState(() => {
+  console.log(filtredMoviesList);
+}, [filtredMoviesList]);
 
   return (
     <section className="movies movies__container">
       <SearchForm
         getMovies={getMovies}
         moviesList={moviesList}
+        setMoviesList={setMoviesList}
         setFiltredMoviesList={setFiltredMoviesList}
+        setIsLoading={setIsLoading}
       ></SearchForm>
       <MoviesCardList>
         {filtredMoviesList.map((movie) => (

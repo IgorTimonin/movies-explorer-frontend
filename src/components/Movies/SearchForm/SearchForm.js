@@ -1,31 +1,48 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import MoviesApi from '../../../utils/MoviesApi';
 import './SearchForm.css';
 
 export default function SearchForm({
   getMovies,
   moviesList,
+  setMoviesList,
   setFiltredMoviesList,
+  setIsLoading,
   ...props
 }) {
   const [searchQuery, setSearchQuery] = useState(0);
+  const [isShortFilm, setIsShortFilm] = useState(false);
 
   function handleChangeQuery(e) {
     setSearchQuery(e.target.value);
   }
 
-  async function searchHandler(searchQuery) {
-    getMovies()
-    return await moviesList[searchQuery];
-    // moviesList.filter(
-    //     (el) => el.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
-    //   )
+  function searchHandler(searchQuery) {
+    console.log(isShortFilm);
+    const resultList = moviesList.filter(
+      (el) => el.nameRU.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
+    );
+    isShortFilm
+      ? resultList.filter((el) => el.duration > 40)
+      : setFiltredMoviesList(resultList);
+    setFiltredMoviesList(resultList);
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    console.log(searchHandler(searchQuery));
-    // setFiltredMoviesList(searchHandler(searchQuery));
+    setIsLoading(true);
+    getMovies();
   }
+
+  useEffect(() => {
+    console.log(isShortFilm);
+  }, [isShortFilm]);
+
+  useEffect(() => {
+    moviesList.length === 0
+      ? setTimeout(() => {}, 2000)
+      : searchHandler(searchQuery);
+  }, [moviesList]);
 
   return (
     <section className="searchForm">
@@ -49,10 +66,12 @@ export default function SearchForm({
           <div className="searchBar__separator searchBar__icon_hide"></div>
           <input
             type={'checkbox'}
-            name="shortMovies"
+            name="shortFilm"
             className="searchBar__checkbox app__btn-opacity"
+            checked={isShortFilm}
+            onChange={() => setIsShortFilm(!isShortFilm)}
           ></input>
-          <label htmlFor="shortMovies" className="searchBar__label">
+          <label htmlFor="shortFilm" className="searchBar__label">
             Короткометражки
           </label>
         </div>
