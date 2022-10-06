@@ -15,7 +15,9 @@ export default function Movies({
   ...props
 }) {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
-  const [rowLenght, setRowLenght] = useState(12);
+  const [limit, setLimit] = useState(12);
+  const [offset, setOffset] = useState(0);
+  const [afterSearch, setAfterSearch] = useState(false);
 
   // let moviesQty = 3;
   // const moviesRender = (arr, rowLenght) => {
@@ -25,21 +27,22 @@ export default function Movies({
   // useState(() => {
   //   console.log(filtredMoviesList);
   // }, [filtredMoviesList]);
-
+// console.log(filtredMoviesList.length);
+console.log(filtredMoviesList);
   return (
     <section className="movies movies__container">
       <SearchForm
         getMovies={getMovies}
         moviesList={moviesList}
-        setMoviesList={setMoviesList}
+        setAfterSearch={setAfterSearch}
         setFiltredMoviesList={setFiltredMoviesList}
         setIsLoading={setIsLoading}
       ></SearchForm>
       <MoviesCardList
         isLoading={isLoading}
-        moreBtnActive={filtredMoviesList.length > rowLenght ? true : false}
+        moreBtnActive={filtredMoviesList.length > limit ? true : false}
+        notFound={afterSearch && filtredMoviesList.length === 0 ? true : false}
       >
-        {/* <Preloader isLoading={isLoading}></Preloader> */}
         {filtredMoviesList.map((movie) => (
           <MoviesCard
             key={movie.id}
@@ -51,7 +54,6 @@ export default function Movies({
           />
         ))}
       </MoviesCardList>
-      {/* <Preloader isLoading={isLoading}></Preloader> */}
     </section>
   );
 }

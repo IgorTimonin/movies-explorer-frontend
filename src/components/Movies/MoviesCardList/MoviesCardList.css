@@ -3,7 +3,7 @@
   width: 100%;
   flex-direction: column;
   max-width: 1140px;
-  min-height: 20vw;
+  min-height: 25vw;
 }
 .moviesCardList__container {
   display: flex;
@@ -36,6 +36,16 @@
   background-color: transparent;
   border: #424242 2px solid;
   border-radius: 6px;
+}
+
+.moviesCardList__not-found {
+  margin: 0;
+  position: relative;
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  font-size: 18px;
+  line-height: 22px;
+  color: #ffffff;
+  align-self: center;
 }
 
 .btn_hide {

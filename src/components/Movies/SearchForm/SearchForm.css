@@ -56,6 +56,25 @@
   letter-spacing: 0.05em;
 }
 
+.searchBar__input:autofill,
+.searchBar__input:autofill:hover,
+.searchBar__input:autofill:focus,
+.searchBar__input:autofill:active {
+  outline: none !important;
+  box-shadow: 0 0 0 30px #2f2f2f inset !important;
+  color: #ffffff !important;
+}
+
+.searchBar__input:-webkit-autofill,
+.searchBar__input:-webkit-autofill:hover,
+.searchBar__input:-webkit-autofill:focus,
+.searchBar__input:-webkit-autofill:active {
+  outline: none !important;
+  -webkit-box-shadow: 0 0 0 30px #2f2f2f inset !important;
+  box-shadow: 0 0 0 30px #2f2f2f inset !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
 @media (max-width: 720px) {
   .searchBar__input {
     margin-left: 19px;

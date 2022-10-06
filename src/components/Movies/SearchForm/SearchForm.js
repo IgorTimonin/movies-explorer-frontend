@@ -1,54 +1,49 @@
 import { useEffect, useState } from 'react';
 import MoviesApi from '../../../utils/MoviesApi';
+import { moviesFilter } from '../../../utils/utils';
 import './SearchForm.css';
 
 export default function SearchForm({
   getMovies,
   moviesList,
-  setMoviesList,
+  setAfterSearch,
   setFiltredMoviesList,
   setIsLoading,
   ...props
 }) {
-  const [searchQuery, setSearchQuery] = useState(0);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
 
   function handleChangeQuery(e) {
     setSearchQuery(e.target.value);
   }
 
-  function searchHandler(searchQuery) {
-    let resultList = moviesList.filter(
-      (el) => el.nameRU.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
-    );
-    if (isShortFilm) {
-      resultList = resultList.filter((el) => el.duration <= 40);
-    }
-    setFiltredMoviesList(resultList);
+  function searchHandler() {
+    setFiltredMoviesList(moviesFilter(moviesList, searchQuery, isShortFilm));
+    setAfterSearch(true);
   }
 
   function submitHandler(e) {
     e.preventDefault();
+    setAfterSearch(false)
     setIsLoading(true);
     getMovies();
   }
 
   useEffect(() => {
-    console.log('');
-  }, [isShortFilm]);
-
-  useEffect(() => {
     moviesList.length === 0
       ? setTimeout(() => {}, 2000)
-      : searchHandler(searchQuery);
+      : searchHandler();
   }, [moviesList]);
 
   return (
     <section className="searchForm">
       <div className="searchBar">
-        <form className="searchBar__finder">
+        <form className="searchBar__finder" onSubmit={submitHandler}>
           <div className="searchBar__icon searchBar__icon_hide"></div>
           <input
+            type="text"
+            name="searchMovie"
             className="searchBar__input"
             placeholder="Фильм"
             required
@@ -57,7 +52,6 @@ export default function SearchForm({
           <button
             type="submit"
             className="searchBar__icon searchBar__submit app__btn-opacity"
-            onClick={submitHandler}
           ></button>
         </form>
 

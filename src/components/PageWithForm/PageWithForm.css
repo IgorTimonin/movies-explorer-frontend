@@ -80,7 +80,7 @@
 .auth__field:autofill:focus,
 .auth__field:autofill:active {
   outline: none !important;
-  box-shadow: 0 0 0 30px rgb(20, 20, 20) inset !important;
+  box-shadow: 0 0 0 30px #202020 inset !important;
   color: #ccc !important;
 }
 
