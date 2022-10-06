@@ -3,7 +3,7 @@ import './MoviesCardList.css';
 
 
 
-export default function MoviesCardList({movies , moreBtnActive, notFound, isLoading, ...props}) {
+export default function MoviesCardList({movies , moreBtnActive, notFound, offsetChanger, isLoading, ...props}) {
   return (
     <section className="moviesCardList">
       <div className="moviesCardList__container">
@@ -17,7 +17,7 @@ export default function MoviesCardList({movies , moreBtnActive, notFound, isLoad
             className={`moviesCardList_more-btn app__btn-opacity ${
               moreBtnActive ? '' : 'block__hide'
             }`}
-            // onClick={}
+            onClick={offsetChanger}
           >
             Ещё
           </button>

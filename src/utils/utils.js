@@ -7,3 +7,10 @@ export function moviesFilter(arr, query, isShortFilm) {
   }
   return resultList;
 }
+
+// export function showArray(limit, offcet, arr) {
+//   limit += offcet;
+//   for (offcet; offcet < limit && offcet < arr.length; offcet++) {
+//     += arr[offcet];
+//   }
+// }

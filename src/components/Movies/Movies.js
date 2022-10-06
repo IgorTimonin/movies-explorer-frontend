@@ -3,7 +3,7 @@ import MoviesCard from './MoviesCard/MoviesCard';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import Preloader from './Preloader/Preloader';
 import SearchForm from './SearchForm/SearchForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Movies({
   getMovies,
@@ -15,20 +15,25 @@ export default function Movies({
   ...props
 }) {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
-  const [limit, setLimit] = useState(12);
-  const [offset, setOffset] = useState(0);
+  const [limit, setLimit] = useState(4);
+  const [offset, setOffset] = useState(limit);
   const [afterSearch, setAfterSearch] = useState(false);
+  const [moreBtnActive, setMoreBtnActive] = useState(false);
 
-  // let moviesQty = 3;
-  // const moviesRender = (arr, rowLenght) => {
-  //   for ()
-  // }
+  function offsetChanger() {
+    if (offset < filtredMoviesList.length) {
+      setOffset(limit + offset);
+    }
+    setMoreBtnActive(false);
+  }
 
-  // useState(() => {
-  //   console.log(filtredMoviesList);
-  // }, [filtredMoviesList]);
-// console.log(filtredMoviesList.length);
-console.log(filtredMoviesList);
+  useEffect(() => {
+    filtredMoviesList.length > limit
+      ? setMoreBtnActive(true)
+      : setMoreBtnActive(false);
+    setOffset(limit);
+  }, [filtredMoviesList]);
+
   return (
     <section className="movies movies__container">
       <SearchForm
@@ -40,10 +45,11 @@ console.log(filtredMoviesList);
       ></SearchForm>
       <MoviesCardList
         isLoading={isLoading}
-        moreBtnActive={filtredMoviesList.length > limit ? true : false}
+        moreBtnActive={moreBtnActive}
         notFound={afterSearch && filtredMoviesList.length === 0 ? true : false}
+        offsetChanger={offsetChanger}
       >
-        {filtredMoviesList.map((movie) => (
+        {filtredMoviesList.slice(0, offset).map((movie) => (
           <MoviesCard
             key={movie.id}
             nameRU={movie.nameRU}
