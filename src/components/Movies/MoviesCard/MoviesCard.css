@@ -46,6 +46,10 @@
   line-height: 18px;
 }
 
+.movie__img {
+  /* display: flex; */
+}
+
 .movie__bookmark-btn {
   margin: 0;
   appearance:none;

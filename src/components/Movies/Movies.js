@@ -5,22 +5,26 @@ import Preloader from './Preloader/Preloader';
 import SearchForm from './SearchForm/SearchForm';
 import { useState } from 'react';
 
+export default function Movies({
+  getMovies,
+  moviesList,
+  setMoviesList,
+  loggedIn,
+  isLoading,
+  setIsLoading,
+  ...props
+}) {
+  const [filtredMoviesList, setFiltredMoviesList] = useState([]);
+  const [rowLenght, setRowLenght] = useState(12);
 
-export default function Movies({ getMovies, moviesList, setMoviesList, loggedIn, isLoading, setIsLoading, ...props }) {
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const handleCloseMenuClick = () => {
-  //   setIsOpen(false);
-  // };
-  const [filtredMoviesList, setFiltredMoviesList] = useState([])
-  const [rowLenght, setRowLenght] = useState(3)
   // let moviesQty = 3;
   // const moviesRender = (arr, rowLenght) => {
   //   for ()
   // }
-useState(() => {
-  console.log(filtredMoviesList);
-}, [filtredMoviesList]);
+
+  // useState(() => {
+  //   console.log(filtredMoviesList);
+  // }, [filtredMoviesList]);
 
   return (
     <section className="movies movies__container">
@@ -31,8 +35,11 @@ useState(() => {
         setFiltredMoviesList={setFiltredMoviesList}
         setIsLoading={setIsLoading}
       ></SearchForm>
-      <MoviesCardList isLoading={isLoading}>
-        <Preloader isLoading={isLoading}></Preloader>
+      <MoviesCardList
+        isLoading={isLoading}
+        moreBtnActive={filtredMoviesList.length > rowLenght ? true : false}
+      >
+        {/* <Preloader isLoading={isLoading}></Preloader> */}
         {filtredMoviesList.map((movie) => (
           <MoviesCard
             key={movie.id}

@@ -20,32 +20,19 @@ function App() {
   const handleMenuClick = () => {
     setIsOpen(true);
   };
-  // let res = [];
+
   const handleCloseMenuClick = () => {
     setIsOpen(false);
   };
-  // function listMaker(list) {
-  //   setMoviesList(list)
-  //   return moviesList;
-  // }
 
   function getMovies() {
     MoviesApi()
       .then((movies) => {
         setMoviesList(movies)
-        // console.log(movies)
         setIsLoading(false)
       })
       .catch((err) => console.log(err))
   }
-
-    // useEffect(() => {
-    //   console.log(`useEffect: ${moviesList}`);
-    // }, [moviesList]);
-
-  // useEffect(() => {
-  //   res = moviesList;
-  // }, [moviesList]);
 
   return (
     <CurrentUserContextProvider>

@@ -18,12 +18,11 @@ export default function SearchForm({
   }
 
   function searchHandler(searchQuery) {
-    console.log(isShortFilm);
     let resultList = moviesList.filter(
       (el) => el.nameRU.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1
     );
     if (isShortFilm) {
-      resultList = resultList.filter((el) => el.duration >= 40);
+      resultList = resultList.filter((el) => el.duration <= 40);
     }
     setFiltredMoviesList(resultList);
   }
@@ -35,7 +34,7 @@ export default function SearchForm({
   }
 
   useEffect(() => {
-    console.log(isShortFilm);
+    console.log('');
   }, [isShortFilm]);
 
   useEffect(() => {
