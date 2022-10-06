@@ -26,6 +26,7 @@
   display: flex;
   align-items: center;
   color: #8b8b8b;
+  letter-spacing: 1px;
 }
 
 .movie__title-container {
@@ -34,7 +35,7 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  margin: 14px 10px 14px 12px
+  margin: 14px 5px 14px 12px
 }
 
 .movie__name {

@@ -1,6 +1,6 @@
+import { timeToHour } from '../../../utils/utils';
 import { apiPath } from '../../constants/constants';
 import './MoviesCard.css';
-
 
 export default function MoviesCard({nameRU, duration, image, trailerLink , ...props}) {
   // function handleLikeClick() {
@@ -16,18 +16,18 @@ export default function MoviesCard({nameRU, duration, image, trailerLink , ...pr
         <div className="movie__title-container">
           <div className="movie__title">
             <h2 className="movie__name">{nameRU}</h2>
-            <div className="movie__duration">{duration}</div>
+            <div className="movie__duration">{timeToHour(duration)}</div>
           </div>
-            <input
-              className={`movie__bookmark-btn app__btn-opacity ${props.btnLogo}`}
-              // {movieLikeBtnClassName}
-              type={'checkbox'}
-              // onClick={handleLikeClick}
-            ></input>
+          <input
+            className={`movie__bookmark-btn app__btn-opacity ${props.btnLogo}`}
+            // {movieLikeBtnClassName}
+            type={'checkbox'}
+            // onClick={handleLikeClick}
+          ></input>
         </div>
         <img
           className="movie__img"
-          src={`${apiPath}`+`${image}`}
+          src={`${apiPath}` + `${image}`}
           alt={nameRU}
           // onClick={handleClick}
         />

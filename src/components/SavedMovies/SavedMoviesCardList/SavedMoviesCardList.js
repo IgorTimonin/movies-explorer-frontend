@@ -7,35 +7,24 @@ import pic from '../../../images/pic__COLOR_pic.jpg';
 import pic1 from '../../../images/pic__COLOR_pic-6.jpg';
 import pic2 from '../../../images/pic__COLOR_pic-2.jpg';
 
-export default function SavedMoviesCardList(props) {
+export default function SavedMoviesCardList({
+  movies,
+  isLoading,
+  savedMoviesList,
+  ...props
+}) {
   return (
     <MoviesCardList btn={'btn_hide'}>
-      <MoviesCard
-        nameRU={'33 слова о дизайне'}
-        duration={'1ч 47м'}
-        image={pic}
-        btnLogo={'movie__bookmark-btn_del'}
-      />
-      <MoviesCard
-        nameRU={'33 слова о дизайне'}
-        duration={'1ч 47м'}
-        image={pic1}
-        btnLogo={'movie__bookmark-btn_del'}
-      />
-      <MoviesCard
-        nameRU={'33 слова о дизайне'}
-        duration={'1ч 47м'}
-        image={pic2}
-        btnLogo={'movie__bookmark-btn_del'}
-      />
+      {savedMoviesList.map((movie) => (
+        <MoviesCard
+          key={movie.id}
+          nameRU={movie.nameRU}
+          duration={movie.duration}
+          image={movie.image.url}
+          trailerLink={movie.trailerLink}
+          btnLogo={'movie__bookmark-btn_del'}
+        />
+      ))}
     </MoviesCardList>
-    // <section className="moviesCardList">
-    //   <ul className="movieCardList__gallery">
-    // <MoviesCard nameRU={'33 слова о дизайне'}
-    //   duration={'1ч 47м'}
-    //   image={pic}
-    //   btnLogo={'movie__bookmark-btn_del'}></MoviesCard>
-    //   </ul>
-    //   </section>
   );
 }

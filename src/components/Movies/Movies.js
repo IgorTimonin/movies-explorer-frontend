@@ -1,7 +1,6 @@
 import './Movies.css';
 import MoviesCard from './MoviesCard/MoviesCard';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import Preloader from './Preloader/Preloader';
 import SearchForm from './SearchForm/SearchForm';
 import { useEffect, useState } from 'react';
 
@@ -12,6 +11,7 @@ export default function Movies({
   loggedIn,
   isLoading,
   setIsLoading,
+  location,
   ...props
 }) {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
@@ -42,6 +42,7 @@ export default function Movies({
         setAfterSearch={setAfterSearch}
         setFiltredMoviesList={setFiltredMoviesList}
         setIsLoading={setIsLoading}
+        location={location}
       ></SearchForm>
       <MoviesCardList
         isLoading={isLoading}

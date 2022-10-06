@@ -11,11 +11,3 @@ export default function MoviesApi() {
   return fetch(movieApiPath).then(result);
 }
 
-// export default async function MoviesApi() {
-//   const response = await fetch(movieApiPath);
-//   if (!response.ok) {
-//     throw new Error(`HTTP error! status: ${response.status}`);
-//   }
-//   const data = await response.json();
-//   return data;
-// };

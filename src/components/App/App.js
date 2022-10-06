@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { CurrentUserContextProvider } from '../../hoc/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -8,11 +9,11 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
-import { CurrentUserContextProvider } from '../../hoc/CurrentUserContext';
 import Layout from '../Layout/Layout';
 import MoviesApi from '../../utils/MoviesApi';
 
 function App() {
+  const location = useLocation();
   const [loggedIn, setLoggedIn] = [true];
   const [isOpen, setIsOpen] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
@@ -28,10 +29,10 @@ function App() {
   function getMovies() {
     MoviesApi()
       .then((movies) => {
-        setMoviesList(movies)
-        setIsLoading(false)
+        setMoviesList(movies);
+        setIsLoading(false);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -42,6 +43,7 @@ function App() {
             path="/"
             element={
               <Layout
+                location={location.pathname}
                 loggedIn={loggedIn}
                 isOpen={isOpen}
                 menuClick={handleMenuClick}
@@ -72,9 +74,7 @@ function App() {
                   loggedIn={loggedIn}
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
-                  // isOpen={isOpen}
-                  // handleMenuClick={handleMenuClick}
-                  // handleCloseMenuClick={handleCloseMenuClick}
+                  location={location.pathname}
                 />
               }
             ></Route>
@@ -82,6 +82,7 @@ function App() {
               path="/saved-movies"
               element={
                 <SavedMovies
+                  savedMoviesList={moviesList}
                   loggedIn={loggedIn}
                   isOpen={isOpen}
                   handleMenuClick={handleMenuClick}

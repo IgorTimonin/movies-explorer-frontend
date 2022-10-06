@@ -9,6 +9,7 @@ export default function SearchForm({
   setAfterSearch,
   setFiltredMoviesList,
   setIsLoading,
+  location,
   ...props
 }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -25,15 +26,15 @@ export default function SearchForm({
 
   function submitHandler(e) {
     e.preventDefault();
-    setAfterSearch(false)
+    setAfterSearch(false);
     setIsLoading(true);
     getMovies();
   }
 
   useEffect(() => {
-    moviesList.length === 0
-      ? setTimeout(() => {}, 2000)
-      : searchHandler();
+    if (location === '/movies') {
+      moviesList.length === 0 ? setTimeout(() => {}, 2000) : searchHandler();
+    }
   }, [moviesList]);
 
   return (
