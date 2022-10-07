@@ -11,6 +11,8 @@ export default function SearchForm({
   filtredMoviesList,
   setIsLoading,
   location,
+  offsetReset,
+  windowWidthChecker,
   ...props
 }) {
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,6 +23,7 @@ export default function SearchForm({
   }
 
   function searchHandler() {
+    setIsSearchEnd(false);
     isShortFilm
       ? setFiltredMoviesList(
           moviesFinder(shortFilmSorter(moviesList), searchQuery)
@@ -31,7 +34,10 @@ export default function SearchForm({
 
   function submitHandler(e) {
     e.preventDefault();
-    setIsSearchEnd(false);
+    // console.log(window.innerWidth);
+    // offsetReset();
+    windowWidthChecker();
+    // setIsSearchEnd(false);
     setIsLoading(true);
     getMovies();
   }
@@ -40,7 +46,7 @@ export default function SearchForm({
     isShortFilm
       ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
       : searchHandler();
-      setIsSearchEnd(true);
+    setIsSearchEnd(true);
   }, [isShortFilm]);
 
   useEffect(() => {
