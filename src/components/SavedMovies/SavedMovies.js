@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 export default function SavedMovies(props) {
 
-  // const [savedMoviesList, setSavedMoviesList] = useState([]);
+  const [savedMoviesList, setSavedMoviesList] = useState([]);
 
   return (
     <section className="movies movies__container">

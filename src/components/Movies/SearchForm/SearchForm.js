@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import MoviesApi from '../../../utils/MoviesApi';
-import { moviesFilter } from '../../../utils/utils';
+import { moviesFinder, shortFilmSorter } from '../../../utils/utils';
 import './SearchForm.css';
 
 export default function SearchForm({
   getMovies,
   moviesList,
-  setAfterSearch,
+  setIsSearchEnd,
   setFiltredMoviesList,
+  filtredMoviesList,
   setIsLoading,
   location,
   ...props
@@ -20,16 +21,27 @@ export default function SearchForm({
   }
 
   function searchHandler() {
-    setFiltredMoviesList(moviesFilter(moviesList, searchQuery, isShortFilm));
-    setAfterSearch(true);
+    isShortFilm
+      ? setFiltredMoviesList(
+          moviesFinder(shortFilmSorter(moviesList), searchQuery)
+        )
+      : setFiltredMoviesList(moviesFinder(moviesList, searchQuery));
+    setIsSearchEnd(true);
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    setAfterSearch(false);
+    setIsSearchEnd(false);
     setIsLoading(true);
     getMovies();
   }
+
+  useEffect(() => {
+    isShortFilm
+      ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
+      : searchHandler();
+      setIsSearchEnd(true);
+  }, [isShortFilm]);
 
   useEffect(() => {
     if (location === '/movies') {

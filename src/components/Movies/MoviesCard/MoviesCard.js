@@ -1,5 +1,5 @@
 import { timeToHour } from '../../../utils/utils';
-import { apiPath } from '../../constants/constants';
+import { baseApiPath } from '../../constants/constants';
 import './MoviesCard.css';
 
 export default function MoviesCard({nameRU, duration, image, trailerLink , ...props}) {
@@ -27,7 +27,7 @@ export default function MoviesCard({nameRU, duration, image, trailerLink , ...pr
         </div>
         <img
           className="movie__img"
-          src={`${apiPath}` + `${image}`}
+          src={`${baseApiPath}` + `${image}`}
           alt={nameRU}
           // onClick={handleClick}
         />

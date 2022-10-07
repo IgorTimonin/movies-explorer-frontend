@@ -1,2 +1,3 @@
-export const apiPath = 'https://api.nomoreparties.co';
-export const movieApiPath = apiPath + '/beatfilm-movies';
+export const baseApiPath = 'https://api.nomoreparties.co';
+export const movieApiPath = baseApiPath + '/beatfilm-movies';
+export const mainApiPath = 'api.filmexplorer.students.nomoredomains.sbs';

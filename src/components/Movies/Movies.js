@@ -15,9 +15,9 @@ export default function Movies({
   ...props
 }) {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
-  const [limit, setLimit] = useState(4);
+  const [limit, setLimit] = useState(12);
   const [offset, setOffset] = useState(limit);
-  const [afterSearch, setAfterSearch] = useState(false);
+  const [isSearchEnd, setIsSearchEnd] = useState(false);
   const [moreBtnActive, setMoreBtnActive] = useState(false);
 
   function offsetChanger() {
@@ -39,15 +39,16 @@ export default function Movies({
       <SearchForm
         getMovies={getMovies}
         moviesList={moviesList}
-        setAfterSearch={setAfterSearch}
+        setIsSearchEnd={setIsSearchEnd}
         setFiltredMoviesList={setFiltredMoviesList}
+        filtredMoviesList={filtredMoviesList}
         setIsLoading={setIsLoading}
         location={location}
       ></SearchForm>
       <MoviesCardList
         isLoading={isLoading}
         moreBtnActive={moreBtnActive}
-        notFound={afterSearch && filtredMoviesList.length === 0 ? true : false}
+        notFound={isSearchEnd && filtredMoviesList.length === 0 ? true : false}
         offsetChanger={offsetChanger}
       >
         {filtredMoviesList.slice(0, offset).map((movie) => (

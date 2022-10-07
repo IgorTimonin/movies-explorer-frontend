@@ -82,7 +82,6 @@ function App() {
               path="/saved-movies"
               element={
                 <SavedMovies
-                  savedMoviesList={moviesList}
                   loggedIn={loggedIn}
                   isOpen={isOpen}
                   handleMenuClick={handleMenuClick}
