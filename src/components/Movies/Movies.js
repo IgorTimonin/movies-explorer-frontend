@@ -64,27 +64,18 @@ export default function Movies({
     }
   }
 
-  // useEffect(() => {
-  //   setOffset(limit);;
-  // }, [limit]);
-
   useEffect(() => {
-    window.addEventListener(
-      'resize',
-      () => {
-        setTimeout(() => {
-          windowWidthChecker();
-        }, 2000);
-      }
-    );
-    return (window.addEventListener(
-      'resize',
-      () => {
-        setTimeout(() => {
-          windowWidthChecker();
-        }, 2000);
-      }
-    ))
+    let resizeTimeout;
+
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(windowWidthChecker, 2000);
+    });
+
+    window.removeEventListener('resize', () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(windowWidthChecker, 2000);
+    });
   }, []);
 
   useEffect(() => {
