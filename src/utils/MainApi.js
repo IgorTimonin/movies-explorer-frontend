@@ -13,15 +13,15 @@ class Api {
     this._headers = headers;
   }
 
-  signInSignUp(endpoint, password, email) {
+  signInSignUp(endpoint, name, password, email) {
     return fetch(this._apiPath + `${endpoint}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(password, email),
+      body: JSON.stringify(name, password, email),
     }).then(resultHandler);
   }
 
-  getUserData(endpoint) {
+  getUserData() {
     return fetch((this._apiPath + `/users/me`), {
       headers: this._headers,
     }).then(resultHandler);
@@ -71,6 +71,6 @@ class Api {
   }
 }
 
-export const api = new Api(mainApiPath, {
+export const mainApi = new Api(mainApiPath, {
   'Content-Type': 'application/json',
 });

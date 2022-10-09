@@ -11,6 +11,7 @@ import Profile from '../Profile/Profile';
 import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
 import MoviesApi from '../../utils/MoviesApi';
+import { mainApi } from '../../utils/MainApi';
 
 function App() {
   const location = useLocation();
@@ -18,6 +19,44 @@ function App() {
   const [isOpen, setIsOpen] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [currentUser, setCurrentUser] = useState({
+    name: 'пользователь',
+    email: 'ваш email',
+  });
+
+    function onSignUp(email, password) {
+      mainApi
+        .signInSignUp('/signup', email, password)
+        .then((res) => {
+          if (res.statusCode !== 400) {
+            console.log('Успешная регистрация');
+            // setIsRegStatus('ok');
+            // setIsInfoToolTipOpen(true);
+          }
+        })
+        .catch((err) => {
+          console.log(`Ошибка при регистрации: ${err}`);
+          // setIsRegStatus('error');
+          // setIsInfoToolTipOpen(true);
+        });
+    }
+
+    function onSignIn(password, email) {
+      mainApi
+        .signInSignUp('/signin', password, email)
+        .then((res) => {
+          if (res.token) {
+            localStorage.setItem('jwt', res.token);
+            // localStorage.setItem('sessionToken', '1');
+            // checkSessionToken();
+            // tokenCheck();
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+
+    
+
   const handleMenuClick = () => {
     setIsOpen(true);
   };
