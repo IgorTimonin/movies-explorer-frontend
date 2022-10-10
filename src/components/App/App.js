@@ -24,38 +24,36 @@ function App() {
     email: 'ваш email',
   });
 
-    function onSignUp(email, password) {
-      mainApi
-        .signInSignUp('/signup', email, password)
-        .then((res) => {
-          if (res.statusCode !== 400) {
-            console.log('Успешная регистрация');
-            // setIsRegStatus('ok');
-            // setIsInfoToolTipOpen(true);
-          }
-        })
-        .catch((err) => {
-          console.log(`Ошибка при регистрации: ${err}`);
-          // setIsRegStatus('error');
+  function onSignUp(name, email, password) {
+    mainApi
+      .signInSignUp('/signup', name, email, password)
+      .then((res) => {
+        if (res.statusCode !== 400) {
+          console.log('Успешная регистрация');
+          // setIsRegStatus('ok');
           // setIsInfoToolTipOpen(true);
-        });
-    }
+        }
+      })
+      .catch((err) => {
+        console.log(`Ошибка при регистрации: ${err}`);
+        // setIsRegStatus('error');
+        // setIsInfoToolTipOpen(true);
+      });
+  }
 
-    function onSignIn(password, email) {
-      mainApi
-        .signInSignUp('/signin', password, email)
-        .then((res) => {
-          if (res.token) {
-            localStorage.setItem('jwt', res.token);
-            // localStorage.setItem('sessionToken', '1');
-            // checkSessionToken();
-            // tokenCheck();
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-
-    
+  function onSignIn(password, email) {
+    mainApi
+      .signInSignUp('/signin', password, email)
+      .then((res) => {
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          // localStorage.setItem('sessionToken', '1');
+          // checkSessionToken();
+          // tokenCheck();
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   const handleMenuClick = () => {
     setIsOpen(true);
@@ -78,6 +76,11 @@ function App() {
     <CurrentUserContextProvider>
       <div className="App">
         <Routes>
+          <Route path="/signin" element={<Login onSubmit={onSignIn} />}></Route>
+          <Route
+            path="/signup"
+            element={<Register onSubmit={onSignUp} />}
+          ></Route>
           <Route
             path="/"
             element={
@@ -101,8 +104,6 @@ function App() {
                 />
               }
             ></Route>
-            <Route path="/signin" element={<Login />}></Route>
-            <Route path="/signup" element={<Register />}></Route>
             <Route
               path="/movies"
               element={

@@ -2,7 +2,7 @@ import PageWithForm from '../PageWithForm/PageWithForm';
 import React from 'react';
 import './Register.css';
 
-export default function Register(props) {
+export default function Register({ onSubmit, ...props }) {
   return (
     <section className="register section_height">
       <PageWithForm
@@ -13,7 +13,7 @@ export default function Register(props) {
         linkTo="/signin"
         underBtnText="Уже зарегистрированы?"
         linkText="Войти"
-        // onSubmit={onSignIn}
+        onSubmit={onSubmit}
       ></PageWithForm>
     </section>
   );

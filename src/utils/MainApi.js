@@ -72,5 +72,5 @@ class Api {
 }
 
 export const mainApi = new Api(mainApiPath, {
-  'Content-Type': 'application/json',
+  
 });

@@ -7,10 +7,14 @@ import { useState } from 'react';
 export default function SavedMovies(props) {
 
   const [savedMoviesList, setSavedMoviesList] = useState([]);
+let isSearchEnd = false;
 
+function setIsSearchEnd(boolean) {
+  isSearchEnd = boolean;
+}
   return (
     <section className="movies movies__container">
-      <SearchForm></SearchForm>
+      <SearchForm setIsSearchEnd={setIsSearchEnd}></SearchForm>
       <SavedMoviesCardList
         savedMoviesList={props.savedMoviesList}
       ></SavedMoviesCardList>

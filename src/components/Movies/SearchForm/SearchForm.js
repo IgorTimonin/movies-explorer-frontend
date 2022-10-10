@@ -34,19 +34,18 @@ export default function SearchForm({
 
   function submitHandler(e) {
     e.preventDefault();
-    // console.log(window.innerWidth);
-    // offsetReset();
     windowWidthChecker();
-    // setIsSearchEnd(false);
     setIsLoading(true);
     getMovies();
   }
 
   useEffect(() => {
-    isShortFilm
-      ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
-      : searchHandler();
-    setIsSearchEnd(true);
+    if (location === '/movies') {
+      isShortFilm
+        ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
+        : searchHandler();
+      setIsSearchEnd(true);
+    }
   }, [isShortFilm]);
 
   useEffect(() => {

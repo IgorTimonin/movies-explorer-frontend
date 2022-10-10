@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
   max-width: 1280px;
-  padding-top: 15px;
+  padding-top: 18px;
   padding-bottom: 15px;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
 }
@@ -21,6 +21,10 @@
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
+}
+
+.header__user-block_mobile {
+  display: flex !important;
 }
 
 .header__logo {
@@ -70,7 +74,7 @@
 
 @media screen and (max-width: 800px) {
   .header {
-    padding: 15px 30px 0;
+    padding: 18px 30px 18px;
   }
   .header__user-block {
     display: none;
@@ -83,5 +87,14 @@
     background-color: #202020;
     background-image: url(../../images/menu.svg);
     border: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .header {
+    padding: 18px 14px 14px;
+  }
+  .header__reg-btn {
+    margin-right: 14px;
   }
 }

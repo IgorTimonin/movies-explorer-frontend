@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PageWithForm.css';
 
-export default function PageWithForm(props) {
-  const [userName, setUserName] = useState('Виталий');
-  const [email, setEmail] = useState('pochta@yandex.ru');
-  const [password, setPassword] = useState('12345678');
+export default function PageWithForm({ onSubmit, ...props }) {
+  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function handleSetUserName(e) {
     setUserName(e.target.value);
@@ -22,7 +22,7 @@ export default function PageWithForm(props) {
   function handleSubmit(e) {
     e.preventDefault();
 
-    props.onSubmit({
+    onSubmit({
       userName,
       password,
       email,
@@ -90,7 +90,7 @@ export default function PageWithForm(props) {
             </label>
             <input
               id={props.inputId}
-              className="auth__field auth__field_underline input-error_active"
+              className="auth__field auth__field_underline"
               type="password"
               value={password}
               onChange={handleSetPassword}
@@ -99,7 +99,7 @@ export default function PageWithForm(props) {
               autoComplete="current-password"
               required
             ></input>
-            <span className="user-password-input-error input-error_auth input-error_active">
+            <span className="user-password-input-error input-error_auth">
               Что-то пошло не так...
             </span>
           </div>
