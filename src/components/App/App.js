@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContextProvider } from '../../hoc/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
@@ -15,10 +15,11 @@ import { mainApi } from '../../utils/MainApi';
 
 function App() {
   const location = useLocation();
-  const [loggedIn, setLoggedIn] = [false];
+  const [loggedIn, setLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const nav = useNavigate();
   const [currentUser, setCurrentUser] = useState({
     name: 'пользователь',
     email: 'ваш email',
@@ -29,9 +30,8 @@ function App() {
       .signInSignUp('/signup', name, email, password)
       .then((res) => {
         if (res.statusCode !== 400) {
-          console.log('Успешная регистрация');
-          // setIsRegStatus('ok');
-          // setIsInfoToolTipOpen(true);
+          setLoggedIn(true);
+          nav('/movies');
         }
       })
       .catch((err) => {
@@ -47,9 +47,20 @@ function App() {
       .then((res) => {
         if (res.token) {
           localStorage.setItem('jwt', res.token);
-          // localStorage.setItem('sessionToken', '1');
-          // checkSessionToken();
           // tokenCheck();
+          nav('/movies');
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function tokenCheck() {
+    mainApi
+      .userValidation('/users/me')
+      .then((res) => {
+        if (res.email) {
+          setCurrentUser(res);
+          setLoggedIn(true);
         }
       })
       .catch((err) => console.log(err));

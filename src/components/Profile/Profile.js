@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
+import { CurrentUserContext } from '../../hoc/CurrentUserContext';
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
 
-export default function Profile(props) {
-  const [userName, setUserName] = useState('Виталий');
-  const [email, setEmail] = useState('pochta@yandex.ru');
+export default function Profile({onSubmit, name, ...props}) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const [userName, setUserName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
   const [onEdit, setOnEdit] = useState(false);
 
   function handleSetUserName(e) {
     setUserName(e.target.value);
   }
-
   function handleSetEmail(e) {
     setEmail(e.target.value);
   }
@@ -21,11 +22,10 @@ export default function Profile(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // props.onSubmit({
-    //   userName,
-    //   email,
-    // });
+    onSubmit({
+      name,
+      email
+    })
     setUserName('');
     setEmail('');
     setOnEdit(false);
@@ -44,7 +44,6 @@ export default function Profile(props) {
           linkText="Выйти из аккаунта"
           // onSubmit={onSignIn}
         ></PageWithForm> */}
-
         <div className="auth__container auth__container_profile">
           <h2 className="userProfile__title">Привет, {userName}!</h2>
           <form

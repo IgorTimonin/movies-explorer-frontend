@@ -16,6 +16,7 @@ class Api {
   signInSignUp(endpoint, name, password, email) {
     return fetch(this._apiPath + `${endpoint}`, {
       method: 'POST',
+      credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(name, password, email),
     }).then(resultHandler);
@@ -72,5 +73,5 @@ class Api {
 }
 
 export const mainApi = new Api(mainApiPath, {
-  
+
 });

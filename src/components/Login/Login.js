@@ -7,7 +7,7 @@ export default function Login(props) {
       <PageWithForm
         title="Рады видеть!"
         btnText="Войти"
-        name="login"
+        formName="login"
         inputId="current-password"
         linkTo="/signup"
         underBtnText="Ещё не зарегистрированы?"

@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './PageWithForm.css';
 
-export default function PageWithForm({ onSubmit, ...props }) {
-  const [userName, setUserName] = useState('');
+export default function PageWithForm({
+  onSubmit,
+  name,
+  setUserName,
+  ...props
+}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  function handleSetUserName(e) {
-    setUserName(e.target.value);
-  }
 
   function handleSetEmail(e) {
     setEmail(e.target.value);
@@ -19,15 +19,24 @@ export default function PageWithForm({ onSubmit, ...props }) {
     setPassword(e.target.value);
   }
 
-  function handleSubmit(e) {
+  function handleSubmitSignup(e) {
     e.preventDefault();
-
     onSubmit({
-      userName,
+      name,
       password,
       email,
     });
     setUserName('');
+    setEmail('');
+    setPassword('');
+  }
+
+  function handleSubmitSignin(e) {
+    e.preventDefault();
+    onSubmit({
+      password,
+      email,
+    });
     setEmail('');
     setPassword('');
   }
@@ -41,30 +50,35 @@ export default function PageWithForm({ onSubmit, ...props }) {
         />
         <h2 className="auth__title">{props.title}</h2>
         <form
-          onSubmit={handleSubmit}
-          className={`auth__form auth__${props.name}-form`}
-          name={`${props.name}_form`}
+          onSubmit={
+            props.formName === 'register'
+              ? handleSubmitSignup
+              : handleSubmitSignin
+          }
+          // {handleSubmit}
+          className={`auth__form auth__${props.formName}-form`}
+          name={`${props.formName}_form`}
           action="#"
         >
           <div className="auth__formInputBlock auth__formBlock">
             {props.children}
             {/* <label
-              htmlFor="userName"
+              htmlFor="name"
               className={`auth__input-label ${
-                props.name === 'register' ? '' : 'block__hide'
+                props.formName === 'register' ? '' : 'block__hide'
               }`}
             >
               Имя
             </label>
             <input
               className={`auth__field auth__field_underline ${
-                props.name === 'register' ? '' : 'block__hide'
+                props.formName === 'register' ? '' : 'block__hide'
               }`}
               type="text"
-              value={userName}
-              onChange={handleSetUserName}
-              name="userName"
-              autoComplete="username"
+              value={name}
+              onChange={handlesetUserName}
+              name="name"
+              autoComplete="name"
               required
             ></input>
             <span className="user-name-input-error input-error_auth">
@@ -80,7 +94,7 @@ export default function PageWithForm({ onSubmit, ...props }) {
               onChange={handleSetEmail}
               name="userEmail"
               placeholder="Email"
-              autoComplete="username"
+              autoComplete="name"
               required
             ></input>
             <span className="user-email-input-error input-error_auth">
