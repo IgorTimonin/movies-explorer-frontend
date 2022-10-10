@@ -15,7 +15,7 @@ import { mainApi } from '../../utils/MainApi';
 
 function App() {
   const location = useLocation();
-  const [loggedIn, setLoggedIn] = [true];
+  const [loggedIn, setLoggedIn] = [false];
   const [isOpen, setIsOpen] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);

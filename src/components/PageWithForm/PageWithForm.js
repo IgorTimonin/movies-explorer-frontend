@@ -27,9 +27,9 @@ export default function PageWithForm({ onSubmit, ...props }) {
       password,
       email,
     });
-    setUserName();
-    setEmail();
-    setPassword();
+    setUserName('');
+    setEmail('');
+    setPassword('');
   }
 
   return (
@@ -47,7 +47,8 @@ export default function PageWithForm({ onSubmit, ...props }) {
           action="#"
         >
           <div className="auth__formInputBlock auth__formBlock">
-            <label
+            {props.children}
+            {/* <label
               htmlFor="userName"
               className={`auth__input-label ${
                 props.name === 'register' ? '' : 'block__hide'
@@ -68,7 +69,7 @@ export default function PageWithForm({ onSubmit, ...props }) {
             ></input>
             <span className="user-name-input-error input-error_auth">
               Введите имя.
-            </span>
+            </span> */}
             <label htmlFor="userEmail" className="auth__input-label">
               E-mail
             </label>

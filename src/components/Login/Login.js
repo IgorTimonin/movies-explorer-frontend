@@ -12,7 +12,7 @@ export default function Login(props) {
         linkTo="/signup"
         underBtnText="Ещё не зарегистрированы?"
         linkText="Регистрация"
-        // onSubmit={onSignIn}
+        onSubmit={props.onSubmit}
       ></PageWithForm>
     </section>
   );
