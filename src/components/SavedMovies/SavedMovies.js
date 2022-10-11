@@ -4,19 +4,24 @@ import SearchForm from '../Movies/SearchForm/SearchForm';
 import Preloader from '../Movies/Preloader/Preloader';
 import { useState } from 'react';
 
-export default function SavedMovies(props) {
+export default function SavedMovies({
+  onClickLike,
+  onClickRemove,
+  savedMoviesList,
+  ...props
+}) {
+  let isSearchEnd = false;
 
-  const [savedMoviesList, setSavedMoviesList] = useState([]);
-let isSearchEnd = false;
-
-function setIsSearchEnd(boolean) {
-  isSearchEnd = boolean;
-}
+  function setIsSearchEnd(boolean) {
+    isSearchEnd = boolean;
+  }
   return (
     <section className="movies movies__container">
       <SearchForm setIsSearchEnd={setIsSearchEnd}></SearchForm>
       <SavedMoviesCardList
-        savedMoviesList={props.savedMoviesList}
+        savedMoviesList={savedMoviesList}
+        onClickLike={onClickLike}
+        onClickRemove={onClickRemove}
       ></SavedMoviesCardList>
       {/* <Preloader></Preloader> */}
     </section>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, json } from 'react-router-dom';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
@@ -18,6 +18,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [moviesList, setMoviesList] = useState([]);
+  const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
   useContext(CurrentUserContext);
@@ -52,7 +53,7 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function onLogOut(password, email) {
+  function onLogOut() {
     mainApi
       .signout()
       .then((res) => {
@@ -70,50 +71,25 @@ function App() {
       .then((res) => {
         if (res.email) {
           setCurrentUser(res);
-          // currentUser.name = res.name;
-          // currentUser.email = res.email;
           setLoggedIn(true);
         }
       })
       .catch((err) => console.log(err));
   }
 
-  // useEffect(() => {
-  //   nav('/');
-  // }, [loggedIn]);
-
   useEffect(() => {
     tokenCheck();
   }, []);
 
-  // function handleCardLike(card) {
-  //   // Проверяем, есть ли уже лайк на этой карточке
-  //   const isLiked = card.likes.some((i) => i === currentUser._id);
-  //   // Отправляем запрос вmainApi и получаем обновлённые данные карточек
-  //  mainApi
-  //     .likeSwitcher(card._id, isLiked)
-  //     .then((newCards) => {
-  //       setCards((data) =>
-  //         data.map((c) => (c._id === card._id ? newCards : c))
-  //       );
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
+  //Обновление профиля пользователя
   function handleUpdateUser(userData) {
-      console.log(
-        JSON.stringify({
-          name: userData.name,
-          email: userData.email,
-        })
-      );
     mainApi
-      .setUserData(userData.name, userData.email)
+      .setUserData(userData)
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
       })
       .catch((err) => console.log(err));
-  };
+  }
 
   const handleMenuClick = () => {
     setIsOpen(true);
@@ -123,11 +99,42 @@ function App() {
     setIsOpen(false);
   };
 
+  //получение массива фильмов из API
   function getMovies() {
     MoviesApi()
       .then((movies) => {
         setMoviesList(movies);
         setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  //Добавление фильма в сохранённые
+  function addToSavedMovies(movie) {
+    mainApi
+      .postNewMovie(movie)
+      .then((savedMovie) =>
+        setSavedMoviesList([savedMovie, ...savedMoviesList])
+      )
+      .catch((err) => console.log(err));
+  }
+
+  // удаление фильма из сохранённых
+  function removeFromSavedMovies(movie) {
+    const savedMovie = savedMoviesList.find(
+      (item) => item.movieId === movie.id || item.movieId === movie.movieId
+    );
+    mainApi
+      .deleteMovie(savedMovie._id)
+      .then(() => {
+        const newMoviesList = savedMoviesList.filter((m) => {
+          if (movie.id === m.movieId || movie.movieId === m.movieId) {
+            return false;
+          } else {
+            return true;
+          }
+        });
+        setSavedMoviesList(newMoviesList);
       })
       .catch((err) => console.log(err));
   }
@@ -170,11 +177,14 @@ function App() {
                 <Movies
                   getMovies={getMovies}
                   moviesList={moviesList}
+                  savedMoviesList={savedMoviesList}
                   setMoviesList={setMoviesList}
                   loggedIn={loggedIn}
                   isLoading={isLoading}
                   setIsLoading={setIsLoading}
                   location={location.pathname}
+                  onClickLike={addToSavedMovies}
+                  onClickRemove={removeFromSavedMovies}
                 />
               }
             ></Route>
@@ -184,8 +194,9 @@ function App() {
                 <SavedMovies
                   loggedIn={loggedIn}
                   isOpen={isOpen}
-                  handleMenuClick={handleMenuClick}
-                  handleCloseMenuClick={handleCloseMenuClick}
+                  savedMoviesList={savedMoviesList}
+                  onClickLike={addToSavedMovies}
+                  onClickRemove={removeFromSavedMovies}
                 />
               }
             ></Route>

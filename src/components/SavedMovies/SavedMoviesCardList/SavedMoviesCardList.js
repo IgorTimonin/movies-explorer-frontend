@@ -6,21 +6,17 @@ import MoviesCardList from '../../Movies/MoviesCardList/MoviesCardList';
 export default function SavedMoviesCardList({
   movies,
   isLoading,
-  savedMoviesList,
+  // savedMoviesList,
+  // onClickLike,
+  // onClickRemove,
   ...props
 }) {
   return (
-    <MoviesCardList btn={'btn_hide'}>
-      {/* {savedMoviesList.map((movie) => (
-        <MoviesCard
-          key={movie.id}
-          nameRU={movie.nameRU}
-          duration={movie.duration}
-          image={movie.image.url}
-          trailerLink={movie.trailerLink}
-          btnLogo={'movie__bookmark-btn_del'}
-        />
-      ))} */}
-    </MoviesCardList>
+    <MoviesCardList
+      btn={'btn_hide'}
+      // savedMoviesList={savedMoviesList}
+      // onClickLike={onClickLike}
+      // onClickRemove={onClickRemove}
+    ></MoviesCardList>
   );
 }

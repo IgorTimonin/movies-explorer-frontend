@@ -2,7 +2,7 @@ import './Movies.css';
 import MoviesCard from './MoviesCard/MoviesCard';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
 import SearchForm from './SearchForm/SearchForm';
-import { useEffect, useState, } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Movies({
   getMovies,
@@ -12,6 +12,9 @@ export default function Movies({
   isLoading,
   setIsLoading,
   location,
+  savedMoviesList,
+  onClickLike,
+  onClickRemove,
   ...props
 }) {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
@@ -20,11 +23,11 @@ export default function Movies({
   const [offset, setOffset] = useState(limit);
   const [moreBtnActive, setMoreBtnActive] = useState(false);
   // const [isSearchEnd, setIsSearchEnd] = useState(false);
-let isSearchEnd = false;
+  let isSearchEnd = false;
 
-function setIsSearchEnd(boolean) {
-  isSearchEnd = boolean;
-}
+  function setIsSearchEnd(boolean) {
+    isSearchEnd = boolean;
+  }
   // изменяем кол-во отображаемых карточек для кнопки 'Ещё'
   function offsetChanger() {
     if (offset <= limit) {
@@ -106,12 +109,16 @@ function setIsSearchEnd(boolean) {
       >
         {filtredMoviesList.slice(0, offset).map((movie) => (
           <MoviesCard
+            movie={movie}
             key={movie.id}
-            nameRU={movie.nameRU}
-            duration={movie.duration}
-            image={movie.image.url}
-            trailerLink={movie.trailerLink}
+            // nameRU={movie.nameRU}
+            // duration={movie.duration}
+            // image={movie.image.url}
+            // trailerLink={movie.trailerLink}
             btnLogo={'movie__bookmark-btn_save'}
+            savedMoviesList={savedMoviesList}
+            onClickLike={onClickLike}
+            onClickRemove={onClickRemove}
           />
         ))}
       </MoviesCardList>

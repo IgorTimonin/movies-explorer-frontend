@@ -30,8 +30,8 @@ export default function Profile({onSubmit, onLogOut, ...props}) {
     e.preventDefault();
     onEdit
       ? onSubmit({
-          email: userEmail,
           name: userName,
+          email: userEmail,
         })
       : profileEdit();
     // onSubmit({

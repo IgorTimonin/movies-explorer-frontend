@@ -1,9 +1,14 @@
 import Preloader from '../Preloader/Preloader';
 import './MoviesCardList.css';
 
-
-
-export default function MoviesCardList({movies , moreBtnActive, notFound, offsetChanger, isLoading, ...props}) {
+export default function MoviesCardList({
+  movies,
+  moreBtnActive,
+  notFound,
+  offsetChanger,
+  isLoading,
+  ...props
+}) {
   return (
     <section className="moviesCardList">
       <div className="moviesCardList__container">

@@ -36,19 +36,27 @@ class Api {
     }).then(resultHandler);
   }
 
-  setUserData(name, email) {
+  setUserData(userData) {
     return fetch(this._apiPath + `/users/me`, {
       method: 'PATCH',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify({
-        name,
-        email,
-      }),
+      body: JSON.stringify(
+        userData
+      ),
     }).then(resultHandler);
   }
 
-  deleteCard(cardId) {
+  postNewMovie(movieCard) {
+    return fetch(this._apiPath + '/movies', {
+      method: 'POST',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(movieCard),
+    }).then(resultHandler);
+  }
+
+  deleteMovie(cardId) {
     return fetch(this._apiPath + `/${cardId}`, {
       method: 'DELETE',
       headers: this._headers,
