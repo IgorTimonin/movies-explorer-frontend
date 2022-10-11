@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { CurrentUserContextProvider } from '../../hoc/CurrentUserContext';
+import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
 import Movies from '../Movies/Movies';
@@ -20,11 +20,11 @@ function App() {
   const [moviesList, setMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const nav = useNavigate();
+  useContext(CurrentUserContext);
   const [currentUser, setCurrentUser] = useState({
     name: 'пользователь',
     email: 'ваш email',
   });
-
   function onSignUp(name, email, password) {
     mainApi
       .signInSignUp('/signup', name, email, password)
@@ -36,8 +36,6 @@ function App() {
       })
       .catch((err) => {
         console.log(`Ошибка при регистрации: ${err}`);
-        // setIsRegStatus('error');
-        // setIsInfoToolTipOpen(true);
       });
   }
 
@@ -45,10 +43,22 @@ function App() {
     mainApi
       .signInSignUp('/signin', password, email)
       .then((res) => {
-        if (res.token) {
-          localStorage.setItem('jwt', res.token);
-          // tokenCheck();
+        if (res.statusCode !== 400) {
+          tokenCheck();
           nav('/movies');
+          console.log(currentUser);
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function onLogOut(password, email) {
+    mainApi
+      .signout()
+      .then((res) => {
+        if (res.statusCode !== 400) {
+          setLoggedIn(false);
+          nav('/');
         }
       })
       .catch((err) => console.log(err));
@@ -56,15 +66,54 @@ function App() {
 
   function tokenCheck() {
     mainApi
-      .userValidation('/users/me')
+      .getUserData('/users/me')
       .then((res) => {
         if (res.email) {
           setCurrentUser(res);
+          // currentUser.name = res.name;
+          // currentUser.email = res.email;
           setLoggedIn(true);
         }
       })
       .catch((err) => console.log(err));
   }
+
+  // useEffect(() => {
+  //   nav('/');
+  // }, [loggedIn]);
+
+  useEffect(() => {
+    tokenCheck();
+  }, []);
+
+  // function handleCardLike(card) {
+  //   // Проверяем, есть ли уже лайк на этой карточке
+  //   const isLiked = card.likes.some((i) => i === currentUser._id);
+  //   // Отправляем запрос вmainApi и получаем обновлённые данные карточек
+  //  mainApi
+  //     .likeSwitcher(card._id, isLiked)
+  //     .then((newCards) => {
+  //       setCards((data) =>
+  //         data.map((c) => (c._id === card._id ? newCards : c))
+  //       );
+  //     })
+  //     .catch((err) => console.log(err));
+  // }
+
+  function handleUpdateUser(userData) {
+      console.log(
+        JSON.stringify({
+          name: userData.name,
+          email: userData.email,
+        })
+      );
+    mainApi
+      .setUserData(userData.name, userData.email)
+      .then((newUserInfo) => {
+        setCurrentUser(newUserInfo);
+      })
+      .catch((err) => console.log(err));
+  };
 
   const handleMenuClick = () => {
     setIsOpen(true);
@@ -84,7 +133,7 @@ function App() {
   }
 
   return (
-    <CurrentUserContextProvider>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Routes>
           <Route path="/signin" element={<Login onSubmit={onSignIn} />}></Route>
@@ -140,12 +189,17 @@ function App() {
                 />
               }
             ></Route>
-            <Route path="/profile" element={<Profile />}></Route>
+            <Route
+              path="/profile"
+              element={
+                <Profile onSubmit={handleUpdateUser} onLogOut={onLogOut} />
+              }
+            />
             <Route path="*" element={<NotFoundPage />} />
           </Route>
         </Routes>
       </div>
-    </CurrentUserContextProvider>
+    </CurrentUserContext.Provider>
   );
 }
 

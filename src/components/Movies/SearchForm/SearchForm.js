@@ -17,6 +17,8 @@ export default function SearchForm({
 }) {
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
+  let lastSearch = localStorage.getItem('lastSearch');
+  let filterToggleStatus = localStorage.getItem('shortFilm');
 
   function handleChangeQuery(e) {
     setSearchQuery(e.target.value);
@@ -29,6 +31,7 @@ export default function SearchForm({
           moviesFinder(shortFilmSorter(moviesList), searchQuery)
         )
       : setFiltredMoviesList(moviesFinder(moviesList, searchQuery));
+      localStorage.setItem('lastSearch', searchQuery);
     setIsSearchEnd(true);
   }
 
@@ -45,6 +48,7 @@ export default function SearchForm({
         ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
         : searchHandler();
       setIsSearchEnd(true);
+      localStorage.setItem('shortFilm', isShortFilm);
     }
   }, [isShortFilm]);
 
@@ -64,6 +68,7 @@ export default function SearchForm({
             name="searchMovie"
             className="searchBar__input"
             placeholder="Фильм"
+            defaultValue={lastSearch}
             required
             onChange={handleChangeQuery}
           ></input>
@@ -80,6 +85,7 @@ export default function SearchForm({
             name="shortFilm"
             className="searchBar__checkbox app__btn-opacity"
             checked={isShortFilm}
+            defaultValue={filterToggleStatus}
             onChange={() => setIsShortFilm(!isShortFilm)}
           ></input>
           <label htmlFor="shortFilm" className="searchBar__label">

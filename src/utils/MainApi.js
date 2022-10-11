@@ -22,30 +22,28 @@ class Api {
     }).then(resultHandler);
   }
 
-  getUserData() {
-    return fetch((this._apiPath + `/users/me`), {
+  signout() {
+    return fetch(this._apiPath + '/signout', {
+      credentials: 'include',
       headers: this._headers,
     }).then(resultHandler);
   }
 
-  setUserData(userData) {
+  getUserData() {
+    return fetch(this._apiPath + `/users/me`, {
+      credentials: 'include',
+      headers: this._headers,
+    }).then(resultHandler);
+  }
+
+  setUserData(name, email) {
     return fetch(this._apiPath + `/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
-        name: userData.name,
-        email: userData.email,
-      }),
-    }).then(resultHandler);
-  }
-
-  setNewCard(cardData) {
-    return fetch(this._apiPath, {
-      method: 'POST',
-      headers: this._headers,
-      body: JSON.stringify({
-        name: cardData.cardTitle,
-        link: cardData.cardLink,
+        name,
+        email,
       }),
     }).then(resultHandler);
   }

@@ -1,49 +1,56 @@
-import React, { useState } from 'react';
-import { CurrentUserContext } from '../../hoc/CurrentUserContext';
+import { useContext, useEffect, useState } from 'react';
+import { CurrentUserContext } from '../context/CurrentUserContext';
+
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
 
-export default function Profile({onSubmit, name, ...props}) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const [userName, setUserName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
+export default function Profile({onSubmit, onLogOut, ...props}) {
+  const currentUser = useContext(CurrentUserContext);
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [onEdit, setOnEdit] = useState(false);
-
-  function handleSetUserName(e) {
+  function handleSetName(e) {
     setUserName(e.target.value);
   }
-  function handleSetEmail(e) {
-    setEmail(e.target.value);
+  function handlesetUserEmail(e) {
+    setUserEmail(e.target.value);
   }
 
   function handleProfileEdit(e) {
     setOnEdit(true);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    onSubmit({
-      name,
-      email
-    })
-    setUserName('');
-    setEmail('');
+  function profileEdit() {
+    setUserName(currentUser.name);
+    setUserEmail(currentUser.email);
     setOnEdit(false);
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onEdit
+      ? onSubmit({
+          email: userEmail,
+          name: userName,
+        })
+      : profileEdit();
+    // onSubmit({
+    //   userName,
+    //   userEmail
+    // })
+    // setUserName(currentUser.name);
+    // setUserEmail(currentUser.userEmail);
+    // setOnEdit(false);
+  }
+
+    useEffect(() => {
+      setUserName(currentUser.name);
+      setUserEmail(currentUser.email);
+    }, []);
 
   return (
     <section className="userProfile">
       <div className="userProfile__wrapper">
-        {/* <PageWithForm
-          title="Привет "
-          btnText="Редактировать"
-          name="profile"
-          inputId="current-password"
-          linkTo="/sign-up"
-          underBtnText=""
-          linkText="Выйти из аккаунта"
-          // onSubmit={onSignIn}
-        ></PageWithForm> */}
         <div className="auth__container auth__container_profile">
           <h2 className="userProfile__title">Привет, {userName}!</h2>
           <form
@@ -54,36 +61,36 @@ export default function Profile({onSubmit, name, ...props}) {
           >
             <div className="userProfile__input-block">
               <div className="auth__form-string">
-                <label htmlFor="userName" className="userProfile__input-label">
+                <label htmlFor="name" className="userProfile__input-label">
                   Имя
                 </label>
                 <input
                   className="userProfile__field"
                   type="text"
-                  value={userName}
-                  onChange={handleSetUserName}
-                  name="userName"
-                  autoComplete="username"
+                  defaultValue={userName}
+                  onChange={handleSetName}
+                  name="name"
+                  autoComplete="name"
                   maxLength="19"
                   required
-                  disabled={onEdit ? '' : true}
+                  disabled={onEdit ? false : true}
                 ></input>
               </div>
               <hr className="input__underline"></hr>
               <div className="auth__form-string">
-                <label htmlFor="userEmail" className="userProfile__input-label">
+                <label htmlFor="useruserEmail" className="userProfile__input-label">
                   E-mail
                 </label>
                 <input
                   className="userProfile__field"
-                  type="email"
-                  value={email}
-                  onChange={handleSetEmail}
-                  name="userEmail"
-                  autoComplete="username"
+                  type="userEmail"
+                  defaultValue={userEmail}
+                  onChange={handlesetUserEmail}
+                  name="useruserEmail"
+                  autoComplete="name"
                   maxLength="60"
                   required
-                  disabled={onEdit ? '' : true}
+                  disabled={onEdit ? false : true}
                 ></input>
               </div>
             </div>
@@ -101,7 +108,7 @@ export default function Profile({onSubmit, name, ...props}) {
                     ? 'auth__btn-save auth__btn-save_userProfile'
                     : 'userProfile__btn-edit'
                 }`}
-                onClick={onEdit ? 'submit' : handleProfileEdit}
+                onClick={onEdit ? handleSubmit : handleProfileEdit}
                 type={onEdit ? 'submit' : 'button'}
               >
                 {onEdit ? 'Сохранить' : 'Редактировать'}
@@ -111,7 +118,7 @@ export default function Profile({onSubmit, name, ...props}) {
                   onEdit ? 'block__hide' : 'userProfile__btn-edit'
                 }`}
                 type="button"
-                // onClick=
+                onClick={onLogOut}
               >
                 Выйти из аккаунта
               </button>
