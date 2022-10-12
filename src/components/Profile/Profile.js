@@ -4,7 +4,7 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
 
-export default function Profile({onSubmit, onLogOut, ...props}) {
+export default function Profile({ onSubmit, onLogOut, ...props }) {
   const currentUser = useContext(CurrentUserContext);
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
@@ -34,19 +34,15 @@ export default function Profile({onSubmit, onLogOut, ...props}) {
           email: userEmail,
         })
       : profileEdit();
-    // onSubmit({
-    //   userName,
-    //   userEmail
-    // })
-    // setUserName(currentUser.name);
-    // setUserEmail(currentUser.userEmail);
-    // setOnEdit(false);
+    currentUser.name = userName;
+    currentUser.userEmail = userEmail;
+    setOnEdit(false);
   }
 
-    useEffect(() => {
-      setUserName(currentUser.name);
-      setUserEmail(currentUser.email);
-    }, []);
+  useEffect(() => {
+    setUserName(currentUser.name);
+    setUserEmail(currentUser.email);
+  }, []);
 
   return (
     <section className="userProfile">
@@ -78,7 +74,10 @@ export default function Profile({onSubmit, onLogOut, ...props}) {
               </div>
               <hr className="input__underline"></hr>
               <div className="auth__form-string">
-                <label htmlFor="useruserEmail" className="userProfile__input-label">
+                <label
+                  htmlFor="useruserEmail"
+                  className="userProfile__input-label"
+                >
                   E-mail
                 </label>
                 <input
@@ -102,17 +101,24 @@ export default function Profile({onSubmit, onLogOut, ...props}) {
               >
                 При обновлении профиля произошла ошибка.
               </span>
-              <button
-                className={`auth__form-submit app__btn-opacity ${
-                  onEdit
-                    ? 'auth__btn-save auth__btn-save_userProfile'
-                    : 'userProfile__btn-edit'
-                }`}
-                onClick={onEdit ? handleSubmit : handleProfileEdit}
-                type={onEdit ? 'submit' : 'button'}
-              >
-                {onEdit ? 'Сохранить' : 'Редактировать'}
-              </button>
+              {onEdit ? (
+                <button
+                  type="button"
+                  className="auth__form-submit app__btn-opacity auth__btn-save auth__btn-save_userProfile"
+                  onClick={handleSubmit}
+                  // disabled={}
+                >
+                  Сохранить
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="auth__form-submit app__btn-opacity userProfile__btn-edit"
+                  onClick={handleProfileEdit}
+                >
+                  Редактировать
+                </button>
+              )}
               <button
                 className={`auth__form-submit app__btn-opacity ${
                   onEdit ? 'block__hide' : 'userProfile__btn-edit'

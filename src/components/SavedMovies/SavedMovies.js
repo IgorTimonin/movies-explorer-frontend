@@ -2,19 +2,26 @@ import SavedMoviesCardList from '../SavedMovies/SavedMoviesCardList/SavedMoviesC
 import './SavedMovies.css';
 import SearchForm from '../Movies/SearchForm/SearchForm';
 import Preloader from '../Movies/Preloader/Preloader';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function SavedMovies({
   onClickLike,
   onClickRemove,
   savedMoviesList,
+  getSavedMovies,
   ...props
 }) {
+
   let isSearchEnd = false;
 
   function setIsSearchEnd(boolean) {
     isSearchEnd = boolean;
   }
+
+  useEffect(() => {
+    getSavedMovies();
+  }, [])
+
   return (
     <section className="movies movies__container">
       <SearchForm setIsSearchEnd={setIsSearchEnd}></SearchForm>

@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate, json } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
@@ -26,6 +26,8 @@ function App() {
     name: 'пользователь',
     email: 'ваш email',
   });
+
+  //Регистрация нового пользователя
   function onSignUp(name, email, password) {
     mainApi
       .signInSignUp('/signup', name, email, password)
@@ -40,6 +42,7 @@ function App() {
       });
   }
 
+  //Аутентификация пользователя
   function onSignIn(password, email) {
     mainApi
       .signInSignUp('/signin', password, email)
@@ -47,12 +50,12 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           nav('/movies');
-          console.log(currentUser);
         }
       })
       .catch((err) => console.log(err));
   }
 
+  //Выход из учётной записи
   function onLogOut() {
     mainApi
       .signout()
@@ -65,6 +68,7 @@ function App() {
       .catch((err) => console.log(err));
   }
 
+  //Авторизация пользователя
   function tokenCheck() {
     mainApi
       .getUserData('/users/me')
@@ -99,11 +103,21 @@ function App() {
     setIsOpen(false);
   };
 
-  //получение массива фильмов из API
+  //получение массива фильмов из API BeatFilm
   function getMovies() {
     MoviesApi()
       .then((movies) => {
         setMoviesList(movies);
+        setIsLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  //получение массива сохранённых пользователем фильмов
+  function handleGetSavedMovies() {
+    mainApi.getSavedMovie()
+      .then((movies) => {
+        setSavedMoviesList(movies);
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
@@ -195,6 +209,7 @@ function App() {
                   loggedIn={loggedIn}
                   isOpen={isOpen}
                   savedMoviesList={savedMoviesList}
+                  getSavedMovies={handleGetSavedMovies}
                   onClickLike={addToSavedMovies}
                   onClickRemove={removeFromSavedMovies}
                 />

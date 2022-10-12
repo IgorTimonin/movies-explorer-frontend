@@ -10,14 +10,14 @@ export const resultHandler = (res) => {
 class Api {
   constructor(apiPath, headers) {
     this._apiPath = apiPath;
-    this._headers = headers;
+    this._headers = { 'Content-Type': 'application/json' };
   }
 
   signInSignUp(endpoint, name, password, email) {
     return fetch(this._apiPath + `${endpoint}`, {
       method: 'POST',
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this._headers,
       body: JSON.stringify(name, password, email),
     }).then(resultHandler);
   }
@@ -41,9 +41,14 @@ class Api {
       method: 'PATCH',
       credentials: 'include',
       headers: this._headers,
-      body: JSON.stringify(
-        userData
-      ),
+      body: JSON.stringify(userData),
+    }).then(resultHandler);
+  }
+
+  getSavedMovie() {
+    return fetch(this._apiPath + '/movies', {
+      method: 'GET',
+      credentials: 'include',
     }).then(resultHandler);
   }
 
@@ -51,7 +56,7 @@ class Api {
     return fetch(this._apiPath + '/movies', {
       method: 'POST',
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
+      headers: this._headers,
       body: JSON.stringify(movieCard),
     }).then(resultHandler);
   }

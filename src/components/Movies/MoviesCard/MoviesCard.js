@@ -52,12 +52,17 @@ export default function MoviesCard({
             // onChange={() => IsLiked(!IsLiked)}
           ></input>
         </div>
-        <img
-          className="movie__img"
-          src={`${baseApiPath}` + `${movie.image.url}`}
-          alt={movie.nameRU}
+        <a
+          className="app__btn-opacity movie__img-link"
+          href={movie.trailerLink}
           onClick={handleImageClick}
-        />
+        >
+          <img
+            className="movie__img"
+            src={`${baseApiPath}` + `${movie.image.url}`}
+            alt={movie.nameRU}
+          />
+        </a>
       </li>
     </section>
   );
