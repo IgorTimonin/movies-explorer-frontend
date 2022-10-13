@@ -9,6 +9,9 @@ export default function SavedMovies({
   onClickRemove,
   savedMoviesList,
   getSavedMovies,
+  location,
+  isLoading,
+  setIsLoading,
   ...props
 }) {
 
@@ -19,7 +22,9 @@ export default function SavedMovies({
   }
 
   useEffect(() => {
+    setIsLoading(true);
     getSavedMovies();
+    setIsLoading(false);
   }, [])
 
   return (
@@ -29,8 +34,9 @@ export default function SavedMovies({
         savedMoviesList={savedMoviesList}
         onClickLike={onClickLike}
         onClickRemove={onClickRemove}
+        location={location}
+        isLoading={isLoading}
       ></SavedMoviesCardList>
-      {/* <Preloader></Preloader> */}
     </section>
   );
 }

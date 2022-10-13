@@ -7,23 +7,31 @@ export default function MoviesCard({
   savedMoviesList,
   onClickLike,
   onClickRemove,
+  location,
   ...props
 }) {
+
+  const IsLiked = savedMoviesList.find((i) => i.movieId === movie.id);
+  const urlTest = /https?:\/\/(?:[-\w]+\.)?([-\w]+)\.\w+(?:\.\w+)?\/?.*/i;
   function handleLikeClick() {
-    onClickLike({
-      movieId: movie.id,
-      nameRU: movie.nameRU,
-      nameEN: movie.nameEN,
-      country: movie.country,
-      director: movie.director,
-      duration: movie.duration,
-      year: movie.year,
-      description: movie.description,
-      trailerLink: movie.trailerLink,
-      image: `${baseApiPath}` + `${movie.image.url}`,
-      thumbnail: `${baseApiPath}` + `${movie.image.formats.thumbnail.url}`,
-    });
-  }
+    if (!IsLiked)
+      onClickLike({
+        movieId: movie.id,
+        nameRU: movie.nameRU,
+        nameEN: movie.nameEN,
+        country: movie.country,
+        director: movie.director,
+        duration: movie.duration,
+        year: movie.year,
+        description: movie.description,
+        trailerLink: movie.trailerLink.match(urlTest) ? movie.trailerLink : `https://www.youtube.com/results?search_query=${movie.nameEN}`,
+        image: `${baseApiPath}` + `${movie.image.url}`,
+        thumbnail: `${baseApiPath}` + `${movie.image.formats.thumbnail.url}`,
+      });
+    else {
+      onClickRemove(savedMoviesList.filter((i) => i.movieId === movie.id)[0]);
+    }
+  };
 
   function handleDeleteClick() {
     onClickRemove(movie);
@@ -43,13 +51,18 @@ export default function MoviesCard({
             <div className="movie__duration">{timeToHour(movie.duration)}</div>
           </div>
           <input
-            className={`movie__bookmark-btn app__btn-opacity ${props.btnLogo}`}
+            className={`movie__bookmark-btn app__btn-opacity ${
+              location === '/saved-movies'
+                ? 'movie__bookmark-btn_del'
+                : `movie__bookmark-btn_save movie__save-btn`
+            }`}
             // {movieLikeBtnClassName}
             type={'checkbox'}
-            onClick={handleLikeClick}
-            // checked={IsLiked}
-            // defaultValue={}
-            // onChange={() => IsLiked(!IsLiked)}
+            onClick={
+              location === '/saved-movies' ? handleDeleteClick : handleLikeClick
+            }
+            checked={IsLiked}
+            onChange={(IsLiked) => !IsLiked}
           ></input>
         </div>
         <a
@@ -59,7 +72,11 @@ export default function MoviesCard({
         >
           <img
             className="movie__img"
-            src={`${baseApiPath}` + `${movie.image.url}`}
+            src={
+              location === '/saved-movies'
+                ? `${movie.image}`
+                : `${baseApiPath}` + `${movie.image.url}`
+            }
             alt={movie.nameRU}
           />
         </a>

@@ -108,6 +108,7 @@ function App() {
     MoviesApi()
       .then((movies) => {
         setMoviesList(movies);
+        // localStorage.setItem('savedMovieList', moviesList);
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
@@ -133,23 +134,15 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  // удаление фильма из сохранённых
+  // удаление фильма из сохранённых и отрисовка актуального списка фильмов
   function removeFromSavedMovies(movie) {
-    const savedMovie = savedMoviesList.find(
-      (item) => item.movieId === movie.id || item.movieId === movie.movieId
-    );
     mainApi
-      .deleteMovie(savedMovie._id)
+      .deleteMovie(movie._id)
       .then(() => {
-        const newMoviesList = savedMoviesList.filter((m) => {
-          if (movie.id === m.movieId || movie.movieId === m.movieId) {
-            return false;
-          } else {
-            return true;
-          }
-        });
-        setSavedMoviesList(newMoviesList);
-      })
+        const actualMoviesList = savedMoviesList.filter(m => m._id !== movie._id)
+        setSavedMoviesList(actualMoviesList);
+        localStorage.setItem('savedMovies', JSON.stringify(actualMoviesList));
+        })
       .catch((err) => console.log(err));
   }
 
@@ -208,7 +201,10 @@ function App() {
                 <SavedMovies
                   loggedIn={loggedIn}
                   isOpen={isOpen}
+                  isLoading={isLoading}
+                  setIsLoading={setIsLoading}
                   savedMoviesList={savedMoviesList}
+                  location={location.pathname}
                   getSavedMovies={handleGetSavedMovies}
                   onClickLike={addToSavedMovies}
                   onClickRemove={removeFromSavedMovies}

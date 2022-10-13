@@ -19,6 +19,7 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-column-gap: 24px;
   grid-row-gap: 30px;
+  justify-items: center;
 }
 
 .moviesCardList__more {

@@ -62,8 +62,9 @@ class Api {
   }
 
   deleteMovie(cardId) {
-    return fetch(this._apiPath + `/${cardId}`, {
+    return fetch(this._apiPath + `/movies/${cardId}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     }).then(resultHandler);
   }

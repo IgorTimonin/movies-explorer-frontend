@@ -22,7 +22,6 @@ export default function Movies({
   const [rowSize, setRowSize] = useState(3);
   const [offset, setOffset] = useState(limit);
   const [moreBtnActive, setMoreBtnActive] = useState(false);
-  // const [isSearchEnd, setIsSearchEnd] = useState(false);
   let isSearchEnd = false;
 
   function setIsSearchEnd(boolean) {
@@ -39,20 +38,11 @@ export default function Movies({
 
   function offsetReset() {
     setOffset(limit);
-    console.log('offsetReset');
   }
 
   useEffect(() => {
     setOffset(limit);
   }, [limit]);
-
-  // useEffect(() => {
-  //   console.log(`фильмов: ${filtredMoviesList.length}`);
-  // }, [filtredMoviesList]);
-
-  // useEffect(() => {
-  //   console.log(`offset: ${offset}`);
-  // }, [offset]);
 
   // выбираем кол-во отображаемых карточек в зависимости от ширины экрана
   function windowWidthChecker() {
@@ -88,6 +78,12 @@ export default function Movies({
       : setMoreBtnActive(false);
   }, [filtredMoviesList, offset]);
 
+  function getSavedMovieCard(arr, movie) {
+    return arr.find((item) => {
+      return item.movieId === (movie.id || movie.movieId);
+    });
+  }
+
   return (
     <section className="movies movies__container">
       <SearchForm
@@ -111,11 +107,7 @@ export default function Movies({
           <MoviesCard
             movie={movie}
             key={movie.id}
-            // nameRU={movie.nameRU}
-            // duration={movie.duration}
-            // image={movie.image.url}
-            // trailerLink={movie.trailerLink}
-            btnLogo={'movie__bookmark-btn_save'}
+            location={location}
             savedMoviesList={savedMoviesList}
             onClickLike={onClickLike}
             onClickRemove={onClickRemove}

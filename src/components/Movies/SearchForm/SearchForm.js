@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react';
-import MoviesApi from '../../../utils/MoviesApi';
+import { useContext, useEffect, useState } from 'react';
+
 import { moviesFinder, shortFilmSorter } from '../../../utils/utils';
+import { CurrentUserContext } from '../../context/CurrentUserContext';
 import './SearchForm.css';
 
 export default function SearchForm({
@@ -15,23 +16,32 @@ export default function SearchForm({
   windowWidthChecker,
   ...props
 }) {
+  const currentUser = useContext(CurrentUserContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(false);
-  let lastSearch = localStorage.getItem('lastSearch');
-  let filterToggleStatus = localStorage.getItem('shortFilm');
+  let lastSearch = localStorage.getItem(`${currentUser._id}-searchQuery`);
+  let shortFilmStatus = localStorage.getItem(`${currentUser._id}-shortFilm`);
+  let findedMovies = JSON.parse(
+    localStorage.getItem(`${currentUser._id}-findedMovies`)
+  );
+
+  // localStorage.setItem(`${currentUser._id}-shortFilm`, isShortFilm);
 
   function handleChangeQuery(e) {
     setSearchQuery(e.target.value);
   }
 
-  function searchHandler() {
+  //функция поиска фильмов с фитром по короткометражкам
+  function searchHandler(arr, query) {
     setIsSearchEnd(false);
     isShortFilm
-      ? setFiltredMoviesList(
-          moviesFinder(shortFilmSorter(moviesList), searchQuery)
-        )
-      : setFiltredMoviesList(moviesFinder(moviesList, searchQuery));
-      localStorage.setItem('lastSearch', searchQuery);
+      ? setFiltredMoviesList(moviesFinder(shortFilmSorter(arr), query))
+      : setFiltredMoviesList(moviesFinder(arr, query));
+    localStorage.setItem(`${currentUser._id}-searchQuery`, query);
+    localStorage.setItem(
+      `${currentUser._id}-findedMovies`,
+      JSON.stringify(arr)
+    );
     setIsSearchEnd(true);
   }
 
@@ -43,20 +53,38 @@ export default function SearchForm({
   }
 
   useEffect(() => {
-    if (location === '/movies') {
+    localStorage.setItem(`${currentUser._id}-shortFilm`, isShortFilm);
+    if (location === '/movies' && moviesList.length !== 0) {
       isShortFilm
         ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
-        : searchHandler();
+        : searchHandler(moviesList, searchQuery);
       setIsSearchEnd(true);
-      localStorage.setItem('shortFilm', isShortFilm);
+
+      console.log(`isShortFilm: ${isShortFilm}`);
+      console.log(`storage: ${shortFilmStatus}`);
     }
   }, [isShortFilm]);
 
   useEffect(() => {
     if (location === '/movies') {
-      moviesList.length === 0 ? setTimeout(() => {}, 2000) : searchHandler();
+      findedMovies === [] && moviesList.length === 0
+        ? setTimeout(() => {}, 2000)
+        : searchHandler(moviesList, searchQuery);
+        console.log('useEffect!');
     }
   }, [moviesList]);
+
+  useEffect(() => {
+    if (location === '/movies') {
+      if (findedMovies !== []) {
+        setSearchQuery(lastSearch);
+        setIsShortFilm(shortFilmStatus);
+        searchHandler(findedMovies, lastSearch);
+        console.log(`UUstorage: ${shortFilmStatus}`);
+      }
+
+    }
+  }, []);
 
   return (
     <section className="searchForm">
@@ -81,12 +109,14 @@ export default function SearchForm({
         <div className="searchBar__controls">
           <div className="searchBar__separator searchBar__icon_hide"></div>
           <input
-            type={'checkbox'}
+            type="checkbox"
             name="shortFilm"
             className="searchBar__checkbox app__btn-opacity"
-            checked={isShortFilm}
-            defaultValue={filterToggleStatus}
-            onChange={() => setIsShortFilm(!isShortFilm)}
+            checked={isShortFilm ? true : false}
+            onChange={() => {
+              setIsShortFilm(!isShortFilm);
+              // localStorage.setItem(`${currentUser._id}-shortFilm`, isShortFilm);
+            }}
           ></input>
           <label htmlFor="shortFilm" className="searchBar__label">
             Короткометражки

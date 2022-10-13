@@ -1,7 +1,6 @@
-// import SavedMoviesCard from '../SavedMoviesCard/SavedMoviesCard';
-
 import MoviesCard from '../../Movies/MoviesCard/MoviesCard';
 import MoviesCardList from '../../Movies/MoviesCardList/MoviesCardList';
+import Preloader from '../../Movies/Preloader/Preloader';
 
 export default function SavedMoviesCardList({
   movies,
@@ -9,6 +8,7 @@ export default function SavedMoviesCardList({
   savedMoviesList,
   onClickLike,
   onClickRemove,
+  location,
   ...props
 }) {
   return (
@@ -18,11 +18,12 @@ export default function SavedMoviesCardList({
       onClickLike={onClickLike}
       onClickRemove={onClickRemove}
     >
+      <Preloader isLoading={isLoading}></Preloader>
       {savedMoviesList.map((movie) => (
         <MoviesCard
+          key={movie.movieId}
           movie={movie}
-          key={movie.id}
-          btnLogo={'movie__bookmark-btn_save'}
+          location={location}
           savedMoviesList={savedMoviesList}
           onClickLike={onClickLike}
           onClickRemove={onClickRemove}

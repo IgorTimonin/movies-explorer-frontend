@@ -96,7 +96,7 @@
   background-image: url(../../../images/cross.svg);
 }
 
-.movie__bookmark-btn:checked {
+.movie__save-btn:checked {
   background-image: url(../../../images/save.svg);
 }
 

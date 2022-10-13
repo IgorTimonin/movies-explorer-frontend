@@ -2,7 +2,15 @@ export function moviesFinder(arr, query) {
   let resultList = arr.filter((el) =>
     el.nameRU.toLowerCase().includes(query.toLowerCase())
   );
+if (resultList.length !== 0) {
   return resultList;
+}
+else {
+  resultList = arr.filter((el) =>
+    el.nameEN.toLowerCase().includes(query.toLowerCase())
+  );
+  return resultList;
+}
 }
 
 export function shortFilmSorter(arr) {
