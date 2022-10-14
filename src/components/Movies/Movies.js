@@ -15,6 +15,8 @@ export default function Movies({
   savedMoviesList,
   onClickLike,
   onClickRemove,
+  isSearchEnd,
+  setIsSearchEnd,
   ...props
 }) {
   const [filtredMoviesList, setFiltredMoviesList] = useState([]);
@@ -22,11 +24,7 @@ export default function Movies({
   const [rowSize, setRowSize] = useState(3);
   const [offset, setOffset] = useState(limit);
   const [moreBtnActive, setMoreBtnActive] = useState(false);
-  let isSearchEnd = false;
 
-  function setIsSearchEnd(boolean) {
-    isSearchEnd = boolean;
-  }
   // изменяем кол-во отображаемых карточек для кнопки 'Ещё'
   function offsetChanger() {
     if (offset <= limit) {
@@ -84,6 +82,8 @@ export default function Movies({
     });
   }
 
+  // const IsLiked = savedMoviesList.find((i) => i.movieId === movie.id);
+// console.log(filtredMoviesList.length);
   return (
     <section className="movies movies__container">
       <SearchForm
@@ -100,7 +100,7 @@ export default function Movies({
       <MoviesCardList
         isLoading={isLoading}
         moreBtnActive={moreBtnActive}
-        notFound={isSearchEnd && filtredMoviesList.length === 0 ? true : false}
+        notFound={isSearchEnd && filtredMoviesList.length === 0}
         offsetChanger={offsetChanger}
       >
         {filtredMoviesList.slice(0, offset).map((movie) => (

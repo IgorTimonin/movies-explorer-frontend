@@ -11,6 +11,7 @@ export default function SavedMoviesCardList({
   location,
   ...props
 }) {
+
   return (
     <MoviesCardList
       btn={'btn_hide'}

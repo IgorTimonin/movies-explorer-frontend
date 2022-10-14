@@ -12,26 +12,29 @@ export default function SavedMovies({
   location,
   isLoading,
   setIsLoading,
+  isSearchEnd,
+  setIsSearchEnd,
   ...props
 }) {
-
-  let isSearchEnd = false;
-
-  function setIsSearchEnd(boolean) {
-    isSearchEnd = boolean;
-  }
+  const savedMovies = JSON.parse(localStorage.getItem(`savedMovies`));
 
   useEffect(() => {
-    setIsLoading(true);
-    getSavedMovies();
-    setIsLoading(false);
-  }, [])
+    if (savedMovies && savedMovies.length === 0) {
+      setIsLoading(true);
+      getSavedMovies();
+      setIsLoading(false);
+    }
+  }, []);
 
   return (
     <section className="movies movies__container">
       <SearchForm setIsSearchEnd={setIsSearchEnd}></SearchForm>
       <SavedMoviesCardList
-        savedMoviesList={savedMoviesList}
+        savedMoviesList={
+          savedMoviesList || savedMovies.length === 0
+            ? savedMoviesList
+            : savedMovies
+        }
         onClickLike={onClickLike}
         onClickRemove={onClickRemove}
         location={location}

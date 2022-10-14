@@ -56,7 +56,6 @@ export default function MoviesCard({
                 ? 'movie__bookmark-btn_del'
                 : `movie__bookmark-btn_save movie__save-btn`
             }`}
-            // {movieLikeBtnClassName}
             type={'checkbox'}
             onClick={
               location === '/saved-movies' ? handleDeleteClick : handleLikeClick

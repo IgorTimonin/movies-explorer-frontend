@@ -1,4 +1,4 @@
-import { useCallback, useState } from './react';
+import { useCallback, useState } from 'react';
 
 //хук управления формой
 export function useForm() {

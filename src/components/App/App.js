@@ -20,6 +20,8 @@ function App() {
   const [moviesList, setMoviesList] = useState([]);
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isSearchEnd, setIsSearchEnd] = useState(false);
+  const [updateProfileMessage, setupdateProfileMessage] = useState('');
   const nav = useNavigate();
   useContext(CurrentUserContext);
   const [currentUser, setCurrentUser] = useState({
@@ -63,6 +65,7 @@ function App() {
         if (res.statusCode !== 400) {
           setLoggedIn(false);
           nav('/');
+          localStorage.clear();
         }
       })
       .catch((err) => console.log(err));
@@ -91,8 +94,16 @@ function App() {
       .setUserData(userData)
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
+        localStorage.setItem(`${currentUser._id}-profile`, newUserInfo);
+        setupdateProfileMessage('Данные успешно обновлены');
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err === 'Ошибка: 409') {
+          setupdateProfileMessage('Пользователь с таким email уже существует');
+        } else {
+          setupdateProfileMessage('При обновлении профиля произошла ошибка');
+        }
+      });
   }
 
   const handleMenuClick = () => {
@@ -116,9 +127,11 @@ function App() {
 
   //получение массива сохранённых пользователем фильмов
   function handleGetSavedMovies() {
-    mainApi.getSavedMovie()
+    mainApi
+      .getSavedMovie()
       .then((movies) => {
         setSavedMoviesList(movies);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
@@ -128,9 +141,10 @@ function App() {
   function addToSavedMovies(movie) {
     mainApi
       .postNewMovie(movie)
-      .then((savedMovie) =>
-        setSavedMoviesList([savedMovie, ...savedMoviesList])
-      )
+      .then((savedMovie) => {
+        setSavedMoviesList([savedMovie, ...savedMoviesList]);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
+      })
       .catch((err) => console.log(err));
   }
 
@@ -139,10 +153,12 @@ function App() {
     mainApi
       .deleteMovie(movie._id)
       .then(() => {
-        const actualMoviesList = savedMoviesList.filter(m => m._id !== movie._id)
+        const actualMoviesList = savedMoviesList.filter(
+          (m) => m._id !== movie._id
+        );
         setSavedMoviesList(actualMoviesList);
         localStorage.setItem('savedMovies', JSON.stringify(actualMoviesList));
-        })
+      })
       .catch((err) => console.log(err));
   }
 
@@ -192,6 +208,8 @@ function App() {
                   location={location.pathname}
                   onClickLike={addToSavedMovies}
                   onClickRemove={removeFromSavedMovies}
+                  isSearchEnd={isSearchEnd}
+                  setIsSearchEnd={setIsSearchEnd}
                 />
               }
             ></Route>
@@ -208,6 +226,8 @@ function App() {
                   getSavedMovies={handleGetSavedMovies}
                   onClickLike={addToSavedMovies}
                   onClickRemove={removeFromSavedMovies}
+                  isSearchEnd={isSearchEnd}
+                  setIsSearchEnd={setIsSearchEnd}
                 />
               }
             ></Route>

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useFormWithValidation } from '../../hoc/useFormWithValidation';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 
 import '../PageWithForm/PageWithForm.css';
@@ -6,6 +7,8 @@ import './Profile.css';
 
 export default function Profile({ onSubmit, onLogOut, ...props }) {
   const currentUser = useContext(CurrentUserContext);
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [onEdit, setOnEdit] = useState(false);

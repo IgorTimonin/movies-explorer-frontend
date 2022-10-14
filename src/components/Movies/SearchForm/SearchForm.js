@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useFormWithValidation } from '../../../hoc/useFormWithValidation';
 
 import { moviesFinder, shortFilmSorter } from '../../../utils/utils';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -16,18 +17,17 @@ export default function SearchForm({
   windowWidthChecker,
   ...props
 }) {
+  const { handleChange } = useFormWithValidation();
   const currentUser = useContext(CurrentUserContext);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isShortFilm, setIsShortFilm] = useState(false);
-  let lastSearch = localStorage.getItem(`${currentUser._id}-searchQuery`);
-  let shortFilmStatus = localStorage.getItem(`${currentUser._id}-shortFilm`);
-  let findedMovies = JSON.parse(
-    localStorage.getItem(`${currentUser._id}-findedMovies`)
+  const [isShortFilm, setIsShortFilm] = useState(
+    JSON.parse(localStorage.getItem(`shortFilm`)) || false
   );
-
-  // localStorage.setItem(`${currentUser._id}-shortFilm`, isShortFilm);
+  let lastSearch = localStorage.getItem(`searchQuery`);
+  let findedMovies = JSON.parse(localStorage.getItem(`findedMovies`));
 
   function handleChangeQuery(e) {
+    handleChange(e);
     setSearchQuery(e.target.value);
   }
 
@@ -37,54 +37,61 @@ export default function SearchForm({
     isShortFilm
       ? setFiltredMoviesList(moviesFinder(shortFilmSorter(arr), query))
       : setFiltredMoviesList(moviesFinder(arr, query));
-    localStorage.setItem(`${currentUser._id}-searchQuery`, query);
-    localStorage.setItem(
-      `${currentUser._id}-findedMovies`,
-      JSON.stringify(arr)
-    );
+    localStorage.setItem(`searchQuery`, query);
+    localStorage.setItem(`findedMovies`, JSON.stringify(arr));
     setIsSearchEnd(true);
+    setIsLoading(false);
   }
 
   function submitHandler(e) {
     e.preventDefault();
     windowWidthChecker();
     setIsLoading(true);
-    getMovies();
+    moviesList.length !== 0
+      ? searchHandler(moviesList, searchQuery)
+      : getMovies();
   }
 
+  const shortFilmCanger = () => {
+    setIsShortFilm(!isShortFilm);
+    localStorage.setItem(`shortFilm`, isShortFilm);
+  };
+
   useEffect(() => {
-    localStorage.setItem(`${currentUser._id}-shortFilm`, isShortFilm);
-    if (location === '/movies' && moviesList.length !== 0) {
+    if (location === '/movies' && findedMovies) {
+      localStorage.setItem(`shortFilm`, isShortFilm);
       isShortFilm
         ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
-        : searchHandler(moviesList, searchQuery);
+        : searchHandler(findedMovies, searchQuery);
       setIsSearchEnd(true);
-
-      console.log(`isShortFilm: ${isShortFilm}`);
-      console.log(`storage: ${shortFilmStatus}`);
     }
   }, [isShortFilm]);
 
   useEffect(() => {
     if (location === '/movies') {
-      findedMovies === [] && moviesList.length === 0
+      moviesList.length === 0
         ? setTimeout(() => {}, 2000)
         : searchHandler(moviesList, searchQuery);
-        console.log('useEffect!');
     }
   }, [moviesList]);
 
   useEffect(() => {
     if (location === '/movies') {
-      if (findedMovies !== []) {
+      let shortFilmStatus = localStorage.getItem(`shortFilm`);
+      if (findedMovies) {
         setSearchQuery(lastSearch);
-        setIsShortFilm(shortFilmStatus);
+        if (JSON.parse(shortFilmStatus) !== true) {
+          setIsShortFilm(false);
+        } else {
+          setIsShortFilm(true);
+        }
         searchHandler(findedMovies, lastSearch);
-        console.log(`UUstorage: ${shortFilmStatus}`);
       }
-
     }
-  }, []);
+    if (location === '/saved-movies') {
+      
+    }
+  }, [location]);
 
   return (
     <section className="searchForm">
@@ -111,12 +118,11 @@ export default function SearchForm({
           <input
             type="checkbox"
             name="shortFilm"
-            className="searchBar__checkbox app__btn-opacity"
-            checked={isShortFilm ? true : false}
-            onChange={() => {
-              setIsShortFilm(!isShortFilm);
-              // localStorage.setItem(`${currentUser._id}-shortFilm`, isShortFilm);
-            }}
+            className={`searchBar__checkbox app__btn-opacity ${
+              isShortFilm ? 'searchBar__checkbox_active' : ''
+            }`}
+            checked={isShortFilm}
+            onChange={shortFilmCanger}
           ></input>
           <label htmlFor="shortFilm" className="searchBar__label">
             Короткометражки
@@ -126,3 +132,4 @@ export default function SearchForm({
     </section>
   );
 }
+//

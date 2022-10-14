@@ -111,7 +111,17 @@
   background-position: center;
 }
 
-.searchBar__checkbox:checked {
+
+
+/* .searchBar__checkbox:checked {
+  background-image: url(../../../images/smalltumb.svg);
+} */
+
+/* .searchBar__checkbox_inactive {
+  background-image: url(../../../images/smalltumboff3.svg);
+} */
+
+.searchBar__checkbox_active {
   background-image: url(../../../images/smalltumb.svg);
 }
 
