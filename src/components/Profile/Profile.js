@@ -1,115 +1,144 @@
 import { useContext, useEffect, useState } from 'react';
-import { useFormWithValidation } from '../../hoc/useFormWithValidation';
+import useFormWithValidation from '../../hoc/useFormWithValidation';
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import Preloader from '../Movies/Preloader/Preloader';
 
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
 
-export default function Profile({ onSubmit, onLogOut, ...props }) {
+export default function Profile({
+  onSubmit,
+  onLogOut,
+  message,
+  setOnEdit,
+  onEdit,
+  isLoading,
+  ...props
+}) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, resetForm, errors, isValid } =
-    useFormWithValidation();
-  const [userName, setUserName] = useState('');
-  const [userEmail, setUserEmail] = useState('');
-  const [onEdit, setOnEdit] = useState(false);
-  function handleSetName(e) {
-    setUserName(e.target.value);
-  }
-  function handlesetUserEmail(e) {
-    setUserEmail(e.target.value);
+  const {
+    values,
+    handleChange,
+    resetForm,
+    errors,
+    isValid,
+  } = useFormWithValidation();
+  const [activeMessage, setActiveMessage] = useState('');
+
+  function handleValueChanger(e) {
+    handleChange(e);
   }
 
-  function handleProfileEdit(e) {
+  function handleProfileEdit() {
+    setActiveMessage('');
     setOnEdit(true);
-  }
-
-  function profileEdit() {
-    setUserName(currentUser.name);
-    setUserEmail(currentUser.email);
-    setOnEdit(false);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    onEdit
-      ? onSubmit({
-          name: userName,
-          email: userEmail,
-        })
-      : profileEdit();
-    currentUser.name = userName;
-    currentUser.userEmail = userEmail;
-    setOnEdit(false);
+    onSubmit({ name: values.name, email: values.email });
   }
 
   useEffect(() => {
-    setUserName(currentUser.name);
-    setUserEmail(currentUser.email);
-  }, []);
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
+
+  useEffect(() => {
+    setActiveMessage(message);
+  }, [message]);
+
+  // useEffect(() => {
+  //   setActiveMessage('');
+  // }, []);
+
+  const noValid =
+    !isValid ||
+    (currentUser.name === values.name && currentUser.email === values.email);
 
   return (
     <section className="userProfile">
       <div className="userProfile__wrapper">
         <div className="auth__container auth__container_profile">
-          <h2 className="userProfile__title">Привет, {userName}!</h2>
+          <h2 className="userProfile__title">{`Привет, ${
+            currentUser.name || ''
+          }!`}</h2>
           <form
             onSubmit={handleSubmit}
             className={`auth__form updateProfileForm`}
             name="updateProfileForm"
-            action="#"
+            noValidate
           >
             <div className="userProfile__input-block">
-              <div className="auth__form-string">
-                <label htmlFor="name" className="userProfile__input-label">
-                  Имя
-                </label>
-                <input
-                  className="userProfile__field"
-                  type="text"
-                  defaultValue={userName}
-                  onChange={handleSetName}
-                  name="name"
-                  autoComplete="name"
-                  maxLength="19"
-                  required
-                  disabled={onEdit ? false : true}
-                ></input>
+              <div className="auth__form-block">
+                <div className="auth__form-string">
+                  <label htmlFor="name" className="userProfile__input-label">
+                    Имя
+                  </label>
+                  <input
+                    className="userProfile__field"
+                    type="text"
+                    value={values.name || ''}
+                    onChange={handleValueChanger}
+                    name="name"
+                    minLength="2"
+                    maxLength="30"
+                    pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
+                    required
+                    disabled={onEdit ? false : true}
+                  ></input>
+                </div>
+                <span className="input-error">{errors.name || ''}</span>
               </div>
               <hr className="input__underline"></hr>
-              <div className="auth__form-string">
-                <label
-                  htmlFor="useruserEmail"
-                  className="userProfile__input-label"
-                >
-                  E-mail
-                </label>
-                <input
-                  className="userProfile__field"
-                  type="userEmail"
-                  defaultValue={userEmail}
-                  onChange={handlesetUserEmail}
-                  name="useruserEmail"
-                  autoComplete="name"
-                  maxLength="60"
-                  required
-                  disabled={onEdit ? false : true}
-                ></input>
+              <div className="auth__form-block">
+                <div className="auth__form-string">
+                  <label
+                    htmlFor="useruserEmail"
+                    className="userProfile__input-label"
+                  >
+                    E-mail
+                  </label>
+                  <input
+                    className="userProfile__field"
+                    type="email"
+                    value={values.email || ''}
+                    onChange={handleValueChanger}
+                    name="email"
+                    maxLength="60"
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    required
+                    disabled={onEdit ? false : true}
+                  ></input>
+                </div>
+                <span className="input-error">{errors.email || ''}</span>
               </div>
             </div>
+            <Preloader isLoading={isLoading}></Preloader>
             <div className="userProfile__btn-block">
               <span
-                className={`${
-                  onEdit ? 'input-error_auth userProfile__error' : 'block__hide'
+                className={`userProfile__error ${
+                  onEdit
+                    ? 'block__hide'
+                    : 'userProfile__error_white '
                 }`}
               >
-                При обновлении профиля произошла ошибка.
+                {activeMessage}
+              </span>
+              <span
+                className={`userProfile__error ${
+                  onEdit ? 'input-error_auth' : 'block__hide'
+                }`}
+              >
+                {activeMessage}
               </span>
               {onEdit ? (
                 <button
                   type="button"
                   className="auth__form-submit app__btn-opacity auth__btn-save auth__btn-save_userProfile"
                   onClick={handleSubmit}
-                  // disabled={}
+                  disabled={noValid}
                 >
                   Сохранить
                 </button>

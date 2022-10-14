@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { useFormWithValidation } from '../../../hoc/useFormWithValidation';
+import useFormWithValidation from '../../../hoc/useFormWithValidation';
 
 import { moviesFinder, shortFilmSorter } from '../../../utils/utils';
 import { CurrentUserContext } from '../../context/CurrentUserContext';
@@ -89,7 +89,7 @@ export default function SearchForm({
       }
     }
     if (location === '/saved-movies') {
-      
+
     }
   }, [location]);
 

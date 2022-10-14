@@ -43,6 +43,7 @@
 }
 
 .userProfile__field {
+  padding: 0;
   vertical-align: middle;
   text-align: right;
   text-overflow: ellipsis;
@@ -54,6 +55,10 @@
   line-height: 13px;
 }
 
+.userProfile__field:disabled {
+  color: #afadad
+}
+
 .userProfile__input-label {
   min-width: 34px;
   color: #fff;
@@ -61,7 +66,7 @@
 }
 
 .input__underline {
-  margin: 16px 0 17px;
+  margin: 3px 0 5px;
   height: 1px;
   width: 100%;
   border: none;
@@ -94,6 +99,7 @@
   line-height: 16px;
   border: none;
 }
+
 .userProfile__btn-edit:last-child {
   margin-top: 16px;
   color: #ee3465;
@@ -103,12 +109,22 @@
   margin-top: 0;
 }
 
+.auth__form-block {
+  display: flex;
+  flex-direction: column;
+  max-height: 40px;
+}
+
 .userProfile__error {
   margin: 0;
   padding-bottom: 20px;
   font-size: 11px;
   line-height: 13px;
   color: #ff004c;
+}
+
+.userProfile__error_white {
+  color: #FFFFFF;
 }
 
 @media screen and (max-width: 800px) {

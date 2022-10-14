@@ -1,29 +1,21 @@
 import { useCallback, useState } from 'react';
 
-//хук управления формой
-export function useForm() {
-  const [values, setValues] = useState({});
-
-  const handleChange = (event) => {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    setValues({ ...values, [name]: value });
-  };
-
-  return { values, handleChange, setValues };
-}
-
 //хук управления формой и валидации формы
-export function useFormWithValidation() {
-  const [values, setValues] = useState({});
+export default function useFormWithValidation() {
+  const [values, setValues] = useState({ name: '', email: '', password: '' });
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
 
-  const handleChange = (event) => {
-    const target = event.target;
+  const handleChange = (e) => {
+    const target = e.target;
     const name = target.name;
     const value = target.value;
+    if (name === 'name' && target.validity.patternMismatch) {
+      target.setCustomValidity('Имя не должно содержать специальных символов');
+      setIsValid(false);
+    } else {
+      target.setCustomValidity('');
+    }
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: target.validationMessage });
     setIsValid(target.closest('form').checkValidity());
@@ -38,5 +30,14 @@ export function useFormWithValidation() {
     [setValues, setErrors, setIsValid]
   );
 
-  return { values, handleChange, errors, isValid, resetForm };
+  return {
+    values,
+    setValues,
+    handleChange,
+    errors,
+    setErrors,
+    isValid,
+    setIsValid,
+    resetForm,
+  };
 }

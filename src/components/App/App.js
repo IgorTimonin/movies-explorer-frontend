@@ -12,6 +12,7 @@ import NotFoundPage from './NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
 import MoviesApi from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
+import PrivateRoute from '../../hoc/PrivateRoute';
 
 function App() {
   const location = useLocation();
@@ -21,12 +22,13 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchEnd, setIsSearchEnd] = useState(false);
-  const [updateProfileMessage, setupdateProfileMessage] = useState('');
+  const [updateProfileMessage, setUpdateProfileMessage] = useState('');
+  const [onEdit, setOnEdit] = useState(false);
   const nav = useNavigate();
   useContext(CurrentUserContext);
   const [currentUser, setCurrentUser] = useState({
-    name: 'пользователь',
-    email: 'ваш email',
+    name: '',
+    email: '',
   });
 
   //Регистрация нового пользователя
@@ -85,23 +87,27 @@ function App() {
   }
 
   useEffect(() => {
-    tokenCheck();
+      tokenCheck();
+    // nav('/');
   }, []);
 
   //Обновление профиля пользователя
   function handleUpdateUser(userData) {
+    setIsLoading(true);
     mainApi
       .setUserData(userData)
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
         localStorage.setItem(`${currentUser._id}-profile`, newUserInfo);
-        setupdateProfileMessage('Данные успешно обновлены');
+        setUpdateProfileMessage('Данные успешно обновлены');
+        setIsLoading(false);
+        setOnEdit(false);
       })
       .catch((err) => {
         if (err === 'Ошибка: 409') {
-          setupdateProfileMessage('Пользователь с таким email уже существует');
+          setUpdateProfileMessage('Пользователь с таким email уже существует');
         } else {
-          setupdateProfileMessage('При обновлении профиля произошла ошибка');
+          setUpdateProfileMessage('При обновлении профиля произошла ошибка');
         }
       });
   }
@@ -174,6 +180,7 @@ function App() {
           <Route
             path="/"
             element={
+              // <PrivateRoute loggedIn={loggedIn}>
               <Layout
                 location={location.pathname}
                 loggedIn={loggedIn}
@@ -181,6 +188,7 @@ function App() {
                 menuClick={handleMenuClick}
                 closeMenu={handleCloseMenuClick}
               />
+              // </PrivateRoute>
             }
           >
             <Route
@@ -197,44 +205,57 @@ function App() {
             <Route
               path="/movies"
               element={
-                <Movies
-                  getMovies={getMovies}
-                  moviesList={moviesList}
-                  savedMoviesList={savedMoviesList}
-                  setMoviesList={setMoviesList}
-                  loggedIn={loggedIn}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                  location={location.pathname}
-                  onClickLike={addToSavedMovies}
-                  onClickRemove={removeFromSavedMovies}
-                  isSearchEnd={isSearchEnd}
-                  setIsSearchEnd={setIsSearchEnd}
-                />
+                <PrivateRoute loggedIn={loggedIn}>
+                  <Movies
+                    getMovies={getMovies}
+                    moviesList={moviesList}
+                    savedMoviesList={savedMoviesList}
+                    setMoviesList={setMoviesList}
+                    loggedIn={loggedIn}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    location={location.pathname}
+                    onClickLike={addToSavedMovies}
+                    onClickRemove={removeFromSavedMovies}
+                    isSearchEnd={isSearchEnd}
+                    setIsSearchEnd={setIsSearchEnd}
+                  />
+                </PrivateRoute>
               }
             ></Route>
             <Route
               path="/saved-movies"
               element={
-                <SavedMovies
-                  loggedIn={loggedIn}
-                  isOpen={isOpen}
-                  isLoading={isLoading}
-                  setIsLoading={setIsLoading}
-                  savedMoviesList={savedMoviesList}
-                  location={location.pathname}
-                  getSavedMovies={handleGetSavedMovies}
-                  onClickLike={addToSavedMovies}
-                  onClickRemove={removeFromSavedMovies}
-                  isSearchEnd={isSearchEnd}
-                  setIsSearchEnd={setIsSearchEnd}
-                />
+                <PrivateRoute loggedIn={loggedIn}>
+                  <SavedMovies
+                    loggedIn={loggedIn}
+                    isOpen={isOpen}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    savedMoviesList={savedMoviesList}
+                    location={location.pathname}
+                    getSavedMovies={handleGetSavedMovies}
+                    onClickLike={addToSavedMovies}
+                    onClickRemove={removeFromSavedMovies}
+                    isSearchEnd={isSearchEnd}
+                    setIsSearchEnd={setIsSearchEnd}
+                  />
+                </PrivateRoute>
               }
             ></Route>
             <Route
               path="/profile"
               element={
-                <Profile onSubmit={handleUpdateUser} onLogOut={onLogOut} />
+                <PrivateRoute loggedIn={loggedIn}>
+                  <Profile
+                    onSubmit={handleUpdateUser}
+                    onLogOut={onLogOut}
+                    message={updateProfileMessage}
+                    onEdit={onEdit}
+                    setOnEdit={setOnEdit}
+                    isLoading={isLoading}
+                  />
+                </PrivateRoute>
               }
             />
             <Route path="*" element={<NotFoundPage />} />

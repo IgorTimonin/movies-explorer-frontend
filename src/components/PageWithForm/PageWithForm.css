@@ -51,6 +51,10 @@
   transition: linear 0.3s;
 }
 
+.auth__btn-save:disabled {
+  background-color: #C2C2C2;
+}
+
 .auth__field {
   outline: none;
   border: none;
@@ -116,31 +120,26 @@
   color: #ffffff;
 }
 
-.input-error_auth {
-  visibility: hidden;
-  margin: 5px 0 9px 0;
-  max-height: 30px;
+.input-error {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  min-height: 12px;
+  font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
   color: #ee3465;
+  align-self: end;
 }
 
-.input-error {
-  visibility: hidden;
-  margin: 5px 0 13px 0;
-  min-height: 30px;
-}
-
-.input-error_active {
+/* .input-error_active {
   visibility: visible;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
-line-height: 12px;
+  line-height: 12px;
   color: #EE3465;
-}
+} */
 
 .auth__input-label {
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -152,17 +151,15 @@ line-height: 12px;
   padding-bottom: 5px;
 }
 
-.user-email-input-error {
-}
-
-.input-error_auth {
+/* .input-error_auth {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
   margin: 6px 0;
   font-style: normal;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
   color: #ee3465;
-}
+} */
 
 @media screen and (max-width: 500px) {
   .auth__form {

@@ -50,6 +50,16 @@ body {
   border-bottom: #dadada 2px solid;
 }
 
+.input-error_auth {
+  font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+  margin: 5px 0 9px 0;
+  max-height: 30px;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #ee3465;
+}
+
 .section__title {
   margin: 0;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
