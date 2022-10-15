@@ -1,15 +1,18 @@
-import { useContext, useEffect, useState } from 'react';
-import useFormWithValidation from '../../../hoc/useFormWithValidation';
+import { useEffect, useState } from 'react';
+import useFormWithValidation from '../../hoc/useFormWithValidation';
 
-import { moviesFinder, shortFilmSorter } from '../../../utils/utils';
-import { CurrentUserContext } from '../../context/CurrentUserContext';
+import { moviesFinder, shortFilmSorter } from '../../utils/utils';
 import './SearchForm.css';
 
 export default function SearchForm({
   getMovies,
   moviesList,
   setIsSearchEnd,
+  savedMoviesList,
+  setSavedMoviesList,
   setFiltredMoviesList,
+  setFiltredSavedMovies,
+  setRenderedMovies,
   filtredMoviesList,
   setIsLoading,
   location,
@@ -18,7 +21,6 @@ export default function SearchForm({
   ...props
 }) {
   const { handleChange } = useFormWithValidation();
-  const currentUser = useContext(CurrentUserContext);
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(
     JSON.parse(localStorage.getItem(`shortFilm`)) || false
@@ -34,25 +36,37 @@ export default function SearchForm({
   //функция поиска фильмов с фитром по короткометражкам
   function searchHandler(arr, query) {
     setIsSearchEnd(false);
-    isShortFilm
-      ? setFiltredMoviesList(moviesFinder(shortFilmSorter(arr), query))
-      : setFiltredMoviesList(moviesFinder(arr, query));
-    localStorage.setItem(`searchQuery`, query);
-    localStorage.setItem(`findedMovies`, JSON.stringify(arr));
+    if (location === '/movies') {
+      isShortFilm
+        ? setFiltredMoviesList(moviesFinder(shortFilmSorter(arr), query))
+        : setFiltredMoviesList(moviesFinder(arr, query));
+      localStorage.setItem(`searchQuery`, query);
+      localStorage.setItem(`findedMovies`, JSON.stringify(arr));
+    }
+    if (location === '/saved-movies') {
+      isShortFilm
+        ? setFiltredSavedMovies(moviesFinder(shortFilmSorter(arr), query))
+        : setFiltredSavedMovies(moviesFinder(arr, query));
+    }
     setIsSearchEnd(true);
     setIsLoading(false);
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    windowWidthChecker();
     setIsLoading(true);
-    moviesList.length !== 0
-      ? searchHandler(moviesList, searchQuery)
-      : getMovies();
+    if (location === '/movies') {
+      windowWidthChecker();
+      moviesList.length !== 0
+        ? searchHandler(moviesList, searchQuery)
+        : getMovies();
+    }
+    if (location === '/saved-movies') {
+      searchHandler(savedMoviesList, searchQuery);
+    }
   }
 
-  const shortFilmCanger = () => {
+  const shortFilmChanger = () => {
     setIsShortFilm(!isShortFilm);
     localStorage.setItem(`shortFilm`, isShortFilm);
   };
@@ -65,6 +79,12 @@ export default function SearchForm({
         : searchHandler(findedMovies, searchQuery);
       setIsSearchEnd(true);
     }
+    if (location === '/saved-movies') {
+      isShortFilm
+        ? setFiltredSavedMovies(shortFilmSorter(savedMoviesList))
+        : searchHandler(savedMoviesList, searchQuery);
+    }
+      setIsSearchEnd(true);
   }, [isShortFilm]);
 
   useEffect(() => {
@@ -89,7 +109,9 @@ export default function SearchForm({
       }
     }
     if (location === '/saved-movies') {
-
+      setIsShortFilm(false)
+      setSearchQuery('');
+      setRenderedMovies(savedMoviesList);
     }
   }, [location]);
 
@@ -100,10 +122,11 @@ export default function SearchForm({
           <div className="searchBar__icon searchBar__icon_hide"></div>
           <input
             type="text"
+            value={searchQuery}
             name="searchMovie"
             className="searchBar__input"
             placeholder="Фильм"
-            defaultValue={lastSearch}
+            // defaultValue={lastSearch}
             required
             onChange={handleChangeQuery}
           ></input>
@@ -122,7 +145,7 @@ export default function SearchForm({
               isShortFilm ? 'searchBar__checkbox_active' : ''
             }`}
             checked={isShortFilm}
-            onChange={shortFilmCanger}
+            onChange={shortFilmChanger}
           ></input>
           <label htmlFor="shortFilm" className="searchBar__label">
             Короткометражки

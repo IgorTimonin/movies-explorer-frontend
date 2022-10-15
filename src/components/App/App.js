@@ -31,6 +31,10 @@ function App() {
     email: '',
   });
 
+    useEffect(() => {
+      tokenCheck();
+    }, []);
+
   //Регистрация нового пользователя
   function onSignUp(name, email, password) {
     mainApi
@@ -88,6 +92,8 @@ function App() {
           setLoggedIn(false);
           nav('/');
           localStorage.clear();
+          setMoviesList([]);
+          setSavedMoviesList([]);
         }
       })
       .catch((err) => console.log(err));
@@ -105,10 +111,6 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-
-  useEffect(() => {
-      tokenCheck();
-  }, []);
 
   //Обновление профиля пользователя
   function handleUpdateUser(userData) {
@@ -255,6 +257,7 @@ function App() {
                     isLoading={isLoading}
                     setIsLoading={setIsLoading}
                     savedMoviesList={savedMoviesList}
+                    setSavedMoviesList={setSavedMoviesList}
                     location={location.pathname}
                     getSavedMovies={handleGetSavedMovies}
                     onClickLike={addToSavedMovies}

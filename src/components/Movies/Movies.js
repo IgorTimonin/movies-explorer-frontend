@@ -1,8 +1,8 @@
 import './Movies.css';
 import MoviesCard from './MoviesCard/MoviesCard';
 import MoviesCardList from './MoviesCardList/MoviesCardList';
-import SearchForm from './SearchForm/SearchForm';
 import { useEffect, useState } from 'react';
+import SearchForm from '../SearchForm/SearchForm';
 
 export default function Movies({
   getMovies,
@@ -83,7 +83,7 @@ export default function Movies({
   }
 
   // const IsLiked = savedMoviesList.find((i) => i.movieId === movie.id);
-// console.log(filtredMoviesList.length);
+
   return (
     <section className="movies movies__container">
       <SearchForm
