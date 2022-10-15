@@ -29,8 +29,7 @@ export default function SearchForm({
   let findedMovies = JSON.parse(localStorage.getItem(`findedMovies`));
 
   function handleChangeQuery(e) {
-    handleChange(e);
-    setSearchQuery(e.target.value);
+      setSearchQuery(e.target.value);
   }
 
   //функция поиска фильмов с фитром по короткометражкам
@@ -84,7 +83,7 @@ export default function SearchForm({
         ? setFiltredSavedMovies(shortFilmSorter(savedMoviesList))
         : searchHandler(savedMoviesList, searchQuery);
     }
-      setIsSearchEnd(true);
+    setIsSearchEnd(true);
   }, [isShortFilm]);
 
   useEffect(() => {
@@ -109,7 +108,7 @@ export default function SearchForm({
       }
     }
     if (location === '/saved-movies') {
-      setIsShortFilm(false)
+      setIsShortFilm(false);
       setSearchQuery('');
       setRenderedMovies(savedMoviesList);
     }
@@ -126,8 +125,8 @@ export default function SearchForm({
             name="searchMovie"
             className="searchBar__input"
             placeholder="Фильм"
-            // defaultValue={lastSearch}
             required
+            minLength={1}
             onChange={handleChangeQuery}
           ></input>
           <button
