@@ -31,9 +31,9 @@ function App() {
     email: '',
   });
 
-    useEffect(() => {
-      tokenCheck();
-    }, []);
+  useEffect(() => {
+    tokenCheck()
+  }, []);
 
   //Регистрация нового пользователя
   function onSignUp(name, email, password) {
@@ -41,7 +41,9 @@ function App() {
       .signInSignUp('/signup', name, email, password)
       .then((res) => {
         if (res.statusCode !== 400) {
+          setCurrentUser(res);
           setLoggedIn(true);
+          setMessage('');
           nav('/movies');
         }
       })
@@ -49,9 +51,7 @@ function App() {
         if (err === 'Ошибка: 409') {
           setMessage('Пользователь с таким email уже существует');
         } else {
-          setMessage(
-            'При регистрации пользователя произошла ошибка.'
-          );
+          setMessage('При регистрации пользователя произошла ошибка.');
         }
       });
   }
@@ -63,6 +63,7 @@ function App() {
       .then((res) => {
         if (res.statusCode !== 400) {
           tokenCheck();
+          setMessage('');
           nav('/movies');
         }
       })
@@ -106,6 +107,7 @@ function App() {
       .then((res) => {
         if (res.email) {
           setCurrentUser(res);
+          setMessage('');
           setLoggedIn(true);
         }
       })
@@ -146,10 +148,14 @@ function App() {
     MoviesApi()
       .then((movies) => {
         setMoviesList(movies);
-        // localStorage.setItem('savedMovieList', moviesList);
         setIsLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) =>{
+        setMessage(
+          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+        )
+        console.log(err)}
+      );
   }
 
   //получение массива сохранённых пользователем фильмов
@@ -195,7 +201,12 @@ function App() {
         <Routes>
           <Route
             path="/signin"
-            element={<Login onSubmit={onSignIn} message={message} />}
+            element={
+              <Login
+                onSubmit={onSignIn}
+                message={message}
+              />
+            }
           ></Route>
           <Route
             path="/signup"
@@ -204,7 +215,6 @@ function App() {
           <Route
             path="/"
             element={
-              // <PrivateRoute loggedIn={loggedIn}>
               <Layout
                 location={location.pathname}
                 loggedIn={loggedIn}
@@ -212,7 +222,6 @@ function App() {
                 menuClick={handleMenuClick}
                 closeMenu={handleCloseMenuClick}
               />
-              // </PrivateRoute>
             }
           >
             <Route
@@ -243,6 +252,8 @@ function App() {
                     onClickRemove={removeFromSavedMovies}
                     isSearchEnd={isSearchEnd}
                     setIsSearchEnd={setIsSearchEnd}
+                    message={message}
+                    setMessage={setMessage}
                   />
                 </PrivateRoute>
               }
@@ -264,6 +275,8 @@ function App() {
                     onClickRemove={removeFromSavedMovies}
                     isSearchEnd={isSearchEnd}
                     setIsSearchEnd={setIsSearchEnd}
+                    message={message}
+                    setMessage={setMessage}
                   />
                 </PrivateRoute>
               }
@@ -278,7 +291,6 @@ function App() {
                     message={message}
                     onEdit={onEdit}
                     setOnEdit={setOnEdit}
-                    isLoading={isLoading}
                   />
                 </PrivateRoute>
               }

@@ -15,9 +15,10 @@ export default function SavedMovies({
   setIsLoading,
   isSearchEnd,
   setIsSearchEnd,
+  message,
+  setMessage,
   ...props
 }) {
-  // const savedMovies = JSON.parse(localStorage.getItem(`savedMovies`));
   const [filtredSavedMovies, setFiltredSavedMovies] = useState([]);
   const [renderedMovies, setRenderedMovies] = useState([]);
 
@@ -30,14 +31,20 @@ export default function SavedMovies({
     }
   }, [location]);
 
-
   useEffect(() => {
     setRenderedMovies(filtredSavedMovies);
   }, [filtredSavedMovies]);
 
-    useEffect(() => {
-      setRenderedMovies(savedMoviesList);
-    }, [savedMoviesList]);
+  useEffect(() => {
+    setRenderedMovies(savedMoviesList);
+  }, [savedMoviesList]);
+
+  useEffect(() => {
+    if (isSearchEnd && filtredSavedMovies.length === 0) {
+      setMessage('Ничего не найдено');
+      console.log(isSearchEnd);
+    }
+  }, [isSearchEnd]);
 
   return (
     <section className="movies movies__container">
@@ -49,6 +56,7 @@ export default function SavedMovies({
         setRenderedMovies={setRenderedMovies}
         setIsLoading={setIsLoading}
         location={location}
+        setMessage={setMessage}
       ></SearchForm>
       <SavedMoviesCardList
         savedMoviesList={renderedMovies}
@@ -56,6 +64,9 @@ export default function SavedMovies({
         onClickRemove={onClickRemove}
         location={location}
         isLoading={isLoading}
+        message={message}
+        setMessage={setMessage}
+        // notFound={isSearchEnd && filtredSavedMovies.length === 0 ? true : false}
       ></SavedMoviesCardList>
     </section>
   );

@@ -9,15 +9,19 @@ export default function SavedMoviesCardList({
   onClickLike,
   onClickRemove,
   location,
+  message,
+  setMessage,
+  // notFound,
   ...props
 }) {
-
   return (
     <MoviesCardList
       btn={'btn_hide'}
       savedMoviesList={savedMoviesList}
       onClickLike={onClickLike}
       onClickRemove={onClickRemove}
+      message={message}
+      // notFound={notFound}
     >
       <Preloader isLoading={isLoading}></Preloader>
       {savedMoviesList.map((movie) => (

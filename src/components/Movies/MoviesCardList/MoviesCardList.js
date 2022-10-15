@@ -4,18 +4,22 @@ import './MoviesCardList.css';
 export default function MoviesCardList({
   movies,
   moreBtnActive,
-  notFound,
+  // notFound,
   offsetChanger,
   isLoading,
+  message,
+  setMessage,
   ...props
 }) {
+
+
   return (
     <section className="moviesCardList">
       <div className="moviesCardList__container">
         <ul className="movieCardList__gallery">{props.children}</ul>
         <Preloader isLoading={isLoading}></Preloader>
-        <p className={notFound ? 'moviesCardList__not-found' : 'block__hide'}>
-          Ничего не найдено
+        <p className="moviesCardList__not-found">
+          {message}
         </p>
         <div className="moviesCardList__more">
           <button

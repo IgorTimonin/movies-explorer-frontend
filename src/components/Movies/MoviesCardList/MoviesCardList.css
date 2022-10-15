@@ -40,6 +40,7 @@
 }
 
 .moviesCardList__not-found {
+  max-width: 50%;
   margin: 0;
   position: relative;
   font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
@@ -47,6 +48,7 @@
   line-height: 22px;
   color: #ffffff;
   align-self: center;
+  text-align: center;
 }
 
 .btn_hide {

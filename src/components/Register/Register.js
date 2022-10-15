@@ -3,15 +3,14 @@ import { useState } from 'react';
 import './Register.css';
 import useFormWithValidation from '../../hoc/useFormWithValidation';
 
-export default function Register({ onSubmit, ...props }) {
+export default function Register({ onSubmit, message, ...props }) {
   const [userName, setUserName] = useState('');
   const { values, handleChange, resetForm, errors, isValid } =
     useFormWithValidation();
 
-  function handleSetUserName(e) {
-    handleChange(e);
-    // setUserName(e.target.value);
-  }
+  // function handleSetUserName(e) {
+  //   handleChange(e);
+  // }
 
   return (
     <section className="register section_height">
@@ -26,9 +25,10 @@ export default function Register({ onSubmit, ...props }) {
         onSubmit={onSubmit}
         userName={values.name}
         setUserName={setUserName}
-        nameIsValid={isValid}
+        message={message}
+        // nameIsValid={isValid}
       >
-        <label htmlFor="userName" className="auth__input-label">
+        {/* <label htmlFor="userName" className="auth__input-label">
           Имя
         </label>
         <input
@@ -43,7 +43,7 @@ export default function Register({ onSubmit, ...props }) {
           pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
           required
         ></input>
-        <span className="input-error_auth">{errors.name || ''}</span>
+        <span className="input-error_auth">{errors.name || ''}</span> */}
       </PageWithForm>
     </section>
   );

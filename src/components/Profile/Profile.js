@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import useFormWithValidation from '../../hoc/useFormWithValidation';
 import { CurrentUserContext } from '../context/CurrentUserContext';
-import Preloader from '../Movies/Preloader/Preloader';
 
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
@@ -13,7 +12,6 @@ export default function Profile({
   message,
   setOnEdit,
   onEdit,
-  isLoading,
   ...props
 }) {
   const currentUser = useContext(CurrentUserContext);
@@ -24,6 +22,7 @@ export default function Profile({
 
   function handleValueChanger(e) {
     handleChange(e);
+    setActiveMessage('');
   }
 
   function handleProfileEdit() {
@@ -116,7 +115,6 @@ export default function Profile({
                 <span className="input-error">{errors.email || ''}</span>
               </div>
             </div>
-            <Preloader isLoading={isLoading}></Preloader>
             <div className="userProfile__btn-block">
               <span
                 className={`userProfile__error ${
@@ -137,7 +135,7 @@ export default function Profile({
                   type="button"
                   className="auth__form-submit app__btn-opacity auth__btn-save auth__btn-save_userProfile"
                   onClick={handleSubmit}
-                  disabled={noValid}
+                  disabled={noValid || activeMessage}
                 >
                   Сохранить
                 </button>

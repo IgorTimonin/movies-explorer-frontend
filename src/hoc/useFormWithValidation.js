@@ -13,7 +13,12 @@ export default function useFormWithValidation() {
     if (name === 'name' && target.validity.patternMismatch) {
       target.setCustomValidity('Имя не должно содержать специальных символов');
       setIsValid(false);
-    } else {
+    }
+    // if (name === 'searchMovie') {
+    //   target.setCustomValidity('Нужно ввести ключевое слово');
+    //   setIsValid(false);
+    // }
+    else {
       target.setCustomValidity('');
     }
     setValues({ ...values, [name]: value });

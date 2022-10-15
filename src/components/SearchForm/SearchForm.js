@@ -18,6 +18,8 @@ export default function SearchForm({
   location,
   offsetReset,
   windowWidthChecker,
+  setMessage,
+  isSearchEnd,
   ...props
 }) {
   const { handleChange } = useFormWithValidation();
@@ -29,10 +31,11 @@ export default function SearchForm({
   let findedMovies = JSON.parse(localStorage.getItem(`findedMovies`));
 
   function handleChangeQuery(e) {
-      setSearchQuery(e.target.value);
+    // handleChange(e);
+    setSearchQuery(e.target.value);
   }
 
-  //функция поиска фильмов с фитром по короткометражкам
+  //функция поиска фильмов с фильтром по короткометражкам
   function searchHandler(arr, query) {
     setIsSearchEnd(false);
     if (location === '/movies') {
@@ -47,12 +50,13 @@ export default function SearchForm({
         ? setFiltredSavedMovies(moviesFinder(shortFilmSorter(arr), query))
         : setFiltredSavedMovies(moviesFinder(arr, query));
     }
-    setIsSearchEnd(true);
+    // setIsSearchEnd(true);
     setIsLoading(false);
   }
 
   function submitHandler(e) {
     e.preventDefault();
+    setIsSearchEnd(false);
     setIsLoading(true);
     if (location === '/movies') {
       windowWidthChecker();
@@ -63,6 +67,7 @@ export default function SearchForm({
     if (location === '/saved-movies') {
       searchHandler(savedMoviesList, searchQuery);
     }
+    setIsSearchEnd(true);
   }
 
   const shortFilmChanger = () => {
@@ -76,14 +81,14 @@ export default function SearchForm({
       isShortFilm
         ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
         : searchHandler(findedMovies, searchQuery);
-      setIsSearchEnd(true);
+      // setIsSearchEnd(true);
     }
     if (location === '/saved-movies') {
       isShortFilm
         ? setFiltredSavedMovies(shortFilmSorter(savedMoviesList))
         : searchHandler(savedMoviesList, searchQuery);
     }
-    setIsSearchEnd(true);
+    // setIsSearchEnd(true);
   }, [isShortFilm]);
 
   useEffect(() => {
@@ -106,18 +111,30 @@ export default function SearchForm({
         }
         searchHandler(findedMovies, lastSearch);
       }
+      setIsSearchEnd(false);
     }
     if (location === '/saved-movies') {
       setIsShortFilm(false);
       setSearchQuery('');
       setRenderedMovies(savedMoviesList);
+      setIsSearchEnd(false);
     }
   }, [location]);
+
+  const isError = (e) => {
+    e.target.setCustomValidity('Нужно ввести ключевое слово');
+    setMessage('Нужно ввести ключевое слово');
+  };
+
+  const isValid = (e) => {
+    e.target.setCustomValidity('');
+    setMessage('');
+  };
 
   return (
     <section className="searchForm">
       <div className="searchBar">
-        <form className="searchBar__finder" onSubmit={submitHandler}>
+        <form className="searchBar__finder" onSubmit={submitHandler} noValidate>
           <div className="searchBar__icon searchBar__icon_hide"></div>
           <input
             type="text"
@@ -126,7 +143,9 @@ export default function SearchForm({
             className="searchBar__input"
             placeholder="Фильм"
             required
-            minLength={1}
+            onInvalid={isError}
+            onInput={isValid}
+            minLength="1"
             onChange={handleChangeQuery}
           ></input>
           <button
@@ -134,7 +153,6 @@ export default function SearchForm({
             className="searchBar__icon searchBar__submit app__btn-opacity"
           ></button>
         </form>
-
         <div className="searchBar__controls">
           <div className="searchBar__separator searchBar__icon_hide"></div>
           <input

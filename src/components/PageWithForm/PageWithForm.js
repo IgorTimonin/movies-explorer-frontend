@@ -24,7 +24,7 @@ export default function PageWithForm({
   function handleSubmitSignup(e) {
     e.preventDefault();
     onSubmit({
-      name: userName,
+      name: values.name,
       email: values.email,
       password: values.password,
     });
@@ -71,7 +71,29 @@ export default function PageWithForm({
           action="#"
         >
           <div className="auth__formInputBlock auth__formBlock">
-            {props.children}
+            {location.pathname === '/signup' ? (
+              <>
+                <label htmlFor="userName" className="auth__input-label">
+                  Имя
+                </label>
+                <input
+                  className="auth__field auth__field_underline"
+                  type="text"
+                  value={values.name || ''}
+                  onChange={handleValueChanger}
+                  name="name"
+                  autoComplete="name"
+                  minLength="2"
+                  maxLength="30"
+                  pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
+                  required
+                ></input>
+                <span className="input-error_auth">{errors.name || ''}</span>
+              </>
+            ) : (
+              ''
+            )}
+            {/* {props.children} */}
             <label htmlFor="userEmail" className="auth__input-label">
               E-mail
             </label>
@@ -82,7 +104,7 @@ export default function PageWithForm({
               onChange={handleValueChanger}
               name="email"
               placeholder="Email"
-              autoComplete="name"
+              autoComplete="email"
               pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               required
             ></input>
@@ -112,8 +134,8 @@ export default function PageWithForm({
               className="auth__btn-save auth__form-submit app__btn-opacity"
               type="submit"
               disabled={
-                !isValid ||
-                (location.pathname === '/signup' ? !props.nameIsValid : false)
+                !isValid
+                // || (location.pathname === '/signup' ? !props.nameIsValid : false)
               }
             >
               {props.btnText}

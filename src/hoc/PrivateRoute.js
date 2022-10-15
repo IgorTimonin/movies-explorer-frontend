@@ -1,7 +1,11 @@
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const PrivateRoute = (props) => {
-  return props.loggedIn ? props.children : <Navigate to="/"/>;
+  const nav = useNavigate;
+  if (props.loggedIn) {
+    return props.children
+  }
+  return nav('/')
 };
 
 export default PrivateRoute;
