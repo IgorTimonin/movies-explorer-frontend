@@ -1,12 +1,18 @@
 import PageWithForm from '../PageWithForm/PageWithForm';
 import { useState } from 'react';
 import './Register.css';
+import useFormWithValidation from '../../hoc/useFormWithValidation';
 
 export default function Register({ onSubmit, ...props }) {
   const [userName, setUserName] = useState('');
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
+
   function handleSetUserName(e) {
-    setUserName(e.target.value);
+    handleChange(e);
+    // setUserName(e.target.value);
   }
+
   return (
     <section className="register section_height">
       <PageWithForm
@@ -18,8 +24,9 @@ export default function Register({ onSubmit, ...props }) {
         underBtnText="Уже зарегистрированы?"
         linkText="Войти"
         onSubmit={onSubmit}
-        name={userName}
+        userName={values.name}
         setUserName={setUserName}
+        nameIsValid={isValid}
       >
         <label htmlFor="userName" className="auth__input-label">
           Имя
@@ -27,15 +34,16 @@ export default function Register({ onSubmit, ...props }) {
         <input
           className="auth__field auth__field_underline"
           type="text"
-          value={userName}
+          value={values.name || ''}
           onChange={handleSetUserName}
-          name="userName"
-          autoComplete="username"
+          name="name"
+          autoComplete="name"
+          minLength="2"
+          maxLength="30"
+          pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
           required
         ></input>
-        <span className="user-name-input-error input-error_auth">
-          Введите имя.
-        </span>
+        <span className="input-error_auth">{errors.name || ''}</span>
       </PageWithForm>
     </section>
   );

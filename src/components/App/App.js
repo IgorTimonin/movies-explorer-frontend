@@ -22,7 +22,7 @@ function App() {
   const [savedMoviesList, setSavedMoviesList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSearchEnd, setIsSearchEnd] = useState(false);
-  const [updateProfileMessage, setUpdateProfileMessage] = useState('');
+  const [message, setMessage] = useState('');
   const [onEdit, setOnEdit] = useState(false);
   const nav = useNavigate();
   useContext(CurrentUserContext);
@@ -42,7 +42,13 @@ function App() {
         }
       })
       .catch((err) => {
-        console.log(`Ошибка при регистрации: ${err}`);
+        if (err === 'Ошибка: 409') {
+          setMessage('Пользователь с таким email уже существует');
+        } else {
+          setMessage(
+            'При регистрации пользователя произошла ошибка.'
+          );
+        }
       });
   }
 
@@ -56,7 +62,21 @@ function App() {
           nav('/movies');
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        if (err === 'Ошибка: 400') {
+          setMessage('Переданы не корректные данные для авторизации');
+        }
+        if (err === 'Ошибка: 401') {
+          setMessage('Вы ввели неправильный логин или пароль.');
+        }
+        if (err === 'Ошибка: 500') {
+          setMessage('На сервере произошла ошибка.');
+        } else {
+          setMessage(
+            'При авторизации произошла ошибка. Токен не передан или передан не в том формате.'
+          );
+        }
+      });
   }
 
   //Выход из учётной записи
@@ -88,7 +108,6 @@ function App() {
 
   useEffect(() => {
       tokenCheck();
-    // nav('/');
   }, []);
 
   //Обновление профиля пользователя
@@ -99,15 +118,15 @@ function App() {
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
         localStorage.setItem(`${currentUser._id}-profile`, newUserInfo);
-        setUpdateProfileMessage('Данные успешно обновлены');
+        setMessage('Данные успешно обновлены');
         setIsLoading(false);
         setOnEdit(false);
       })
       .catch((err) => {
         if (err === 'Ошибка: 409') {
-          setUpdateProfileMessage('Пользователь с таким email уже существует');
+          setMessage('Пользователь с таким email уже существует');
         } else {
-          setUpdateProfileMessage('При обновлении профиля произошла ошибка');
+          setMessage('При обновлении профиля произошла ошибка');
         }
       });
   }
@@ -172,10 +191,13 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Routes>
-          <Route path="/signin" element={<Login onSubmit={onSignIn} />}></Route>
+          <Route
+            path="/signin"
+            element={<Login onSubmit={onSignIn} message={message} />}
+          ></Route>
           <Route
             path="/signup"
-            element={<Register onSubmit={onSignUp} />}
+            element={<Register onSubmit={onSignUp} message={message} />}
           ></Route>
           <Route
             path="/"
@@ -250,7 +272,7 @@ function App() {
                   <Profile
                     onSubmit={handleUpdateUser}
                     onLogOut={onLogOut}
-                    message={updateProfileMessage}
+                    message={message}
                     onEdit={onEdit}
                     setOnEdit={setOnEdit}
                     isLoading={isLoading}

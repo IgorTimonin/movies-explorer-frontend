@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import useFormWithValidation from '../../hoc/useFormWithValidation';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import Preloader from '../Movies/Preloader/Preloader';
@@ -16,14 +17,10 @@ export default function Profile({
   ...props
 }) {
   const currentUser = useContext(CurrentUserContext);
-  const {
-    values,
-    handleChange,
-    resetForm,
-    errors,
-    isValid,
-  } = useFormWithValidation();
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
   const [activeMessage, setActiveMessage] = useState('');
+  const location = useLocation();
 
   function handleValueChanger(e) {
     handleChange(e);
@@ -37,6 +34,7 @@ export default function Profile({
   function handleSubmit(e) {
     e.preventDefault();
     onSubmit({ name: values.name, email: values.email });
+    setActiveMessage(message);
   }
 
   useEffect(() => {
@@ -49,9 +47,10 @@ export default function Profile({
     setActiveMessage(message);
   }, [message]);
 
-  // useEffect(() => {
-  //   setActiveMessage('');
-  // }, []);
+  useEffect(() => {
+    setActiveMessage('');
+    setOnEdit(false)
+  }, [location]);
 
   const noValid =
     !isValid ||
@@ -82,6 +81,7 @@ export default function Profile({
                     value={values.name || ''}
                     onChange={handleValueChanger}
                     name="name"
+                    autoComplete="name"
                     minLength="2"
                     maxLength="30"
                     pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
@@ -103,6 +103,7 @@ export default function Profile({
                   <input
                     className="userProfile__field"
                     type="email"
+                    autoComplete="email"
                     value={values.email || ''}
                     onChange={handleValueChanger}
                     name="email"
@@ -119,9 +120,7 @@ export default function Profile({
             <div className="userProfile__btn-block">
               <span
                 className={`userProfile__error ${
-                  onEdit
-                    ? 'block__hide'
-                    : 'userProfile__error_white '
+                  onEdit ? 'block__hide' : 'userProfile__error_white '
                 }`}
               >
                 {activeMessage}
