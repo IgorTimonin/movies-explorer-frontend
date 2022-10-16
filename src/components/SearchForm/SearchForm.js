@@ -134,7 +134,7 @@ export default function SearchForm({
   return (
     <section className="searchForm">
       <div className="searchBar">
-        <form className="searchBar__finder" onSubmit={submitHandler} noValidate>
+        <form className="searchBar__finder" onSubmit={submitHandler}>
           <div className="searchBar__icon searchBar__icon_hide"></div>
           <input
             type="text"

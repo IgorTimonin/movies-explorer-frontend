@@ -32,7 +32,22 @@ function App() {
   });
 
   useEffect(() => {
-    tokenCheck()
+    tokenCheck();
+  }, []);
+
+  useEffect(() => {
+    if (
+      loggedIn && (location.pathname === '/signup' ||
+      location.pathname === '/signin')
+    ) {
+        nav('/movies');
+      }
+    if (
+      !loggedIn && (location.pathname === '/movies' ||
+      location.pathname === '/saved-movies')
+    ) {
+      nav('/');
+    }
   }, []);
 
   //Регистрация нового пользователя
@@ -150,12 +165,12 @@ function App() {
         setMoviesList(movies);
         setIsLoading(false);
       })
-      .catch((err) =>{
+      .catch((err) => {
         setMessage(
           'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
-        )
-        console.log(err)}
-      );
+        );
+        console.log(err);
+      });
   }
 
   //получение массива сохранённых пользователем фильмов
@@ -201,12 +216,7 @@ function App() {
         <Routes>
           <Route
             path="/signin"
-            element={
-              <Login
-                onSubmit={onSignIn}
-                message={message}
-              />
-            }
+            element={<Login onSubmit={onSignIn} message={message} />}
           ></Route>
           <Route
             path="/signup"
