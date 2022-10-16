@@ -33,11 +33,11 @@ export default function SavedMovies({
 
   useEffect(() => {
     setRenderedMovies(filtredSavedMovies);
-  }, [filtredSavedMovies]);
+  }, [filtredSavedMovies, savedMoviesList]);
 
-  useEffect(() => {
-    setRenderedMovies(savedMoviesList);
-  }, [savedMoviesList]);
+  // useEffect(() => {
+  //   setRenderedMovies(savedMoviesList);
+  // }, [savedMoviesList]);
 
   useEffect(() => {
     if (isSearchEnd && filtredSavedMovies.length === 0) {

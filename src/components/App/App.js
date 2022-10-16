@@ -32,21 +32,10 @@ function App() {
   });
 
   useEffect(() => {
-    tokenCheck();
-  }, []);
+    const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
 
-  useEffect(() => {
-    if (
-      loggedIn && (location.pathname === '/signup' ||
-      location.pathname === '/signin')
-    ) {
-        nav('/movies');
-      }
-    if (
-      !loggedIn && (location.pathname === '/movies' ||
-      location.pathname === '/saved-movies')
-    ) {
-      nav('/');
+    if (loginStatus) {
+      tokenCheck();
     }
   }, []);
 
@@ -56,10 +45,11 @@ function App() {
       .signInSignUp('/signup', name, email, password)
       .then((res) => {
         if (res.statusCode !== 400) {
-          setCurrentUser(res);
-          setLoggedIn(true);
+          tokenCheck();
+          // setCurrentUser(res);
+          // setLoggedIn(true);
           setMessage('');
-          nav('/movies');
+          // localStorage.setItem('loginStatus', JSON.stringify(true));
         }
       })
       .catch((err) => {
@@ -79,7 +69,8 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          nav('/movies');
+          nav('/movies')
+          // localStorage.setItem('loginStatus', JSON.stringify(true));
         }
       })
       .catch((err) => {
@@ -121,9 +112,11 @@ function App() {
       .getUserData('/users/me')
       .then((res) => {
         if (res.email) {
+          localStorage.setItem('loginStatus', JSON.stringify(true));
           setCurrentUser(res);
           setMessage('');
           setLoggedIn(true);
+          console.log('tokenCheck complete');
         }
       })
       .catch((err) => console.log(err));
@@ -248,7 +241,7 @@ function App() {
             <Route
               path="/movies"
               element={
-                <PrivateRoute loggedIn={loggedIn}>
+                <PrivateRoute loggedIn={loggedIn} location={location}>
                   <Movies
                     getMovies={getMovies}
                     moviesList={moviesList}
@@ -271,7 +264,7 @@ function App() {
             <Route
               path="/saved-movies"
               element={
-                <PrivateRoute loggedIn={loggedIn}>
+                <PrivateRoute loggedIn={loggedIn} location={location}>
                   <SavedMovies
                     loggedIn={loggedIn}
                     isOpen={isOpen}
@@ -294,7 +287,7 @@ function App() {
             <Route
               path="/profile"
               element={
-                <PrivateRoute loggedIn={loggedIn}>
+                <PrivateRoute loggedIn={loggedIn} location={location}>
                   <Profile
                     onSubmit={handleUpdateUser}
                     onLogOut={onLogOut}
