@@ -66,8 +66,10 @@ export default function MoviesCard({
         </div>
         <a
           className="app__btn-opacity movie__img-link"
+          target="_blank"
+          rel="noreferrer"
           href={movie.trailerLink}
-          onClick={handleImageClick}
+          // onClick={handleImageClick}
         >
           <img
             className="movie__img"

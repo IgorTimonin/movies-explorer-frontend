@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
@@ -8,7 +8,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
-import NotFoundPage from './NotFoundPage/NotFoundPage';
+import NotFoundPage from '../NotFoundPage/NotFoundPage';
 import Layout from '../Layout/Layout';
 import MoviesApi from '../../utils/MoviesApi';
 import { mainApi } from '../../utils/MainApi';
@@ -24,6 +24,7 @@ function App() {
   const [isSearchEnd, setIsSearchEnd] = useState(false);
   const [message, setMessage] = useState('');
   const [onEdit, setOnEdit] = useState(false);
+  let loginStatus = false;
   const nav = useNavigate();
   useContext(CurrentUserContext);
   const [currentUser, setCurrentUser] = useState({
@@ -32,12 +33,19 @@ function App() {
   });
 
   useEffect(() => {
-    const loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
+    loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
 
     if (loginStatus) {
       tokenCheck();
     }
   }, []);
+
+  // useEffect(() => {
+  //   loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
+  //   if (!loggedIn || !loginStatus) {
+  //     onLogOut();
+  //   }
+  // }, [loggedIn]);
 
   //Регистрация нового пользователя
   function onSignUp(name, email, password) {
@@ -69,7 +77,8 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          nav('/movies')
+          return <Navigate to="/movies" replace />;
+          // nav('/movies');
           // localStorage.setItem('loginStatus', JSON.stringify(true));
         }
       })
@@ -116,7 +125,7 @@ function App() {
           setCurrentUser(res);
           setMessage('');
           setLoggedIn(true);
-          console.log('tokenCheck complete');
+          console.log(`tokenCheck: ${loginStatus}`);
         }
       })
       .catch((err) => console.log(err));
@@ -208,13 +217,36 @@ function App() {
       <div className="App">
         <Routes>
           <Route
-            path="/signin"
-            element={<Login onSubmit={onSignIn} message={message} />}
-          ></Route>
-          <Route
             path="/signup"
-            element={<Register onSubmit={onSignUp} message={message} />}
+            element={
+              !loggedIn ? (
+                <Register onSubmit={onSignUp} message={message} />
+              ) : (
+                <Navigate to="/movies" replace />
+              )
+            }
+          />
+          <Route
+            path="/signin"
+            element={
+              !loggedIn ? (
+                <Login onSubmit={onSignIn} message={message} />
+              ) : (
+                <Navigate to="/movies" replace />
+              )
+              // <PrivateRoute loggedIn={loggedIn} location={location}>
+              // <Login onSubmit={onSignIn} message={message} />
+              // </PrivateRoute>
+            }
           ></Route>
+          {/* <Route
+            path="/signup"
+            element={
+              // <PrivateRoute loggedIn={loggedIn} location={location}>
+              <Register onSubmit={onSignUp} message={message} />
+              // </PrivateRoute>
+            }
+          ></Route> */}
           <Route
             path="/"
             element={
@@ -297,9 +329,9 @@ function App() {
                   />
                 </PrivateRoute>
               }
-            />
-            <Route path="*" element={<NotFoundPage />} />
+            ></Route>
           </Route>
+          <Route path="/*" element={<NotFoundPage />} />
         </Routes>
       </div>
     </CurrentUserContext.Provider>

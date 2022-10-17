@@ -26,7 +26,7 @@ export default function Movies({
   const [rowSize, setRowSize] = useState(3);
   const [offset, setOffset] = useState(limit);
   const [moreBtnActive, setMoreBtnActive] = useState(false);
-  // let notFound = false;
+
   // изменяем кол-во отображаемых карточек для кнопки 'Ещё'
   function offsetChanger() {
     if (offset <= limit) {
@@ -109,7 +109,6 @@ export default function Movies({
       <MoviesCardList
         isLoading={isLoading}
         moreBtnActive={moreBtnActive}
-        // notFound={isSearchEnd && filtredMoviesList.length === 0 ? true : false}
         offsetChanger={offsetChanger}
         message={message}
         setMessage={setMessage}
