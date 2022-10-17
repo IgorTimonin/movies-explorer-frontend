@@ -22,17 +22,18 @@ export default function SearchForm({
   isSearchEnd,
   ...props
 }) {
-  const { handleChange } = useFormWithValidation();
+  // const { handleChange } = useFormWithValidation();
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(
     JSON.parse(localStorage.getItem(`shortFilm`)) || false
   );
   let lastSearch = localStorage.getItem(`searchQuery`);
   let findedMovies = JSON.parse(localStorage.getItem(`findedMovies`));
+  const [emptyQuery, setEmptyQuery] = useState('');
 
   function handleChangeQuery(e) {
-    // handleChange(e);
     setSearchQuery(e.target.value);
+    setEmptyQuery('');
   }
 
   //функция поиска фильмов с фильтром по короткометражкам
@@ -50,22 +51,28 @@ export default function SearchForm({
         ? setFiltredSavedMovies(moviesFinder(shortFilmSorter(arr), query))
         : setFiltredSavedMovies(moviesFinder(arr, query));
     }
-    // setIsSearchEnd(true);
+    setIsSearchEnd(true);
     setIsLoading(false);
   }
 
   function submitHandler(e) {
     e.preventDefault();
-    setIsSearchEnd(false);
-    setIsLoading(true);
-    if (location === '/movies') {
-      windowWidthChecker();
-      moviesList.length !== 0
-        ? searchHandler(moviesList, searchQuery)
-        : getMovies();
-    }
-    if (location === '/saved-movies') {
-      searchHandler(savedMoviesList, searchQuery);
+
+    if (searchQuery) {
+      setIsSearchEnd(false);
+      setIsLoading(true);
+      if (location === '/movies') {
+        windowWidthChecker();
+        moviesList.length !== 0
+          ? searchHandler(moviesList, searchQuery)
+          : getMovies();
+      }
+      if (location === '/saved-movies') {
+        searchHandler(savedMoviesList, searchQuery);
+      }
+      setIsSearchEnd(true);
+    } else {
+      setEmptyQuery('Нужно ввести ключевое слово');
     }
     setIsSearchEnd(true);
   }
@@ -121,30 +128,20 @@ export default function SearchForm({
     }
   }, [location]);
 
-  const isError = (e) => {
-    e.target.setCustomValidity('Нужно ввести ключевое слово');
-    setMessage('Нужно ввести ключевое слово');
-  };
-
-  const isValid = (e) => {
-    e.target.setCustomValidity('');
-    setMessage('');
-  };
-
   return (
     <section className="searchForm">
       <div className="searchBar">
-        <form className="searchBar__finder" onSubmit={submitHandler}>
-          <div className="searchBar__icon searchBar__icon_hide"></div>
+        <form className="searchBar__finder" onSubmit={submitHandler} noValidate>
+          <div
+            className={'searchBar__icon searchBar__icon_hide'}
+          ></div>
           <input
             type="text"
             value={searchQuery}
             name="searchMovie"
             className="searchBar__input"
-            placeholder="Фильм"
+            placeholder={emptyQuery ? emptyQuery : 'Фильм'}
             required
-            onInvalid={isError}
-            onInput={isValid}
             minLength="1"
             onChange={handleChangeQuery}
           ></input>

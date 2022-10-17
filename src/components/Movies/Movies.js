@@ -58,6 +58,7 @@ export default function Movies({
     }
   }
 
+  //отслеживаем изменение ширины экрана каждые 2сек
   useEffect(() => {
     let resizeTimeout;
 
@@ -87,11 +88,10 @@ export default function Movies({
   useEffect(() => {
     if (isSearchEnd && filtredMoviesList.length === 0) {
       setMessage('Ничего не найдено');
+    } else {
+      setMessage('');
     }
-    else {
-      setMessage('')
-    }
-  }, [isSearchEnd]);
+  }, [moviesList, filtredMoviesList]);
 
   return (
     <section className="movies movies__container">

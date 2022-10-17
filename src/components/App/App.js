@@ -54,10 +54,8 @@ function App() {
       .then((res) => {
         if (res.statusCode !== 400) {
           tokenCheck();
-          // setCurrentUser(res);
-          // setLoggedIn(true);
           setMessage('');
-          // localStorage.setItem('loginStatus', JSON.stringify(true));
+          return nav('/movies');
         }
       })
       .catch((err) => {
@@ -77,9 +75,8 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          return <Navigate to="/movies" replace />;
-          // nav('/movies');
-          // localStorage.setItem('loginStatus', JSON.stringify(true));
+          <Navigate to="/movies" replace />;
+          // return nav('/movies');
         }
       })
       .catch((err) => {
@@ -106,10 +103,10 @@ function App() {
       .then((res) => {
         if (res.statusCode !== 400) {
           setLoggedIn(false);
-          nav('/');
           localStorage.clear();
           setMoviesList([]);
           setSavedMoviesList([]);
+          return nav('/');
         }
       })
       .catch((err) => console.log(err));
