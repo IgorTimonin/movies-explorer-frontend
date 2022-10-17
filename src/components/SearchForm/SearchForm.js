@@ -107,6 +107,7 @@ export default function SearchForm({
   }, [moviesList]);
 
   useEffect(() => {
+    setIsSearchEnd(false);
     if (location === '/movies') {
       let shortFilmStatus = localStorage.getItem(`shortFilm`);
       if (findedMovies) {

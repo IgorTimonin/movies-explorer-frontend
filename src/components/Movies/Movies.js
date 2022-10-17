@@ -26,6 +26,7 @@ export default function Movies({
   const [rowSize, setRowSize] = useState(3);
   const [offset, setOffset] = useState(limit);
   const [moreBtnActive, setMoreBtnActive] = useState(false);
+  const setIsLiked = (movie) => savedMoviesList.find((i) => i.movieId === movie.id);
 
   // изменяем кол-во отображаемых карточек для кнопки 'Ещё'
   function offsetChanger() {
@@ -121,6 +122,7 @@ export default function Movies({
             savedMoviesList={savedMoviesList}
             onClickLike={onClickLike}
             onClickRemove={onClickRemove}
+            isLiked={setIsLiked(movie)}
           />
         ))}
       </MoviesCardList>

@@ -86,6 +86,8 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  border: none;
+  background-color: transparent;
 }
 
 .movie__bookmark-btn_save {
@@ -96,7 +98,7 @@
   background-image: url(../../../images/cross.svg);
 }
 
-.movie__save-btn:checked {
+.movie__save-btn_active {
   background-image: url(../../../images/save.svg);
 }
 

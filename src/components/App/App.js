@@ -34,18 +34,10 @@ function App() {
 
   useEffect(() => {
     loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
-
     if (loginStatus) {
       tokenCheck();
     }
   }, []);
-
-  // useEffect(() => {
-  //   loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
-  //   if (!loggedIn || !loginStatus) {
-  //     onLogOut();
-  //   }
-  // }, [loggedIn]);
 
   //Регистрация нового пользователя
   function onSignUp(name, email, password) {
@@ -55,7 +47,7 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          return nav('/movies');
+          return <Navigate to="/movies" replace />
         }
       })
       .catch((err) => {
@@ -75,8 +67,7 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          <Navigate to="/movies" replace />;
-          // return nav('/movies');
+          <Navigate to="/movies" replace/>;
         }
       })
       .catch((err) => {
@@ -106,11 +97,12 @@ function App() {
           localStorage.clear();
           setMoviesList([]);
           setSavedMoviesList([]);
-          return nav('/');
+          return <Navigate to="/movies" replace />;
         }
       })
       .catch((err) => console.log(err));
   }
+
 
   //Авторизация пользователя
   function tokenCheck() {
@@ -177,8 +169,9 @@ function App() {
     mainApi
       .getSavedMovie()
       .then((movies) => {
-        setSavedMoviesList(movies);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
+        const currentUserMovies = movies.filter((m) => m.owner === currentUser._id)
+        setSavedMoviesList(currentUserMovies);
+        localStorage.setItem('savedMovies', JSON.stringify(currentUserMovies));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
@@ -189,8 +182,12 @@ function App() {
     mainApi
       .postNewMovie(movie)
       .then((savedMovie) => {
-        setSavedMoviesList([savedMovie, ...savedMoviesList]);
-        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
+        const actualMoviesList = [
+          ...savedMoviesList,
+          { ...savedMovie, id: savedMovie.movieId },
+        ];
+        setSavedMoviesList(actualMoviesList);
+        localStorage.setItem('savedMovies', JSON.stringify(actualMoviesList));
       })
       .catch((err) => console.log(err));
   }
@@ -208,6 +205,19 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
+
+    useEffect(() => {
+      if (loggedIn) {
+        handleGetSavedMovies();
+      }
+    }, [loggedIn]);
+
+    // useEffect(() => {
+    //   if (savedMoviesList.length > 0) {
+    //     setSavedMoviesList(JSON.parse(localStorage.getItem('savedMovies')));
+    //     console.log('savedMoviesList update!');
+    //   }
+    // }, [savedMoviesList]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

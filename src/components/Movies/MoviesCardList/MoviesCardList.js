@@ -4,7 +4,6 @@ import './MoviesCardList.css';
 export default function MoviesCardList({
   movies,
   moreBtnActive,
-  // notFound,
   offsetChanger,
   isLoading,
   message,

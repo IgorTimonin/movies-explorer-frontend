@@ -1,7 +1,6 @@
 import SavedMoviesCardList from '../SavedMovies/SavedMoviesCardList/SavedMoviesCardList';
 import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
-import Preloader from '../Movies/Preloader/Preloader';
 import { useEffect, useState } from 'react';
 
 export default function SavedMovies({
@@ -29,22 +28,25 @@ export default function SavedMovies({
       setRenderedMovies(savedMoviesList);
       setIsLoading(false);
     }
+    else {
+    }
   }, [location]);
 
   useEffect(() => {
     setRenderedMovies(filtredSavedMovies);
-  }, [filtredSavedMovies, savedMoviesList]);
-
-  // useEffect(() => {
-  //   setRenderedMovies(savedMoviesList);
-  // }, [savedMoviesList]);
+  }, [filtredSavedMovies]);
 
   useEffect(() => {
-    if (isSearchEnd && filtredSavedMovies.length === 0) {
-      setMessage('Ничего не найдено');
-      console.log(isSearchEnd);
-    }
-  }, [isSearchEnd]);
+    setRenderedMovies(savedMoviesList);
+  }, [savedMoviesList]);
+
+    useEffect(() => {
+      if (isSearchEnd && filtredSavedMovies.length === 0) {
+        setMessage('Ничего не найдено');
+      } else {
+        setMessage('');
+      }
+    }, [savedMoviesList, filtredSavedMovies]);
 
   return (
     <section className="movies movies__container">
@@ -59,14 +61,13 @@ export default function SavedMovies({
         setMessage={setMessage}
       ></SearchForm>
       <SavedMoviesCardList
-        savedMoviesList={renderedMovies}
+        renderedMoviesList={renderedMovies}
         onClickLike={onClickLike}
         onClickRemove={onClickRemove}
         location={location}
         isLoading={isLoading}
         message={message}
         setMessage={setMessage}
-        // notFound={isSearchEnd && filtredSavedMovies.length === 0 ? true : false}
       ></SavedMoviesCardList>
     </section>
   );
