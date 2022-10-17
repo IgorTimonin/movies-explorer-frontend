@@ -169,9 +169,8 @@ function App() {
     mainApi
       .getSavedMovie()
       .then((movies) => {
-        const currentUserMovies = movies.filter((m) => m.owner === currentUser._id)
-        setSavedMoviesList(currentUserMovies);
-        localStorage.setItem('savedMovies', JSON.stringify(currentUserMovies));
+        setSavedMoviesList(movies);
+        localStorage.setItem('savedMovies', JSON.stringify(savedMoviesList));
         setIsLoading(false);
       })
       .catch((err) => console.log(err));
@@ -211,13 +210,6 @@ function App() {
         handleGetSavedMovies();
       }
     }, [loggedIn]);
-
-    // useEffect(() => {
-    //   if (savedMoviesList.length > 0) {
-    //     setSavedMoviesList(JSON.parse(localStorage.getItem('savedMovies')));
-    //     console.log('savedMoviesList update!');
-    //   }
-    // }, [savedMoviesList]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

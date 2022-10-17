@@ -79,7 +79,9 @@ export default function SearchForm({
 
   const shortFilmChanger = () => {
     setIsShortFilm(!isShortFilm);
-    localStorage.setItem(`shortFilm`, isShortFilm);
+    if (location === '/movies') {
+      localStorage.setItem(`shortFilm`, isShortFilm);
+    }
   };
 
   useEffect(() => {
@@ -88,14 +90,12 @@ export default function SearchForm({
       isShortFilm
         ? setFiltredMoviesList(shortFilmSorter(filtredMoviesList))
         : searchHandler(findedMovies, searchQuery);
-      // setIsSearchEnd(true);
     }
     if (location === '/saved-movies') {
       isShortFilm
         ? setFiltredSavedMovies(shortFilmSorter(savedMoviesList))
         : searchHandler(savedMoviesList, searchQuery);
     }
-    // setIsSearchEnd(true);
   }, [isShortFilm]);
 
   useEffect(() => {
@@ -105,6 +105,17 @@ export default function SearchForm({
         : searchHandler(moviesList, searchQuery);
     }
   }, [moviesList]);
+
+  useEffect(() => {
+    if (location === '/saved-movies') {
+      if (isShortFilm) {
+        setRenderedMovies(shortFilmSorter(savedMoviesList));
+      }
+      else {
+        setRenderedMovies(savedMoviesList);
+      }
+    }
+  }, [savedMoviesList]);
 
   useEffect(() => {
     setIsSearchEnd(false);
@@ -133,9 +144,7 @@ export default function SearchForm({
     <section className="searchForm">
       <div className="searchBar">
         <form className="searchBar__finder" onSubmit={submitHandler} noValidate>
-          <div
-            className={'searchBar__icon searchBar__icon_hide'}
-          ></div>
+          <div className={'searchBar__icon searchBar__icon_hide'}></div>
           <input
             type="text"
             value={searchQuery}

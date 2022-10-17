@@ -5,7 +5,7 @@ import Preloader from '../../Movies/Preloader/Preloader';
 export default function SavedMoviesCardList({
   movies,
   isLoading,
-  renderedMoviesList,
+  renderedMovies,
   onClickLike,
   onClickRemove,
   location,
@@ -21,12 +21,12 @@ export default function SavedMoviesCardList({
       message={message}
     >
       <Preloader isLoading={isLoading}></Preloader>
-      {renderedMoviesList.map((movie) => (
+      {renderedMovies.map((movie) => (
         <MoviesCard
           key={movie.movieId}
           movie={movie}
           location={location}
-          savedMoviesList={renderedMoviesList}
+          savedMoviesList={renderedMovies}
           onClickLike={onClickLike}
           onClickRemove={onClickRemove}
         />

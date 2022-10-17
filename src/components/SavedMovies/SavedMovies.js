@@ -36,9 +36,9 @@ export default function SavedMovies({
     setRenderedMovies(filtredSavedMovies);
   }, [filtredSavedMovies]);
 
-  useEffect(() => {
-    setRenderedMovies(savedMoviesList);
-  }, [savedMoviesList]);
+  // useEffect(() => {
+  //   setRenderedMovies(savedMoviesList);
+  // }, [savedMoviesList]);
 
     useEffect(() => {
       if (isSearchEnd && filtredSavedMovies.length === 0) {
@@ -61,7 +61,7 @@ export default function SavedMovies({
         setMessage={setMessage}
       ></SearchForm>
       <SavedMoviesCardList
-        renderedMoviesList={renderedMovies}
+        renderedMovies={renderedMovies}
         onClickLike={onClickLike}
         onClickRemove={onClickRemove}
         location={location}
