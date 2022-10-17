@@ -1,5 +1,11 @@
 import { useContext, useEffect, useState } from 'react';
-import { Routes, Route, useLocation, useNavigate, Navigate } from 'react-router-dom';
+import {
+  Routes,
+  Route,
+  useLocation,
+  useNavigate,
+  Navigate,
+} from 'react-router-dom';
 import { CurrentUserContext } from '../context/CurrentUserContext';
 import './App.css';
 import Main from '../Main/Main';
@@ -47,7 +53,7 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          return <Navigate to="/movies" replace />
+          return <Navigate to="/movies" replace />;
         }
       })
       .catch((err) => {
@@ -67,7 +73,7 @@ function App() {
         if (res.statusCode !== 400) {
           tokenCheck();
           setMessage('');
-          <Navigate to="/movies" replace/>;
+          <Navigate to="/movies" replace />;
         }
       })
       .catch((err) => {
@@ -97,12 +103,11 @@ function App() {
           localStorage.clear();
           setMoviesList([]);
           setSavedMoviesList([]);
-          return <Navigate to="/movies" replace />;
+          return <Navigate to="/" replace />;
         }
       })
       .catch((err) => console.log(err));
   }
-
 
   //Авторизация пользователя
   function tokenCheck() {
@@ -117,7 +122,11 @@ function App() {
           console.log(`tokenCheck: ${loginStatus}`);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoggedIn(false);
+        localStorage.clear();
+      });
   }
 
   //Обновление профиля пользователя
@@ -205,11 +214,11 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-    useEffect(() => {
-      if (loggedIn) {
-        handleGetSavedMovies();
-      }
-    }, [loggedIn]);
+  useEffect(() => {
+    if (loggedIn) {
+      handleGetSavedMovies();
+    }
+  }, [loggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
