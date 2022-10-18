@@ -242,19 +242,8 @@ function App() {
               ) : (
                 <Navigate to="/movies" replace />
               )
-              // <PrivateRoute loggedIn={loggedIn} location={location}>
-              // <Login onSubmit={onSignIn} message={message} />
-              // </PrivateRoute>
             }
           ></Route>
-          {/* <Route
-            path="/signup"
-            element={
-              // <PrivateRoute loggedIn={loggedIn} location={location}>
-              <Register onSubmit={onSignUp} message={message} />
-              // </PrivateRoute>
-            }
-          ></Route> */}
           <Route
             path="/"
             element={
