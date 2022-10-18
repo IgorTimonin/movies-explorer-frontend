@@ -35,6 +35,10 @@
   justify-content: center;
 }
 
+.app__btn_promo:visited {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 1070px) {
   .section__title_promo {
     font-size: 40px;

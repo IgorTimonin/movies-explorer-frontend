@@ -12,42 +12,42 @@ export default function Promo(props) {
       <div className="promo_nav">
         <Link
           className="app__btn app__btn-opacity app__btn_promo"
-          activeClass="active"
+          // activeClass="active"
           to="about"
-          spy={true}
+          // spy={true}
           smooth={true}
           offset={-70}
           duration={500}
         >
-          <span>
+          <div>
             О проекте
-          </span>
+          </div>
         </Link>
         <Link
           className="app__btn app__btn-opacity app__btn_promo"
-          activeClass="active"
+          // activeClass="active"
           to="techs"
-          spy={true}
+          // spy={true}
           smooth={true}
-          offset={-70}
+          offset={-10}
           duration={500}
         >
-          <span>
+          <div>
             Технологии
-          </span>
+          </div>
         </Link>
         <Link
           className="app__btn app__btn-opacity app__btn_promo"
-          activeClass="active"
+          // activeClass="active"
           to="aboutMe"
-          spy={true}
+          // spy={true}
           smooth={true}
-          offset={-70}
+          offset={40}
           duration={500}
         >
-          <span>
+          <div>
             Студент
-          </span>
+          </div>
         </Link>
       </div>
     </section>
