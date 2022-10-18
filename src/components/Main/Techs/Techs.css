@@ -54,6 +54,59 @@
   min-width: auto;
   min-height: auto;
   margin-right: 0;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size .5s, color .5s;
+  transition: .5s, text .5s;
+}
+
+.app__btn_techs:hover {
+  color: #000;
+  transition: .5s, color .5s;
+  transition: .5s, text .5s;
+  font-size: 17px;
+  background-size: 100% 100%;
+}
+
+.app__btn_techs_html {
+  background-image: linear-gradient(#e65126, #e65126);
+}
+
+.app__btn_techs_html:hover {
+  color: #fff;
+}
+
+.app__btn_techs_css {
+  background-image: linear-gradient(#0c73b8, #0c73b8);
+}
+
+.app__btn_techs_css:hover {
+  color: #fff;
+}
+
+.app__btn_techs_js {
+  background-image: linear-gradient(#f7df1e, #f7df1e);
+}
+
+.app__btn_techs_react {
+  background-image: linear-gradient(#05dbfb, #05dbfb);
+}
+
+.app__btn_techs_git {
+  background-image: linear-gradient(#fff, #fff);
+}
+
+.app__btn_techs_express {
+  background-image: linear-gradient(#000, #000);
+}
+
+.app__btn_techs_express:hover {
+  color: #fff;
+}
+
+.app__btn_techs_mongo {
+  background-image: linear-gradient(#08bf51, #08bf51);
 }
 
 @media screen and (max-width: 1070px) {
