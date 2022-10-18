@@ -1,118 +1,159 @@
-import React, { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import useFormWithValidation from '../../hoc/useFormWithValidation';
+import { CurrentUserContext } from '../context/CurrentUserContext';
+
 import '../PageWithForm/PageWithForm.css';
 import './Profile.css';
 
-export default function Profile(props) {
-  const [userName, setUserName] = useState('Виталий');
-  const [email, setEmail] = useState('pochta@yandex.ru');
-  const [onEdit, setOnEdit] = useState(false);
+export default function Profile({
+  onSubmit,
+  onLogOut,
+  message,
+  setOnEdit,
+  onEdit,
+  ...props
+}) {
+  const currentUser = useContext(CurrentUserContext);
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
+  const [activeMessage, setActiveMessage] = useState('');
+  const location = useLocation();
 
-  function handleSetUserName(e) {
-    setUserName(e.target.value);
+  function handleValueChanger(e) {
+    handleChange(e);
+    setActiveMessage('');
   }
 
-  function handleSetEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleProfileEdit(e) {
+  function handleProfileEdit() {
+    setActiveMessage('');
     setOnEdit(true);
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-
-    // props.onSubmit({
-    //   userName,
-    //   email,
-    // });
-    setUserName('');
-    setEmail('');
-    setOnEdit(false);
+    onSubmit({ name: values.name, email: values.email });
+    setActiveMessage(message);
   }
+
+  useEffect(() => {
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
+    }
+  }, [currentUser, resetForm]);
+
+  useEffect(() => {
+    setActiveMessage(message);
+  }, [message]);
+
+  useEffect(() => {
+    setActiveMessage('');
+    setOnEdit(false)
+  }, [location]);
+
+  const noValid =
+    !isValid ||
+    (currentUser.name === values.name && currentUser.email === values.email);
 
   return (
     <section className="userProfile">
       <div className="userProfile__wrapper">
-        {/* <PageWithForm
-          title="Привет "
-          btnText="Редактировать"
-          name="profile"
-          inputId="current-password"
-          linkTo="/sign-up"
-          underBtnText=""
-          linkText="Выйти из аккаунта"
-          // onSubmit={onSignIn}
-        ></PageWithForm> */}
-
         <div className="auth__container auth__container_profile">
-          <h2 className="userProfile__title">Привет, {userName}!</h2>
+          <h2 className="userProfile__title">{`Привет, ${
+            currentUser.name || ''
+          }!`}</h2>
           <form
             onSubmit={handleSubmit}
             className={`auth__form updateProfileForm`}
             name="updateProfileForm"
-            action="#"
+            noValidate
           >
             <div className="userProfile__input-block">
-              <div className="auth__form-string">
-                <label htmlFor="userName" className="userProfile__input-label">
-                  Имя
-                </label>
-                <input
-                  className="userProfile__field"
-                  type="text"
-                  value={userName}
-                  onChange={handleSetUserName}
-                  name="userName"
-                  autoComplete="username"
-                  maxLength="19"
-                  required
-                  disabled={onEdit ? '' : true}
-                ></input>
+              <div className="auth__form-block">
+                <div className="auth__form-string">
+                  <label htmlFor="name" className="userProfile__input-label">
+                    Имя
+                  </label>
+                  <input
+                    className="userProfile__field"
+                    type="text"
+                    value={values.name || ''}
+                    onChange={handleValueChanger}
+                    name="name"
+                    autoComplete="name"
+                    minLength="2"
+                    maxLength="30"
+                    pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
+                    required
+                    disabled={onEdit ? false : true}
+                  ></input>
+                </div>
+                <span className="input-error">{errors.name || ''}</span>
               </div>
               <hr className="input__underline"></hr>
-              <div className="auth__form-string">
-                <label htmlFor="userEmail" className="userProfile__input-label">
-                  E-mail
-                </label>
-                <input
-                  className="userProfile__field"
-                  type="email"
-                  value={email}
-                  onChange={handleSetEmail}
-                  name="userEmail"
-                  autoComplete="username"
-                  maxLength="60"
-                  required
-                  disabled={onEdit ? '' : true}
-                ></input>
+              <div className="auth__form-block">
+                <div className="auth__form-string">
+                  <label
+                    htmlFor="useruserEmail"
+                    className="userProfile__input-label"
+                  >
+                    E-mail
+                  </label>
+                  <input
+                    className="userProfile__field"
+                    type="email"
+                    autoComplete="email"
+                    value={values.email || ''}
+                    onChange={handleValueChanger}
+                    name="email"
+                    maxLength="60"
+                    pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    required
+                    disabled={onEdit ? false : true}
+                  ></input>
+                </div>
+                <span className="input-error">{errors.email || ''}</span>
               </div>
             </div>
             <div className="userProfile__btn-block">
               <span
-                className={`${
-                  onEdit ? 'input-error_auth userProfile__error' : 'block__hide'
+                className={`userProfile__error ${
+                  onEdit ? 'block__hide' : 'userProfile__error_white '
                 }`}
               >
-                При обновлении профиля произошла ошибка.
+                {activeMessage}
               </span>
-              <button
-                className={`auth__form-submit app__btn-opacity ${
-                  onEdit
-                    ? 'auth__btn-save auth__btn-save_userProfile'
-                    : 'userProfile__btn-edit'
+              <span
+                className={`userProfile__error ${
+                  onEdit ? 'input-error_auth' : 'block__hide'
                 }`}
-                onClick={onEdit ? 'submit' : handleProfileEdit}
-                type={onEdit ? 'submit' : 'button'}
               >
-                {onEdit ? 'Сохранить' : 'Редактировать'}
-              </button>
+                {activeMessage}
+              </span>
+              {onEdit ? (
+                <button
+                  type="button"
+                  className="auth__form-submit app__btn-opacity auth__btn-save auth__btn-save_userProfile"
+                  onClick={handleSubmit}
+                  disabled={noValid || activeMessage}
+                >
+                  Сохранить
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  className="auth__form-submit app__btn-opacity userProfile__btn-edit"
+                  onClick={handleProfileEdit}
+                >
+                  Редактировать
+                </button>
+              )}
               <button
                 className={`auth__form-submit app__btn-opacity ${
                   onEdit ? 'block__hide' : 'userProfile__btn-edit'
                 }`}
                 type="button"
-                // onClick=
+                onClick={onLogOut}
               >
                 Выйти из аккаунта
               </button>

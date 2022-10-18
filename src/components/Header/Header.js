@@ -13,21 +13,25 @@ export default function Header({
   return (
     <header
       className={`header section ${
-        location === '/signup' || location === '/signin'
-          ? 'block__hide'
-          : ''
+        location === '/signup' || location === '/signin' ? 'block__hide' : ''
       }`}
     >
       <div className="header__nav-block">
         <Link className="header__logo app__btn-opacity" to="/" />
         <Navigation
-          loggedIn
+          loggedIn={loggedIn}
           isOpen={isOpen}
           closeMenu={closeMenu}
           menuClass=""
         ></Navigation>
       </div>
-      <div className="header__user-block">
+      <div
+        className={`header__user-block ${
+          location === '/' && !loggedIn
+            ? 'header__user-block_mobile'
+            : ''
+        }`}
+      >
         <Link
           className={`app__btn nav__link app__btn-opacity ${
             loggedIn ? 'block__hide' : 'header__reg-btn'
@@ -56,7 +60,11 @@ export default function Header({
         </Link>
       </div>
       <button
-        className="header__menu-btn app__btn-opacity"
+        className={`${
+          location === '/' && !loggedIn
+            ? 'block__hide'
+            : 'header__menu-btn app__btn-opacity'
+        }`}
         onClick={openMenu}
       ></button>
     </header>

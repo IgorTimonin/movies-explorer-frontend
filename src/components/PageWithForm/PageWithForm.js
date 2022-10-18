@@ -1,36 +1,56 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import useFormWithValidation from '../../hoc/useFormWithValidation';
 import './PageWithForm.css';
 
-export default function PageWithForm(props) {
-  const [userName, setUserName] = useState('Виталий');
-  const [email, setEmail] = useState('pochta@yandex.ru');
-  const [password, setPassword] = useState('12345678');
+export default function PageWithForm({
+  onSubmit,
+  userName,
+  setUserName,
+  message,
+  ...props
+}) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { values, handleChange, resetForm, errors, isValid, setIsValid } =
+    useFormWithValidation();
+  const [activeMessage, setActiveMessage] = useState('');
+  const location = useLocation();
 
-  function handleSetUserName(e) {
-    setUserName(e.target.value);
+  function handleValueChanger(e) {
+    handleChange(e);
   }
 
-  function handleSetEmail(e) {
-    setEmail(e.target.value);
-  }
-
-  function handleSetPassword(e) {
-    setPassword(e.target.value);
-  }
-
-  function handleSubmit(e) {
+  function handleSubmitSignup(e) {
     e.preventDefault();
-
-    props.onSubmit({
-      userName,
-      password,
-      email,
+    onSubmit({
+      name: values.name,
+      email: values.email,
+      password: values.password,
     });
-    setUserName();
-    setEmail();
-    setPassword();
+    setUserName('');
+    setEmail('');
+    setPassword('');
   }
+
+  function handleSubmitSignin(e) {
+    e.preventDefault();
+    onSubmit({ password: values.password, email: values.email });
+    setEmail('');
+    setPassword('');
+  }
+
+  useEffect(() => {
+    if (message) {
+      setIsValid(false);
+      setActiveMessage(message);
+    }
+  }, [message]);
+
+  useEffect(() => {
+    setActiveMessage('');
+    resetForm({}, {}, true);
+  }, [location]);
 
   return (
     <div className="auth">
@@ -41,72 +61,82 @@ export default function PageWithForm(props) {
         />
         <h2 className="auth__title">{props.title}</h2>
         <form
-          onSubmit={handleSubmit}
-          className={`auth__form auth__${props.name}-form`}
-          name={`${props.name}_form`}
+          onSubmit={
+            props.formName === 'register'
+              ? handleSubmitSignup
+              : handleSubmitSignin
+          }
+          className={`auth__form auth__${props.formName}-form`}
+          name={`${props.formName}_form`}
           action="#"
         >
           <div className="auth__formInputBlock auth__formBlock">
-            <label
-              htmlFor="userName"
-              className={`auth__input-label ${
-                props.name === 'register' ? '' : 'block__hide'
-              }`}
-            >
-              Имя
-            </label>
-            <input
-              className={`auth__field auth__field_underline ${
-                props.name === 'register' ? '' : 'block__hide'
-              }`}
-              type="text"
-              value={userName}
-              onChange={handleSetUserName}
-              name="userName"
-              autoComplete="username"
-              required
-            ></input>
-            <span className="user-name-input-error input-error_auth">
-              Введите имя.
-            </span>
+            {location.pathname === '/signup' ? (
+              <>
+                <label htmlFor="userName" className="auth__input-label">
+                  Имя
+                </label>
+                <input
+                  className="auth__field auth__field_underline"
+                  type="text"
+                  value={values.name || ''}
+                  onChange={handleValueChanger}
+                  name="name"
+                  autoComplete="name"
+                  minLength="2"
+                  maxLength="30"
+                  pattern="[а-яА-Яa-zA-ZёË0-9\- ]{1,}"
+                  required
+                ></input>
+                <span className="input-error_auth">{errors.name || ''}</span>
+              </>
+            ) : (
+              ''
+            )}
+            {/* {props.children} */}
             <label htmlFor="userEmail" className="auth__input-label">
               E-mail
             </label>
             <input
               className="auth__field auth__field_underline"
               type="email"
-              value={email}
-              onChange={handleSetEmail}
-              name="userEmail"
+              value={values.email || ''}
+              onChange={handleValueChanger}
+              name="email"
               placeholder="Email"
-              autoComplete="username"
+              autoComplete="email"
+              pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
               required
             ></input>
             <span className="user-email-input-error input-error_auth">
-              Введите email.
+              {errors.email || ''}
             </span>
             <label htmlFor="userPassword" className="auth__input-label">
               Пароль
             </label>
             <input
               id={props.inputId}
-              className="auth__field auth__field_underline input-error_active"
+              className="auth__field auth__field_underline"
               type="password"
-              value={password}
-              onChange={handleSetPassword}
-              name="userPassword"
+              value={values.password || ''}
+              onChange={handleValueChanger}
+              name="password"
               placeholder="Пароль"
               autoComplete="current-password"
               required
             ></input>
-            <span className="user-password-input-error input-error_auth input-error_active">
-              Что-то пошло не так...
+            <span className="user-password-input-error input-error_auth">
+              {errors.password || activeMessage || ''}
             </span>
           </div>
           <div className="auth__formBottonBlock auth__formBlock">
             <button
               className="auth__btn-save auth__form-submit app__btn-opacity"
               type="submit"
+              disabled={
+                !isValid
+                // || (location.pathname === '/signup' ? !props.nameIsValid : false)
+              }
             >
               {props.btnText}
             </button>
