@@ -133,10 +133,7 @@ export default function PageWithForm({
             <button
               className="auth__btn-save auth__form-submit app__btn-opacity"
               type="submit"
-              disabled={
-                !isValid
-                // || (location.pathname === '/signup' ? !props.nameIsValid : false)
-              }
+              disabled={ !isValid }
             >
               {props.btnText}
             </button>
