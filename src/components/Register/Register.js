@@ -1,20 +1,33 @@
 import PageWithForm from '../PageWithForm/PageWithForm';
-import React from 'react';
+import { useState } from 'react';
 import './Register.css';
+import useFormWithValidation from '../../hoc/useFormWithValidation';
 
-export default function Register(props) {
+export default function Register({ onSubmit, message, ...props }) {
+  const [userName, setUserName] = useState('');
+  const { values, handleChange, resetForm, errors, isValid } =
+    useFormWithValidation();
+
+  // function handleSetUserName(e) {
+  //   handleChange(e);
+  // }
+
   return (
     <section className="register section_height">
       <PageWithForm
         title="Добро пожаловать!"
         btnText="Зарегистрироваться"
-        name="register"
+        formName="register"
         inputId="current-password"
         linkTo="/signin"
         underBtnText="Уже зарегистрированы?"
         linkText="Войти"
-        // onSubmit={onSignIn}
-      ></PageWithForm>
+        onSubmit={onSubmit}
+        userName={values.name}
+        setUserName={setUserName}
+        message={message}
+      >
+      </PageWithForm>
     </section>
   );
 }

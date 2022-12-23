@@ -8,12 +8,6 @@
   border-bottom: #424242 2px solid;
 }
 
-@media (max-width: 720px) {
-  .searchForm {
-    padding-bottom: 44px;
-  }
-}
-
 .searchBar {
   display: flex;
   align-items: center;
@@ -23,27 +17,14 @@
   border-radius: 9px;
 }
 
-@media (max-width: 720px) {
-  .searchBar {
-    flex-direction: column;
-    background-color: #202020;
-  }
-}
-
 .searchBar__icon {
   height: 34px;
   min-width: 34px;
   padding: 0;
   margin: 0 10px 0 19px;
-  background-image: url(../../../images/find.svg);
+  background-image: url(../../images/find.svg);
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-@media (max-width: 720px) {
-  .searchBar__icon_hide {
-    display: none;
-  }
 }
 
 .searchBar__input {
@@ -56,10 +37,23 @@
   letter-spacing: 0.05em;
 }
 
-@media (max-width: 720px) {
-  .searchBar__input {
-    margin-left: 19px;
-  }
+.searchBar__input:autofill,
+.searchBar__input:autofill:hover,
+.searchBar__input:autofill:focus,
+.searchBar__input:autofill:active {
+  outline: none !important;
+  box-shadow: 0 0 0 30px #2f2f2f inset !important;
+  color: #ffffff !important;
+}
+
+.searchBar__input:-webkit-autofill,
+.searchBar__input:-webkit-autofill:hover,
+.searchBar__input:-webkit-autofill:focus,
+.searchBar__input:-webkit-autofill:active {
+  outline: none !important;
+  -webkit-box-shadow: 0 0 0 30px #2f2f2f inset !important;
+  box-shadow: 0 0 0 30px #2f2f2f inset !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 .searchBar__input::placeholder {
@@ -74,7 +68,7 @@
 .searchBar__submit {
   appearance: none;
   margin: 0 30px 0 0;
-  background-image: url(../../../images/go.svg);
+  background-image: url(../../images/go.svg);
   background-color: #2f2f2f;
   border: none;
 }
@@ -90,23 +84,9 @@
   width: 100%;
 }
 
-@media (max-width: 720px) {
-  .searchBar__finder {
-    min-height: 72px;
-    background-color: #2f2f2f;
-    border-radius: 9px;
-  }
-}
-
 .searchBar__controls {
   display: flex;
   align-items: center;
-}
-
-@media (max-width: 720px) {
-  .searchBar__controls {
-    margin-top: 45px;
-  }
 }
 
 .searchBar__label {
@@ -125,12 +105,52 @@
   appearance: none;
   width: 36px;
   height: 20px;
-  background-image: url(../../../images/smalltumboff3.svg);
+  background-image: url(../../images/smalltumboff3.svg);
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
 
-.searchBar__checkbox:checked {
+
+
+/* .searchBar__checkbox:checked {
   background-image: url(../../../images/smalltumb.svg);
+} */
+
+/* .searchBar__checkbox_inactive {
+  background-image: url(../../../images/smalltumboff3.svg);
+} */
+
+.searchBar__checkbox_active {
+  background-image: url(../../images/smalltumb.svg);
+}
+
+@media screen and (max-width: 800px) {
+  .searchForm {
+    padding: 80px 0 109px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .searchForm {
+    padding-bottom: 44px;
+  }
+  .searchBar {
+    flex-direction: column;
+    background-color: #202020;
+  }
+  .searchBar__icon_hide {
+    display: none;
+  }
+  .searchBar__input {
+    margin-left: 19px;
+  }
+  .searchBar__finder {
+    min-height: 72px;
+    background-color: #2f2f2f;
+    border-radius: 9px;
+  }
+  .searchBar__controls {
+    margin-top: 45px;
+  }
 }

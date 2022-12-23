@@ -1,11 +1,9 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import MenuPage from '../MenuPage/MenuPage';
 
-export default function Layout({ loggedIn, isOpen, menuClick, closeMenu }) {
-  const location = useLocation();
-  const locationPath = location.pathname;
+export default function Layout({ location, loggedIn, isOpen, menuClick, closeMenu }) {
   return (
     <>
       <Header
@@ -13,7 +11,7 @@ export default function Layout({ loggedIn, isOpen, menuClick, closeMenu }) {
         isOpen={isOpen}
         openMenu={menuClick}
         closeMenu={closeMenu}
-        location={locationPath}
+        location={location}
       ></Header>
       <main className="main">
         <MenuPage
@@ -21,9 +19,9 @@ export default function Layout({ loggedIn, isOpen, menuClick, closeMenu }) {
           isOpen={isOpen}
           closeMenu={closeMenu}
         ></MenuPage>
-        <Outlet></Outlet>
+        <Outlet location={location}></Outlet>
       </main>
-      <Footer location={locationPath}></Footer>
+      <Footer location={location}></Footer>
     </>
   );
 }

@@ -1,5 +1,6 @@
-# movies-explorer-frontend
-Frontend part of Diploma
+# Movieyes - say yes to movies!
 
-Ссылки на макет: https://disk.yandex.ru/d/Rbx3Sm8v8Sk95g
-или https://cloud.mail.ru/public/H9vz/zZ99WRUJU
+Frontend part of Movieyes
+
+Адрес сайта: 
+https://filmexplorer.students.nomoredomains.sbs/

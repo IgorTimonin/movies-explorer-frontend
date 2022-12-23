@@ -5,7 +5,11 @@ import './MenuPage.css';
 export default function MenuPage({ loggedIn, isOpen, closeMenu, ...props }) {
   return (
     <section className={`menuPage ${isOpen ? 'popup_opened' : ''}`}>
-      <div className="popup__container">
+      <div
+        className={`popup__container ${
+          isOpen ? 'popup__container_opened' : ''
+        }`}
+      >
         <button
           className="popup__btn-close app__btn-opacity"
           type="button"
