@@ -15,7 +15,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "npm run build && scp -r ./build/* lemut4nt@51.250.28.81:/home/lemut4nt/movieyes"
+    "deploy": "npm run build && scp -r ./build/* lemut4nt@51.250.28.81:/home/lemut4nt/movies-explorer-frontend"
   },
   "eslintConfig": {
     "extends": [

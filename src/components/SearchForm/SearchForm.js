@@ -20,7 +20,6 @@ export default function SearchForm({
   isSearchEnd,
   ...props
 }) {
-
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(
     JSON.parse(localStorage.getItem(`shortFilm`)) || false

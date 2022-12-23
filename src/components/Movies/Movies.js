@@ -80,11 +80,11 @@ export default function Movies({
       : setMoreBtnActive(false);
   }, [filtredMoviesList, offset]);
 
-  // function getSavedMovieCard(arr, movie) {
-  //   return arr.find((item) => {
-  //     return item.movieId === (movie.id || movie.movieId);
-  //   });
-  // }
+  function getSavedMovieCard(arr, movie) {
+    return arr.find((item) => {
+      return item.movieId === (movie.id || movie.movieId);
+    });
+  }
 
   useEffect(() => {
     if (isSearchEnd && filtredMoviesList.length === 0) {
