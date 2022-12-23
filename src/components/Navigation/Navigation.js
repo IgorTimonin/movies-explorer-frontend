@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import './Navigation.css';
 
-export default function Navigation({ loggedIn=(true), isOpen, closeMenu, menuClass, ...props }) {
+export default function Navigation({ loggedIn, isOpen, closeMenu, menuClass, ...props }) {
   return (
     <nav className={`nav nav__${menuClass} ${loggedIn ? '' : 'block__hide'}`}>
       {props.children}

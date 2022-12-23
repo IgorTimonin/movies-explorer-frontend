@@ -5,5 +5,5 @@
   flex-direction: column;
   align-items: center;
   align-self: center;
-  
+  flex-grow: 1;
 }

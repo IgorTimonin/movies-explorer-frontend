@@ -31,6 +31,18 @@
   padding: 22px 22px 0;
   box-sizing: border-box;
   position: relative;
+  -webkit-transition: right 0.9s;
+  -moz-transition: right 0.9s;
+  transition: all 0.5s;
+  -webkit-transform: translateX(520px);
+  -moz-transform: translateX(520px);
+  transform: translateX(520px);
+}
+
+.popup__container_opened {
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
 }
 
 .nav__burgerMenu {

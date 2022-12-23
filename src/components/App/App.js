@@ -3,7 +3,6 @@ import {
   Routes,
   Route,
   useLocation,
-  useNavigate,
   Navigate,
 } from 'react-router-dom';
 import { CurrentUserContext } from '../context/CurrentUserContext';
@@ -31,7 +30,6 @@ function App() {
   const [message, setMessage] = useState('');
   const [onEdit, setOnEdit] = useState(false);
   let loginStatus = false;
-  const nav = useNavigate();
   useContext(CurrentUserContext);
   const [currentUser, setCurrentUser] = useState({
     name: '',
@@ -242,19 +240,8 @@ function App() {
               ) : (
                 <Navigate to="/movies" replace />
               )
-              // <PrivateRoute loggedIn={loggedIn} location={location}>
-              // <Login onSubmit={onSignIn} message={message} />
-              // </PrivateRoute>
             }
           ></Route>
-          {/* <Route
-            path="/signup"
-            element={
-              // <PrivateRoute loggedIn={loggedIn} location={location}>
-              <Register onSubmit={onSignUp} message={message} />
-              // </PrivateRoute>
-            }
-          ></Route> */}
           <Route
             path="/"
             element={

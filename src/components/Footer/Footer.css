@@ -4,6 +4,7 @@
   padding: 0 70px;
   color: #fff;
   box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .footer__text {
@@ -28,8 +29,9 @@
 }
 
 .footer__container {
-  padding: 20px 0 ;
+  padding: 10px 0 20px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -38,10 +40,12 @@
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
+  margin-right: 10px;
 }
 
 .footer__nav {
   display: flex;
+  align-items: center;
 }
 
 @media screen and (max-width: 800px) {

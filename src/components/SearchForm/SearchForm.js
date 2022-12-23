@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import useFormWithValidation from '../../hoc/useFormWithValidation';
-
 import { moviesFinder, shortFilmSorter } from '../../utils/utils';
 import './SearchForm.css';
 
@@ -22,7 +20,6 @@ export default function SearchForm({
   isSearchEnd,
   ...props
 }) {
-  // const { handleChange } = useFormWithValidation();
   const [searchQuery, setSearchQuery] = useState('');
   const [isShortFilm, setIsShortFilm] = useState(
     JSON.parse(localStorage.getItem(`shortFilm`)) || false
@@ -179,4 +176,3 @@ export default function SearchForm({
     </section>
   );
 }
-//
