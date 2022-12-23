@@ -93,7 +93,6 @@ export default function PageWithForm({
             ) : (
               ''
             )}
-            {/* {props.children} */}
             <label htmlFor="userEmail" className="auth__input-label">
               E-mail
             </label>

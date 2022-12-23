@@ -14,10 +14,6 @@ export default function useFormWithValidation() {
       target.setCustomValidity('Имя не должно содержать специальных символов');
       setIsValid(false);
     }
-    // if (name === 'searchMovie') {
-    //   target.setCustomValidity('Нужно ввести ключевое слово');
-    //   setIsValid(false);
-    // }
     else {
       target.setCustomValidity('');
     }

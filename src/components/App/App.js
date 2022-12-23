@@ -37,7 +37,7 @@ function App() {
     name: '',
     email: '',
   });
-
+  
   useEffect(() => {
     loginStatus = JSON.parse(localStorage.getItem('loginStatus'));
     if (loginStatus) {
